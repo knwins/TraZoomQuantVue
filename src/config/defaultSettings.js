@@ -14,8 +14,6 @@ export default {
   contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: true, // sticky header - 固定顶部导航栏
   fixSiderbar: false, // sticky sidebar
-  multiTab: true, // keep page workspaces available while switching top navigation
-  colorWeak: false,
   menu: {
     locale: true
   },

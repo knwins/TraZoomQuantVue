@@ -1,5 +1,5 @@
 <template>
-  <div :class="['basic-layout-wrapper', settings.theme, { 'basic-layout-wrapper--multi-tab': multiTab }]">
+  <div :class="['basic-layout-wrapper', settings.theme, 'basic-layout-wrapper--multi-tab']">
     <pro-layout
       :menus="menus"
       :collapsed="collapsed"
@@ -128,9 +128,11 @@
       <template #footerRender>
         <div style="display: none;"></div>
       </template>
-      <multi-tab v-if="multiTab" />
+      <!-- Multi-tab is always on: the toggle was removed, so the tab bar and
+           the keep-alive route cache are no longer conditional. -->
+      <multi-tab />
       <div class="basic-route-view-shell">
-        <route-view :key="refreshKey" :keep-alive="multiTab" />
+        <route-view :key="refreshKey" :keep-alive="true" />
       </div>
     </pro-layout>
 
@@ -227,9 +229,7 @@ import {
   TOGGLE_FIXED_SIDEBAR,
   TOGGLE_CONTENT_WIDTH,
   TOGGLE_HIDE_HEADER,
-  TOGGLE_COLOR,
-  TOGGLE_WEAK,
-  TOGGLE_MULTI_TAB
+  TOGGLE_COLOR
 } from '@/store/mutation-types'
 
 import defaultSettings from '@/config/defaultSettings'
@@ -271,7 +271,6 @@ export default {
         primaryColor: defaultSettings.primaryColor,
         fixedHeader: defaultSettings.fixedHeader,
         fixSiderbar: defaultSettings.fixSiderbar,
-        colorWeak: defaultSettings.colorWeak,
 
         hideHintAlert: false,
         hideCopyButton: false
@@ -290,8 +289,7 @@ export default {
   computed: {
     ...mapState({
       mainMenu: state => state.permission.addRouters,
-      brandConfig: state => state.brand.config,
-      multiTab: state => state.app.multiTab
+      brandConfig: state => state.brand.config
     }),
     menus () {
       const routes = this.mainMenu.find(item => item.path === '/')
@@ -887,12 +885,6 @@ export default {
           break
         case 'fixSiderbar':
           this.$store.commit(TOGGLE_FIXED_SIDEBAR, value)
-          break
-        case 'colorWeak':
-          this.$store.commit(TOGGLE_WEAK, value)
-          break
-        case 'multiTab':
-          this.$store.commit(TOGGLE_MULTI_TAB, value)
           break
       }
     }

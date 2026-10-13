@@ -136,26 +136,12 @@
         </div>
         <a-divider />
 
-        <div :style="{ marginBottom: '24px' }">
-          <h3 class="setting-drawer-index-title">{{ $t('app.setting.othersettings') }}</h3>
-          <div>
-            <a-list :split="false">
-              <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="currentColorWeak" @change="onColorWeak" />
-                <a-list-item-meta>
-                  <div slot="title">{{ $t('app.setting.weakmode') }}</div>
-                </a-list-item-meta>
-              </a-list-item>
-              <a-list-item>
-                <a-switch slot="actions" size="small" :defaultChecked="currentMultiTab" @change="onMultiTab" />
-                <a-list-item-meta>
-                  <div slot="title">{{ $t('app.setting.multitab') }}</div>
-                </a-list-item-meta>
-              </a-list-item>
-            </a-list>
-          </div>
-        </div>
-        <a-divider />
+        <!-- The "Other settings" block (colour-weak mode, multi-tab mode) was
+             removed: neither toggle had a supported value worth exposing, and
+             multi-tab is now always on. Multi-tab itself stays — RouteView.vue
+             and views/indicator-ide import MultiTab/cacheControl.mjs for
+             keep-alive cache eviction, so deleting the component would break
+             route caching, not just the tab bar. -->
         <slot />
       </div>
     </a-drawer>
@@ -165,7 +151,7 @@
 <script>
 import SettingItem from './SettingItem'
 import config from '@/config/defaultSettings'
-import { updateTheme, updateColorWeak, getColorList } from './settingConfig'
+import { updateTheme, getColorList } from './settingConfig'
 import { baseMixin } from '@/store/app-mixin'
 
 export default {
@@ -209,12 +195,6 @@ export default {
     currentAutoHideHeader () {
       return this.settings.autoHideHeader !== undefined ? this.settings.autoHideHeader : (this.autoHideHeader || false)
     },
-    currentColorWeak () {
-      return this.settings.colorWeak !== undefined ? this.settings.colorWeak : (this.colorWeak || false)
-    },
-    currentMultiTab () {
-      return this.settings.multiTab !== undefined ? this.settings.multiTab : (this.multiTab || false)
-    },
     isDarkDrawer () {
       return this.isDarkNavTheme
     },
@@ -229,10 +209,6 @@ export default {
     // Apply the saved theme color without showing the loading message.
     document.documentElement.style.setProperty('--primary-color', this.currentPrimaryColor)
     updateTheme(this.currentPrimaryColor, true)
-    updateTheme(this.currentPrimaryColor, true)
-    if (this.currentColorWeak !== config.colorWeak) {
-      updateColorWeak(this.currentColorWeak)
-    }
   },
   methods: {
     showDrawer () {
@@ -243,13 +219,6 @@ export default {
     },
     toggle () {
       this.visible = !this.visible
-    },
-    onColorWeak (checked) {
-      this.$emit('change', { type: 'colorWeak', value: checked })
-      updateColorWeak(checked)
-    },
-    onMultiTab (checked) {
-      this.$emit('change', { type: 'multiTab', value: checked })
     },
     handleMenuTheme (theme) {
       this.$emit('change', { type: 'theme', value: theme })
@@ -264,8 +233,6 @@ export default {
   fixedHeader: ${this.currentFixedHeader}, // sticky header
   fixSiderbar: ${this.fixSiderbar}, // sticky siderbar
   autoHideHeader: ${this.currentAutoHideHeader}, //  auto hide header
-  colorWeak: ${this.currentColorWeak},
-  multiTab: ${this.currentMultiTab},
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }`
       // Native clipboard with execCommand fallback (vue-clipboard2 was

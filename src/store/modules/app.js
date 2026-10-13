@@ -9,8 +9,6 @@ import {
   TOGGLE_CONTENT_WIDTH,
   TOGGLE_HIDE_HEADER,
   TOGGLE_COLOR,
-  TOGGLE_WEAK,
-  TOGGLE_MULTI_TAB,
   // i18n
   APP_LANGUAGE
 } from '@/store/mutation-types'
@@ -26,9 +24,7 @@ const app = {
     fixedHeader: false,
     fixedSidebar: false,
     autoHideHeader: false,
-    color: storage.get(TOGGLE_COLOR, '#52C41A'), // 从 localStorage 读取主题色，默认 '#52C41A'
-    weak: false,
-    multiTab: true,
+    color: storage.get(TOGGLE_COLOR, '#0f9ea8'), // 从 localStorage 读取主题色，默认品牌蓝绿
     lang: 'en-US',
     _antLocale: {}
   },
@@ -68,18 +64,10 @@ const app = {
       state.color = color
       storage.set(TOGGLE_COLOR, color)
     },
-    [TOGGLE_WEAK]: (state, mode) => {
-      state.weak = mode
-      storage.set(TOGGLE_WEAK, mode)
-    },
     [APP_LANGUAGE]: (state, lang, antd = {}) => {
       state.lang = lang
       state._antLocale = antd
       storage.set(APP_LANGUAGE, lang)
-    },
-    [TOGGLE_MULTI_TAB]: (state, bool) => {
-      storage.set(TOGGLE_MULTI_TAB, bool)
-      state.multiTab = bool
     }
   },
   actions: {

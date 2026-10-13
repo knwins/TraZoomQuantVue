@@ -7,9 +7,10 @@ body,
   height: 100%;
 }
 
-.colorWeak {
-  filter: invert(80%);
-}
+// The .colorWeak { filter: invert(80%) } rule was removed with the
+// colour-weak toggle. Nothing applies the class any more, and leaving the
+// filter in global.less would risk inverting the whole app if it were ever
+// re-added by accident.
 
 .ant-layout.layout-basic {
   height: 100vh;

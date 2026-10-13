@@ -11,8 +11,6 @@ export const TOGGLE_FIXED_SIDEBAR = 'fixed_sidebar'
 export const TOGGLE_CONTENT_WIDTH = 'content_width'
 export const TOGGLE_HIDE_HEADER = 'auto_hide_header'
 export const TOGGLE_COLOR = 'color'
-export const TOGGLE_WEAK = 'weak'
-export const TOGGLE_MULTI_TAB = 'multi_tab'
 export const APP_LANGUAGE = 'app_language'
 
 export const CONTENT_WIDTH_TYPE = {

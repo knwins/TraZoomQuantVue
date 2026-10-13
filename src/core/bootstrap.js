@@ -6,8 +6,8 @@ import {
   TOGGLE_CONTENT_WIDTH,
   TOGGLE_FIXED_HEADER,
   TOGGLE_FIXED_SIDEBAR, TOGGLE_HIDE_HEADER,
-  TOGGLE_LAYOUT, TOGGLE_NAV_THEME, TOGGLE_WEAK,
-  TOGGLE_COLOR, TOGGLE_MULTI_TAB
+  TOGGLE_LAYOUT, TOGGLE_NAV_THEME,
+  TOGGLE_COLOR
 } from '@/store/mutation-types'
 import { printANSI } from '@/utils/screenLog'
 import defaultSettings from '@/config/defaultSettings'
@@ -39,9 +39,7 @@ export default function Initializer () {
   store.commit(TOGGLE_CONTENT_WIDTH, nextLayout === 'topmenu' ? defaultSettings.contentWidth : savedContentWidth)
   store.commit(TOGGLE_HIDE_HEADER, storage.get(TOGGLE_HIDE_HEADER, defaultSettings.autoHideHeader))
   store.commit(TOGGLE_NAV_THEME, nextTheme)
-  store.commit(TOGGLE_WEAK, storage.get(TOGGLE_WEAK, defaultSettings.colorWeak))
   store.commit(TOGGLE_COLOR, nextColor)
-  store.commit(TOGGLE_MULTI_TAB, storage.get(TOGGLE_MULTI_TAB, defaultSettings.multiTab))
   let token = storage.get(ACCESS_TOKEN)
   if (token && typeof token !== 'string') {
     token = token.token || token.value || (typeof token === 'object' ? null : token)
