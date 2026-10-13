@@ -45,16 +45,6 @@
 
       <setting-drawer ref="settingDrawer" :settings="settings" @change="handleSettingChange">
         <div class="setting-drawer-support">
-          <div class="support-block" v-if="contactSupportUrl || contactFeatureRequestUrl">
-            <div class="support-title">{{ $t('menu.footer.contactUs') }}</div>
-            <div class="support-links">
-              <a v-if="contactSupportUrl" :href="contactSupportUrl" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.support') }}</a>
-              <template v-if="contactSupportUrl && contactFeatureRequestUrl">
-                <span class="separator">|</span>
-              </template>
-              <a v-if="contactFeatureRequestUrl" :href="contactFeatureRequestUrl" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.featureRequest') }}</a>
-            </div>
-          </div>
           <div class="support-block">
             <div class="support-title">{{ $t('menu.footer.getSupport') }}</div>
             <div class="support-links">
@@ -365,6 +355,10 @@ export default {
     contactTelegramUrl () {
       return (this.brandConfig.contact || {}).telegram_url || DEFAULT_TELEGRAM_URL
     },
+    // Support and feature-request URLs are no longer editable in Settings, so
+    // the drawer's "Contact us" block is gone. These stay because the dormant
+    // wide-screen .custom-menu-footer below still binds them; an operator who
+    // sets BRAND_CONTACT_SUPPORT_URL in .env gets the block back there.
     contactSupportUrl () {
       return (this.brandConfig.contact || {}).support_url || ''
     },
