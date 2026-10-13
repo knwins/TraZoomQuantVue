@@ -1841,10 +1841,12 @@ export default {
       gap: 10px;
       color: #61615d;
       font-size: 12px;
-      // 1.75 keeps two-line Chinese consent text from crowding; at 12px a
-      // wrapped "法律免责声明和 用户隐私条款" needs the extra leading or the
-      // second line touches the first.
-      line-height: 1.75;
+      // 1.6 rather than the 1.75 this had during the line-height pass. At
+      // 12px the extra leading made a 21px line box, and centring the 16px
+      // checkbox inside it needed a 2.5px nudge that Ant's bordered box made
+      // render high against the text. 1.6 gives a 19px box — a 1.5px nudge is
+      // enough, and the two-line wrap still has room.
+      line-height: 1.6;
 
       .ant-checkbox-wrapper {
         display: inline-flex;
@@ -1853,7 +1855,11 @@ export default {
       }
 
       .ant-checkbox {
-        margin-top: 3px;
+        // Centres the 16px box in the 19px line box (12px × 1.6) so it tracks
+        // the text if the size or leading ever changes, instead of relying on
+        // an offset tuned to today's numbers.
+        margin-top: calc((1.6em - 16px) / 2);
+        flex: 0 0 auto;
       }
 
       .ant-checkbox + span {
