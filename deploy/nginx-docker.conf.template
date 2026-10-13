@@ -21,10 +21,34 @@ server {
     gzip_comp_level 6;
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
 
-    # Static asset caching (hashed filenames = immutable)
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|map)$ {
+    # Static asset caching.
+    #
+    # Vite fingerprints everything under /assets/ (e.g.
+    # AiDecisionRecords-BvUlkIcT.js), so those URLs are safe to pin for a
+    # year: a content change produces a different filename.
+    #
+    # Files copied verbatim from public/ land at the site root with their
+    # original names (slogo.png, logo.png, avatar2.jpg, robots.txt, ...).
+    # Those are NOT fingerprinted, so a long immutable TTL pins the browser
+    # to a stale copy even after the image is rebuilt and redeployed — the
+    # classic "I changed the logo and nothing happened" trap. Serve them with
+    # must-revalidate so the browser revalidates via ETag and picks up new
+    # artwork on the next load, while still avoiding repeat downloads when
+    # nothing changed.
+    # `^~` is required here: a plain prefix `location /assets/` loses to the
+    # regex below, because Nginx evaluates regex locations before prefix
+    # matches (except "^~", which short-circuits that check). Without it every
+    # fingerprinted file under /assets/ would still be served with the
+    # must-revalidate rules meant for public/ assets.
+    location ^~ /assets/ {
         expires 1y;
         add_header Cache-Control "public, immutable";
+        access_log off;
+    }
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|map)$ {
+        expires 1h;
+        add_header Cache-Control "public, must-revalidate";
         access_log off;
     }
 
