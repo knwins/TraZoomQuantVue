@@ -45,27 +45,29 @@
 
       <setting-drawer ref="settingDrawer" :settings="settings" @change="handleSettingChange">
         <div class="setting-drawer-support">
-          <div class="support-block" v-if="menuFooterConfig.contact.support_url || menuFooterConfig.contact.feature_request_url">
+          <div class="support-block" v-if="contactSupportUrl || contactFeatureRequestUrl">
             <div class="support-title">{{ $t('menu.footer.contactUs') }}</div>
             <div class="support-links">
-              <a v-if="menuFooterConfig.contact.support_url" :href="menuFooterConfig.contact.support_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.support') }}</a>
-              <template v-if="menuFooterConfig.contact.support_url && menuFooterConfig.contact.feature_request_url">
+              <a v-if="contactSupportUrl" :href="contactSupportUrl" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.support') }}</a>
+              <template v-if="contactSupportUrl && contactFeatureRequestUrl">
                 <span class="separator">|</span>
               </template>
-              <a v-if="menuFooterConfig.contact.feature_request_url" :href="menuFooterConfig.contact.feature_request_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.featureRequest') }}</a>
+              <a v-if="contactFeatureRequestUrl" :href="contactFeatureRequestUrl" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.featureRequest') }}</a>
             </div>
           </div>
           <div class="support-block">
             <div class="support-title">{{ $t('menu.footer.getSupport') }}</div>
             <div class="support-links">
-              <!-- The row is email + Telegram only. The former "Live Chat"
-                   entry was removed: it pointed at upstream hosted chat,
-                   which a private deployment has no equivalent for. -->
-              <a v-if="menuFooterConfig.contact.email" :href="'mailto:' + menuFooterConfig.contact.email">{{ $t('menu.footer.email') }}</a>
-              <template v-if="menuFooterConfig.contact.email && menuFooterConfig.contact.telegram_url">
+              <!-- Email and Telegram only. The former "Live Chat" entry was
+                   removed: it pointed at the upstream project's hosted chat,
+                   which a private deployment has no equivalent for. Telegram
+                   falls back to the project's channel so the row is never
+                   empty — operators override BRAND_CONTACT_TELEGRAM_URL. -->
+              <a v-if="contactEmail" :href="'mailto:' + contactEmail">{{ $t('menu.footer.email') }}</a>
+              <template v-if="contactEmail && contactTelegramUrl">
                 <span class="separator">|</span>
               </template>
-              <a v-if="menuFooterConfig.contact.telegram_url" :href="menuFooterConfig.contact.telegram_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.telegram') }}</a>
+              <a v-if="contactTelegramUrl" :href="contactTelegramUrl" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.telegram') }}</a>
             </div>
           </div>
           <div class="support-block" v-if="menuFooterConfig.social_accounts && menuFooterConfig.social_accounts.length > 0">
@@ -253,6 +255,11 @@ import logoLight from '@/assets/logo.png'
 import logoDark from '@/assets/logo_w.png'
 import slogoImg from '@/assets/slogo.png'
 
+// Shown in the settings drawer's "Get Support" row when the deployment has no
+// BRAND_CONTACT_TELEGRAM_URL configured, so the row never renders as a bare
+// heading. Point the env var at your own channel to replace it.
+const DEFAULT_TELEGRAM_URL = 'https://t.me/trazoomquant'
+
 export default {
   name: 'BasicLayout',
   components: {
@@ -330,6 +337,22 @@ export default {
     },
     menuFooterConfig () {
       return this.brandConfig
+    },
+    // Contact values, with Telegram falling back to the project channel.
+    // The deployment ships with BRAND_CONTACT_TELEGRAM_URL empty, and the
+    // "Get Support" row would otherwise render as a heading with nothing
+    // under it. Operators set the env var to point at their own channel.
+    contactEmail () {
+      return (this.brandConfig.contact || {}).email || ''
+    },
+    contactTelegramUrl () {
+      return (this.brandConfig.contact || {}).telegram_url || DEFAULT_TELEGRAM_URL
+    },
+    contactSupportUrl () {
+      return (this.brandConfig.contact || {}).support_url || ''
+    },
+    contactFeatureRequestUrl () {
+      return (this.brandConfig.contact || {}).feature_request_url || ''
     },
     appVersion () {
       const buildVersion = typeof APP_VERSION !== 'undefined' ? APP_VERSION : '0.0.0-dev'
@@ -1371,16 +1394,22 @@ export default {
 
 .setting-drawer-support {
   margin-top: 4px;
-  padding-top: 12px;
+  padding-top: 14px;
   border-top: 1px solid rgba(15, 23, 42, 0.08);
   color: rgba(15, 23, 42, 0.72);
 
   .support-block {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
+
+    // Last block before the legal row: drop its trailing space so the
+    // copyright line sits closer to the links it follows.
+    &:last-of-type {
+      margin-bottom: 12px;
+    }
   }
 
   .support-title {
-    margin-bottom: 6px;
+    margin-bottom: 7px;
     font-size: 12px;
     font-weight: 600;
     color: rgba(15, 23, 42, 0.86);
@@ -1396,7 +1425,14 @@ export default {
     line-height: 1.6;
 
     a {
-      color: var(--primary-color, #1890ff);
+      color: var(--primary-color, #0f9ea8);
+      text-decoration: none;
+      transition: opacity 0.16s ease;
+
+      &:hover {
+        opacity: 0.72;
+        text-decoration: underline;
+      }
     }
 
     .separator {

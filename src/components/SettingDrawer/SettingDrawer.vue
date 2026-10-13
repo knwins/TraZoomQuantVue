@@ -134,14 +134,16 @@
             </a-list>
           </div>
         </div>
-        <a-divider />
-
         <!-- The "Other settings" block (colour-weak mode, multi-tab mode) was
              removed: neither toggle had a supported value worth exposing, and
              multi-tab is now always on. Multi-tab itself stays — RouteView.vue
              and views/indicator-ide import MultiTab/cacheControl.mjs for
              keep-alive cache eviction, so deleting the component would break
-             route caching, not just the tab bar. -->
+             route caching, not just the tab bar.
+
+             The <a-divider /> that used to separate that block from the
+             footer slot went with it: it drew a second rule directly under
+             the theme colours with no content between the two lines. -->
         <slot />
       </div>
     </a-drawer>
