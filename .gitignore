@@ -35,3 +35,6 @@ package-lock.json
 /screenshots/
 /playwright-report/
 /test-results/
+
+# Agent local memory (not part of the product)
+.workbuddy/

@@ -976,7 +976,6 @@ export default {
       this.referralCode = routerRef || urlParams.get('ref') || urlParams.get('referral_code') || hashParams.get('ref') || hashParams.get('referral_code') || ''
 
       if (this.referralCode) {
-        console.log('Referral code detected:', this.referralCode)
         // Auto switch to register tab if referral code is present
         if (this.securityConfig.registration_enabled) {
           this.activeTab = 'register'
@@ -1254,8 +1253,6 @@ export default {
 
             const currentToken = storage.get(ACCESS_TOKEN)
             const currentRoles = this.$store.getters.roles
-            console.log('Token after save:', currentToken ? (typeof currentToken === 'string' ? 'string' : typeof currentToken) : 'missing')
-            console.log('Roles after save:', currentRoles.length > 0 ? `has ${currentRoles.length} roles` : 'empty')
 
             if (currentRoles.length === 0) {
               const defaultRoles = [{ id: 'default', permissionList: [] }]
@@ -1438,8 +1435,6 @@ export default {
 
               const currentToken = storage.get(ACCESS_TOKEN)
               const currentRoles = this.$store.getters.roles
-              console.log('Register - Token after save:', currentToken ? (typeof currentToken === 'string' ? 'string' : typeof currentToken) : 'missing')
-              console.log('Register - Roles after save:', currentRoles.length > 0 ? `has ${currentRoles.length} roles` : 'empty')
 
               if (currentRoles.length === 0) {
                 const defaultRoles = [{ id: 'default', permissionList: [] }]

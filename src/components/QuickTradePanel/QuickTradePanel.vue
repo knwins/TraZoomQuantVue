@@ -1695,7 +1695,6 @@ export default {
       const credentialId = this.selectedCredentialId
       const symbol = this.currentSymbol
       if (!this.selectedCredentialId || !this.currentSymbol) {
-        console.log('loadPosition skipped:', { credentialId: this.selectedCredentialId, symbol: this.currentSymbol })
         return
       }
       try {
@@ -1713,20 +1712,16 @@ export default {
           }, { preferComputedPnl: true }))
           return this.currentPositions.length > 0
         }
-        console.log('Loading position:', { credential_id: this.selectedCredentialId, symbol: this.currentSymbol, market_type: this.effectiveMarketType })
         const res = await getQuickTradePosition({
           credential_id: this.selectedCredentialId,
           symbol: this.currentSymbol,
           market_type: this.effectiveMarketType
         })
-        console.log('Position response:', res)
         if (res.code === 1 && res.data && res.data.positions && res.data.positions.length > 0) {
           this.currentPositions = res.data.positions.map(p => this.normalizePosition(p))
-          console.log('Positions loaded:', this.currentPositions.length)
           return true
         } else {
           this.currentPositions = []
-          console.log('No position found')
           return false
         }
       } catch (e) {
@@ -1746,11 +1741,9 @@ export default {
         await new Promise(resolve => setTimeout(resolve, delayMs))
         found = await this.loadPosition()
         if (found) {
-          console.log(`Position found after ${i + 1} retry(ies)`)
           return
         }
       }
-      console.log('Position not found after all retries')
     },
     async loadHistory () {
       const credentialId = this.selectedCredentialId
