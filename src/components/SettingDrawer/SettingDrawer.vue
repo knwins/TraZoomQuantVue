@@ -387,7 +387,7 @@ export default {
     // Track the palette width rather than a hard-coded column count. This used
     // to be `repeat(8, 24px)` with a 10px gap, needing 262px inside a drawer
     // that only offers 252px of usable width — the eighth swatch was clipped
-    // and left a phantom empty cell. The TrazoomQuant palette is now three
+    // and left a phantom empty cell. The TraZoom Quant palette is now three
     // swatches, so any of these approaches fits, but auto-fit keeps the row
     // correct if colours are added again later.
     .setting-drawer-theme-color-list {

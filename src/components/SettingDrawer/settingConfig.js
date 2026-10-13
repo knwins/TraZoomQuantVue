@@ -5,7 +5,7 @@ import i18n from '@/locales'
 
 // let lessNodesAppended
 // Accent colours offered in the settings drawer. Kept to the three the
-// TrazoomQuant brand actually uses; the palette is intentionally short so the
+// TraZoom Quant brand actually uses; the palette is intentionally short so the
 // row stays on one line inside the 300px drawer without wrapping.
 //
 // #0f9ea8 also doubles as the default (see primaryColor in

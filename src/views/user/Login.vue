@@ -1447,13 +1447,13 @@ export default {
               this.$router.push({ path: '/' }).then(() => {
                 this.$notification.success({
                   message: 'Welcome',
-                  description: `${timeFix()}, welcome to TrazoomQuant!`
+                  description: `${timeFix()}, welcome to TraZoom Quant!`
                 })
               }).catch(err => {
                 console.error('Router push error:', err)
                 this.$notification.success({
                   message: 'Welcome',
-                  description: `${timeFix()}, welcome to TrazoomQuant!`
+                  description: `${timeFix()}, welcome to TraZoom Quant!`
                 })
               })
             } else {

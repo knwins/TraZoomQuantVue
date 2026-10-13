@@ -6,7 +6,7 @@ export default {
   /** Web UI release label (footer, docs cross-reference). */
   appVersion: BUILD_APP_VERSION,
   navTheme: 'realdark', // theme for nav menu
-  // TrazoomQuant accent. Matches the first swatch in the settings drawer's
+  // TraZoom Quant accent. Matches the first swatch in the settings drawer's
   // palette (src/components/SettingDrawer/settingConfig.js); a fresh install
   // renders in this colour until the operator picks another.
   primaryColor: '#0f9ea8', // primary color of ant design
@@ -20,7 +20,7 @@ export default {
   menu: {
     locale: true
   },
-  title: 'TrazoomQuant',
+  title: 'TraZoom Quant',
   pwa: false,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'

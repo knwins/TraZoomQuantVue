@@ -1,9 +1,9 @@
 <template>
   <main class="public-report-page" :class="{ 'public-report-page--dark': isDarkTheme }">
     <header class="public-report-shell__header">
-      <a class="brand" href="/#/ai-asset-analysis" aria-label="TrazoomQuant">
+      <a class="brand" href="/#/ai-asset-analysis" aria-label="TraZoom Quant">
         <span class="brand-mark">QD</span>
-        <span><strong>TrazoomQuant</strong><small>{{ $t('fastAnalysis.sharedReportBrandLine') }}</small></span>
+        <span><strong>TraZoom Quant</strong><small>{{ $t('fastAnalysis.sharedReportBrandLine') }}</small></span>
       </a>
       <span class="readonly-badge"><a-icon type="eye" /> {{ $t('fastAnalysis.sharedReportReadonly') }}</span>
     </header>
@@ -36,7 +36,7 @@
 
     <footer class="public-report-shell__footer">
       <p>{{ $t('fastAnalysis.sharedReportDisclaimer') }}</p>
-      <a href="/#/ai-asset-analysis">{{ $t('fastAnalysis.openTrazoomQuant') }} <a-icon type="arrow-right" /></a>
+      <a href="/#/ai-asset-analysis">{{ $t('fastAnalysis.openTraZoom Quant') }} <a-icon type="arrow-right" /></a>
     </footer>
   </main>
 </template>

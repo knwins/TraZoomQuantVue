@@ -5,7 +5,7 @@ const BUILD_APP_VERSION = typeof APP_VERSION !== 'undefined' ? APP_VERSION : '0.
 // Mirrors BRAND_DEFAULTS['copyright'] in the backend, which rewrites the year
 // on read. Keep the two in step.
 const currentYear = new Date().getFullYear()
-const DEFAULT_COPYRIGHT = `© ${currentYear} TrazoomQuant. All rights reserved.`
+const DEFAULT_COPYRIGHT = `© ${currentYear} TraZoom Quant. All rights reserved.`
 
 // First 4-digit year, or a 4-digit range such as "2025-2026". Only the digits
 // are matched so the © / (c) mark survives.
@@ -27,7 +27,7 @@ function normalizeCopyright (value) {
  * yet (or fails entirely).
  */
 const DEFAULT_BRAND = {
-  app_name: 'TrazoomQuant',
+  app_name: 'TraZoom Quant',
   app_version: BUILD_APP_VERSION,
   copyright: DEFAULT_COPYRIGHT,
   logos: {
@@ -36,7 +36,7 @@ const DEFAULT_BRAND = {
     collapsed: '',
     favicon: ''
   },
-  // TrazoomQuant is a private deployment that is not publicly distributed.
+  // TraZoom Quant is a private deployment that is not publicly distributed.
   // Contact and social entries stay empty so the sidebar renders no links —
   // mirroring the backend defaults in app/services/settings/branding.py. The
   // old values pointed at the upstream project's public channels, which would
