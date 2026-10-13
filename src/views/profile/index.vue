@@ -11,7 +11,7 @@
     <div class="profile-overview-grid">
       <a-card :bordered="false" class="profile-card">
         <div class="profile-identity">
-          <a-avatar :size="72" :class="{'default-avatar': !profile.avatar}" :src="profile.avatar || '/avatar2.png'" />
+          <a-avatar :size="72" :class="{'default-avatar': !profile.avatar}" :src="profile.avatar || '/avatar.jpg'" />
           <div class="profile-identity-copy">
             <h3 class="username">{{ profile.nickname || profile.username }}</h3>
             <div class="user-role">
@@ -659,7 +659,7 @@
                 >
                   <template slot="user" slot-scope="text, record">
                     <div class="referral-user-cell">
-                      <a-avatar :size="32" :class="{'default-avatar': !record.avatar}" :src="record.avatar || '/avatar2.png'" />
+                      <a-avatar :size="32" :class="{'default-avatar': !record.avatar}" :src="record.avatar || '/avatar.jpg'" />
                       <div class="user-info">
                         <span class="nickname">{{ record.nickname || record.username }}</span>
                         <span class="username">@{{ record.username }}</span>
