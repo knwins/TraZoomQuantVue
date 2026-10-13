@@ -2088,7 +2088,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@primary-color: #1890ff;
 @success-color: #52c41a;
 @border-radius: 12px;
 @card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);

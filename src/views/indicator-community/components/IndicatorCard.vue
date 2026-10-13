@@ -610,7 +610,7 @@ export default {
       &__bar {
         border-radius: 999px;
         opacity: 0.95;
-        &--trend { background: #1890ff; }
+        &--trend { background: var(--primary-color, #1890ff); }
         &--signal { background: #52c41a; }
         &--zone { background: #faad14; }
       }

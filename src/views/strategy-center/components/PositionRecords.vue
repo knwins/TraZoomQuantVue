@@ -604,7 +604,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@primary-color: #1890ff;
 @success-color: #0ecb81;
 @danger-color: #f6465d;
 

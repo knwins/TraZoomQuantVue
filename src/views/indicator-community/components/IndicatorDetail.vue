@@ -1454,7 +1454,7 @@ export default {
 
         .visual-line--fast {
           top: 20px;
-          background: linear-gradient(90deg, #1890ff, #52c41a);
+          background: linear-gradient(90deg, var(--primary-color, #1890ff), #52c41a);
           transform: rotate(-8deg);
         }
 

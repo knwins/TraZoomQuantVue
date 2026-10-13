@@ -660,7 +660,6 @@ export default {
 }
 
 .execution-note { opacity: 0.7; font-size: 12px; margin: 0 0 12px; }
-@primary-color: #1890ff;
 @success-color: #0ecb81;
 @danger-color: #f6465d;
 
@@ -917,9 +916,9 @@ export default {
     }
 
     &[color="blue"] {
-      background: linear-gradient(135deg, rgba(24, 144, 255, 0.15) 0%, rgba(24, 144, 255, 0.08) 100%);
-      color: @primary-color;
-      border: 1px solid rgba(24, 144, 255, 0.3);
+      background: linear-gradient(135deg, color-mix(in srgb, var(--primary-color, #1890ff) 15%, transparent) 0%, color-mix(in srgb, var(--primary-color, #1890ff) 8%, transparent) 100%);
+      color: var(--primary-color, #1890ff);
+      border: 1px solid color-mix(in srgb, var(--primary-color, #1890ff) 30%, transparent);
     }
 
     &[color="volcano"] {
@@ -952,16 +951,16 @@ export default {
       transition: all 0.2s ease;
 
       &:hover {
-        border-color: @primary-color;
+        border-color: var(--primary-color, #1890ff);
 
         a {
-          color: @primary-color;
+          color: var(--primary-color, #1890ff);
         }
       }
 
       &.ant-pagination-item-active {
-        background: linear-gradient(135deg, @primary-color 0%, var(--primary-color-hover, #40a9ff) 100%);
-        border-color: @primary-color;
+        background: linear-gradient(135deg, var(--primary-color, #1890ff) 0%, var(--primary-color-hover, #40a9ff) 100%);
+        border-color: var(--primary-color, #1890ff);
 
         a {
           color: #fff;
@@ -977,8 +976,8 @@ export default {
         transition: all 0.2s ease;
 
         &:hover {
-          border-color: @primary-color;
-          color: @primary-color;
+          border-color: var(--primary-color, #1890ff);
+          color: var(--primary-color, #1890ff);
         }
       }
     }
