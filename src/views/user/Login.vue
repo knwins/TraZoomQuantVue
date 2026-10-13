@@ -2092,6 +2092,19 @@ export default {
       margin-bottom: 18px;
     }
 
+    // Validation messages. Ant Design's default is 4px above with 1.5
+    // leading, which leaves the red text pressed against the input's bottom
+    // border — visible on the register form's "请输入验证码" error, which also
+    // appears without the field having been touched yet. Give the message its
+    // own band so it reads as a caption to the field, not a continuation of it.
+    ::v-deep .ant-form-item-explain,
+    ::v-deep .ant-form-explain {
+      margin-top: 6px;
+      padding-top: 1px;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
     ::v-deep .ant-input,
     ::v-deep .ant-input-affix-wrapper,
     ::v-deep .ant-input-password,
