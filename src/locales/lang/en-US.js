@@ -3793,7 +3793,7 @@ const locale = {
   "settings.option.ORDER_MODE.market": "Market (immediate fill)",
   "settings.group.server": "Server Configuration",
   "settings.group.auth": "Security & Authentication",
-  "settings.group.legal": "Legal & Mobile App",
+  "settings.group.legal": "Legal",
   "settings.group.social": "Social Accounts",
   "settings.group.contact": "Contact & Support",
   "settings.group.brand": "Brand & Identity",

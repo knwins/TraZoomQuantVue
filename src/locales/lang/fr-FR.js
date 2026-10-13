@@ -4675,7 +4675,7 @@ const locale = {
   "settings.group.contact": "Contact & Support",
   "settings.group.data_source": "Sources de données",
   "settings.group.email": " Courriel (SMTP)",
-  "settings.group.legal": "Application juridique et mobile",
+  "settings.group.legal": "Juridique",
   "settings.group.market_catalog": "Données de marché",
   "settings.group.market_modules": "Modules de marché",
   "settings.group.network": "Réseau et proxy",

@@ -4675,7 +4675,7 @@ const locale = {
   "settings.group.contact": "ติดต่อ & สนับสนุน",
   "settings.group.data_source": "แหล่งข้อมูล",
   "settings.group.email": "อีเมล (SMTP)",
-  "settings.group.legal": "แอปกฎหมายและมือถือ",
+  "settings.group.legal": "กฎหมาย",
   "settings.group.market_catalog": "ข้อมูลตลาด",
   "settings.group.market_modules": "โมดูลตลาด",
   "settings.group.network": "เครือข่ายและพร็อกซี",

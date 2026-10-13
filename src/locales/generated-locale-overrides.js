@@ -1736,7 +1736,7 @@ const messages = {
     "settings.field.ALPHA_VANTAGE_NEWS_LIMIT": "Alpha Vantage News Limit",
     "settings.field.GOOGLE_CLIENT_SECRET": "Google Client Secret",
     "settings.field.SEARCH_GOOGLE_CX": "Google CX",
-    "settings.group.legal": "Legal & Mobile App",
+    "settings.group.legal": "Legal",
     "settings.group.sms": "SMS (Twilio)",
     "settings.market.sourceLabel.cryptoquant": "CryptoQuant",
     "settings.market.sourceLabel.finnhub": "Finnhub",

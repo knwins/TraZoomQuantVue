@@ -4675,7 +4675,7 @@ const locale = {
   "settings.group.contact": "Liên hệ & Hỗ trợ",
   "settings.group.data_source": "Nguồn dữ liệu",
   "settings.group.email": "Cấu hình email (SMTP)",
-  "settings.group.legal": "Ứng dụng pháp lý & di động",
+  "settings.group.legal": "Pháp lý",
   "settings.group.market_catalog": "Dữ liệu thị trường",
   "settings.group.market_modules": "Các mô-đun thị trường",
   "settings.group.network": "Mạng & Proxy",
