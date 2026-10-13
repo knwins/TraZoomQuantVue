@@ -1,7 +1,11 @@
 const STYLE_ID = 'qd-runtime-theme-color'
 
+// Matches defaultSettings.primaryColor, so a malformed stored value degrades
+// to the brand accent rather than upstream Ant Design blue.
+const FALLBACK_COLOR = '#0f9ea8'
+
 function normalizeColor (color) {
-  return /^#[0-9a-fA-F]{6}$/.test(color) ? color : '#1890ff'
+  return /^#[0-9a-fA-F]{6}$/.test(color) ? color : FALLBACK_COLOR
 }
 
 function hexToRgb (hex) {

@@ -6,7 +6,10 @@ export default {
   /** Web UI release label (footer, docs cross-reference). */
   appVersion: BUILD_APP_VERSION,
   navTheme: 'realdark', // theme for nav menu
-  primaryColor: '#52C41A', // primary color of ant design
+  // TrazoomQuant accent. Matches the first swatch in the settings drawer's
+  // palette (src/components/SettingDrawer/settingConfig.js); a fresh install
+  // renders in this colour until the operator picks another.
+  primaryColor: '#0f9ea8', // primary color of ant design
   layout: 'topmenu', // nav menu position: `sidemenu` or `topmenu`
   contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: true, // sticky header - 固定顶部导航栏
@@ -16,7 +19,7 @@ export default {
   menu: {
     locale: true
   },
-  title: 'QuantDinger',
+  title: 'TrazoomQuant',
   pwa: false,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'

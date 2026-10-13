@@ -15,7 +15,12 @@ import defaultSettings from '@/config/defaultSettings'
 export default function Initializer () {
   printANSI() // 请自行移除该行.  please remove this line
 
-  const legacyDefaultColor = '#13C2C2'
+  // Swatch colours that used to be the default are mapped onto whatever
+  // defaultSettings.primaryColor is now, so a returning browser does not keep
+  // rendering a stale accent just because it has an old value in localStorage.
+  // Keep this list in step with the palette history in
+  // src/components/SettingDrawer/settingConfig.js.
+  const legacyDefaultColors = ['#13C2C2', '#52C41A']
   const savedLayout = storage.get(TOGGLE_LAYOUT, defaultSettings.layout)
   const nextLayout = defaultSettings.layout === 'topmenu' && savedLayout === 'sidemenu'
     ? defaultSettings.layout
@@ -24,7 +29,9 @@ export default function Initializer () {
   const savedColor = storage.get(TOGGLE_COLOR)
   const validThemes = ['light', 'dark', 'realdark']
   const nextTheme = validThemes.includes(savedTheme) ? savedTheme : defaultSettings.navTheme
-  const nextColor = !savedColor || String(savedColor).toUpperCase() === legacyDefaultColor ? defaultSettings.primaryColor : savedColor
+  const nextColor = !savedColor || legacyDefaultColors.includes(String(savedColor).toUpperCase())
+    ? defaultSettings.primaryColor
+    : savedColor
   store.commit(TOGGLE_LAYOUT, nextLayout)
   store.commit(TOGGLE_FIXED_HEADER, storage.get(TOGGLE_FIXED_HEADER, defaultSettings.fixedHeader))
   store.commit(TOGGLE_FIXED_SIDEBAR, storage.get(TOGGLE_FIXED_SIDEBAR, defaultSettings.fixSiderbar))
