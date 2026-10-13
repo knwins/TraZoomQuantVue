@@ -416,10 +416,15 @@ export default {
       border: 1px solid rgba(0, 0, 0, 0.08);
       cursor: pointer;
       padding: 0;
-      text-align: center;
+      // Centre the check icon with flex rather than `text-align: center` +
+      // `line-height`. a-icon renders as an inline-flex element with its own
+      // baseline, so the text-align route left the tick visibly left of
+      // centre and slightly high.
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       color: #fff;
       font-weight: 700;
-      line-height: 22px;
       box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
       transition: transform 0.16s ease, box-shadow 0.16s ease;
 
@@ -430,6 +435,7 @@ export default {
 
       i {
         font-size: 14px;
+        line-height: 1;
       }
     }
   }
