@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "نمط القائمة الداكنة",
   "app.setting.pagestyle.light": "قائمة طعام خفيفة",
   "app.setting.pagestyle.realdark": "أسلوب RealDark",
+  "app.setting.multitab": "تبويبات متعددة",
+  "app.setting.multitab.tooltip": "يحتفظ بالصفحات المفتوحة كتبويبات حتى لا تضيع حالتها عند التبديل",
   "app.setting.production.hint": "تظهر لوحة الإعدادات في بيئة التطوير فقط، يرجى تعديلها يدويًا",
   "app.setting.sidemenu": "تصميم القائمة الجانبية",
   "app.setting.sidemenu.nav": "التنقل في الشريط الجانبي",

@@ -1375,6 +1375,8 @@ const locale = {
   "app.setting.pagestyle.light": "Light Menu Style",
   "app.setting.pagestyle.dark": "Dark Menu Style",
   "app.setting.pagestyle.realdark": "RealDark style",
+  "app.setting.multitab": "Multi-Tab",
+  "app.setting.multitab.tooltip": "Keeps open pages as tabs so switching does not discard their state",
   "app.setting.themecolor": "Theme Color",
   "app.setting.navigationmode": "Navigation Mode",
   "app.setting.sidemenu.nav": "Sidebar Navigation",

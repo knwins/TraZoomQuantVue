@@ -40,6 +40,21 @@
               </div>
             </a-tooltip>
           </div>
+
+          <!-- Multi-tab lives here rather than in a separate "other settings"
+               block: it is a shell/layout preference, same family as the nav
+               theme above. Colour-weak mode was removed entirely. -->
+          <a-list :split="false" class="setting-drawer-inline-switch">
+            <a-list-item>
+              <a-switch slot="actions" size="small" :checked="currentMultiTab" @change="onMultiTab" />
+              <a-list-item-meta>
+                <a-tooltip slot="title" placement="left">
+                  <template slot="title">{{ $t('app.setting.multitab.tooltip') }}</template>
+                  <div>{{ $t('app.setting.multitab') }}</div>
+                </a-tooltip>
+              </a-list-item-meta>
+            </a-list-item>
+          </a-list>
         </div>
 
         <!-- Theme color selector controls app-level accent styles. -->
@@ -197,6 +212,9 @@ export default {
     currentAutoHideHeader () {
       return this.settings.autoHideHeader !== undefined ? this.settings.autoHideHeader : (this.autoHideHeader || false)
     },
+    currentMultiTab () {
+      return this.settings.multiTab !== undefined ? this.settings.multiTab : (this.multiTab || false)
+    },
     isDarkDrawer () {
       return this.isDarkNavTheme
     },
@@ -225,6 +243,9 @@ export default {
     handleMenuTheme (theme) {
       this.$emit('change', { type: 'theme', value: theme })
     },
+    onMultiTab (checked) {
+      this.$emit('change', { type: 'multiTab', value: checked })
+    },
     doCopy () {
       // get current settings from mixin or this.$store.state.app, pay attention to the property name
       const text = `export default {
@@ -235,6 +256,7 @@ export default {
   fixedHeader: ${this.currentFixedHeader}, // sticky header
   fixSiderbar: ${this.fixSiderbar}, // sticky siderbar
   autoHideHeader: ${this.currentAutoHideHeader}, //  auto hide header
+  multiTab: ${this.currentMultiTab},
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }`
       // Native clipboard with execCommand fallback (vue-clipboard2 was
@@ -331,6 +353,12 @@ export default {
 
     .setting-drawer-index-blockChecbox {
       display: flex;
+
+      // The multi-tab switch sits directly below the theme swatches inside
+      // this section; pull it clear of the 48px swatch row.
+      + .setting-drawer-inline-switch {
+        margin-top: 14px;
+      }
 
       .setting-drawer-index-item {
         margin-right: 16px;

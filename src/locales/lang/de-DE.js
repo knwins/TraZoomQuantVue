@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "Dunkler Menüstil",
   "app.setting.pagestyle.light": "Leichte Menüart",
   "app.setting.pagestyle.realdark": "RealDark-Stil",
+  "app.setting.multitab": "Multi-Tab",
+  "app.setting.multitab.tooltip": "Behält geöffnete Seiten als Tabs, sodass beim Wechseln kein Zustand verloren geht",
   "app.setting.production.hint": "Das Einstellungsfeld wird nur in der Entwicklungsumgebung angezeigt, bitte ändern Sie es manuell.",
   "app.setting.sidemenu": "Seitenmenü-Layout",
   "app.setting.sidemenu.nav": "Seitenleistennavigation",

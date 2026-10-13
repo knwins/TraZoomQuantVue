@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "Style de menu sombre",
   "app.setting.pagestyle.light": "Style de menu léger",
   "app.setting.pagestyle.realdark": "Style RealDark",
+  "app.setting.multitab": "Multi-onglets",
+  "app.setting.multitab.tooltip": "Conserve les pages ouvertes en onglets pour ne pas perdre leur état",
   "app.setting.production.hint": "Le panneau de configuration s'affiche uniquement en environnement de développement, veuillez le modifier manuellement.",
   "app.setting.sidemenu": "Disposition du menu latéral",
   "app.setting.sidemenu.nav": "Navigation de la barre latérale",

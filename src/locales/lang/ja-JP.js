@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "ダークメニュースタイル",
   "app.setting.pagestyle.light": "ライトメニュースタイル",
   "app.setting.pagestyle.realdark": "RealDarkスタイル",
+  "app.setting.multitab": "マルチタブ",
+  "app.setting.multitab.tooltip": "開いたページをタブで保持し、切り替え時に状態を失わないようにします",
   "app.setting.production.hint": "設定パネルは開発環境でのみ表示されますので、手動で変更してください。",
   "app.setting.sidemenu": "サイドメニューのレイアウト",
   "app.setting.sidemenu.nav": "サイドバーナビゲーション",

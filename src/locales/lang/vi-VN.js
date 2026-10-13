@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "Kiểu menu tối",
   "app.setting.pagestyle.light": "Phong cách thực đơn nhẹ",
   "app.setting.pagestyle.realdark": "Phong cách RealDark",
+  "app.setting.multitab": "Nhiều thẻ",
+  "app.setting.multitab.tooltip": "Giữ các trang đã mở dưới dạng thẻ để không mất trạng thái khi chuyển trang",
   "app.setting.production.hint": "Bảng cài đặt chỉ hiển thị trong môi trường phát triển, vui lòng chỉnh sửa thủ công.",
   "app.setting.sidemenu": "Bố cục menu bên",
   "app.setting.sidemenu.nav": "Điều hướng thanh bên",

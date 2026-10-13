@@ -1229,6 +1229,8 @@ const locale = {
   "app.setting.pagestyle.dark": "暗色菜单风格",
   "app.setting.pagestyle.light": "亮色菜单风格",
   "app.setting.pagestyle.realdark": "暗黑模式",
+  "app.setting.multitab": "多任务",
+  "app.setting.multitab.tooltip": "开启后保留打开的页面标签，切换页面不会丢失状态",
   "app.setting.production.hint": "配置栏只在开发环境用于预览，生产环境不会展现，请拷贝后手动修改配置文件",
   "app.setting.sidemenu": "侧边菜单布局",
   "app.setting.sidemenu.nav": "侧边栏导航",

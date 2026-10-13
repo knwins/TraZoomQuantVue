@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "暗色選單風格",
   "app.setting.pagestyle.light": "亮色選單風格",
   "app.setting.pagestyle.realdark": "暗黑模式",
+  "app.setting.multitab": "多任務",
+  "app.setting.multitab.tooltip": "開啟後保留已開啟的頁面標籤，切換頁面不會遺失狀態",
   "app.setting.production.hint": "配置列只在開發環境用於預覽，生產環境不會展現，請拷貝後手動修改設定檔",
   "app.setting.sidemenu": "側邊菜單佈局",
   "app.setting.sidemenu.nav": "側邊欄導航",

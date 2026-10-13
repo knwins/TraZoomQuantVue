@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "Темное меню",
   "app.setting.pagestyle.light": "Светлый стиль меню",
   "app.setting.pagestyle.realdark": "RealDark стиль",
+  "app.setting.multitab": "Мультивкладки",
+  "app.setting.multitab.tooltip": "Открытые страницы сохраняются во вкладках и не теряют состояние",
   "app.setting.production.hint": "Панель настроек отображается только в среде разработки, пожалуйста, внесите изменения вручную.",
   "app.setting.sidemenu": "Расположение бокового меню",
   "app.setting.sidemenu.nav": "Боковая панель навигации",

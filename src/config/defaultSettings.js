@@ -14,6 +14,9 @@ export default {
   contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: true, // sticky header - 固定顶部导航栏
   fixSiderbar: false, // sticky sidebar
+  // Multi-tab is off by default; the settings drawer's "整体风格设置" block
+  // exposes a switch. Turning it on also enables the keep-alive route cache.
+  multiTab: false,
   menu: {
     locale: true
   },

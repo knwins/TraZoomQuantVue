@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "สไตล์เมนูสีเข้ม",
   "app.setting.pagestyle.light": "สไตล์เมนูแบบเบา",
   "app.setting.pagestyle.realdark": "สไตล์ RealDark",
+  "app.setting.multitab": "หลายแท็บ",
+  "app.setting.multitab.tooltip": "เก็บหน้าที่เปิดไว้เป็นแท็บ เพื่อไม่ให้สถานะหายเมื่อสลับหน้า",
   "app.setting.production.hint": "แผงการตั้งค่าจะแสดงเฉพาะในสภาพแวดล้อมการพัฒนาเท่านั้น โปรดแก้ไขด้วยตนเอง",
   "app.setting.sidemenu": "รูปแบบเมนูด้านข้าง",
   "app.setting.sidemenu.nav": "แถบนำทางด้านข้าง",

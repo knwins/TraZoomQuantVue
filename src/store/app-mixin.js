@@ -12,7 +12,8 @@ const baseMixin = {
       autoHideHeader: state => state.app.autoHideHeader,
 
       isMobile: state => state.app.isMobile,
-      sideCollapsed: state => state.app.sideCollapsed
+      sideCollapsed: state => state.app.sideCollapsed,
+      multiTab: state => state.app.multiTab
     }),
     isTopMenu () {
       return this.layout === 'topmenu'

@@ -9,6 +9,7 @@ import {
   TOGGLE_CONTENT_WIDTH,
   TOGGLE_HIDE_HEADER,
   TOGGLE_COLOR,
+  TOGGLE_MULTI_TAB,
   // i18n
   APP_LANGUAGE
 } from '@/store/mutation-types'
@@ -25,6 +26,7 @@ const app = {
     fixedSidebar: false,
     autoHideHeader: false,
     color: storage.get(TOGGLE_COLOR, '#0f9ea8'), // 从 localStorage 读取主题色，默认品牌蓝绿
+    multiTab: false, // 多页签默认关闭，可在设置抽屉「整体风格设置」中开启
     lang: 'en-US',
     _antLocale: {}
   },
@@ -68,6 +70,10 @@ const app = {
       state.lang = lang
       state._antLocale = antd
       storage.set(APP_LANGUAGE, lang)
+    },
+    [TOGGLE_MULTI_TAB]: (state, bool) => {
+      storage.set(TOGGLE_MULTI_TAB, bool)
+      state.multiTab = bool
     }
   },
   actions: {

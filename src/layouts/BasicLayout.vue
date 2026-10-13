@@ -242,7 +242,8 @@ import {
   TOGGLE_FIXED_SIDEBAR,
   TOGGLE_CONTENT_WIDTH,
   TOGGLE_HIDE_HEADER,
-  TOGGLE_COLOR
+  TOGGLE_COLOR,
+  TOGGLE_MULTI_TAB
 } from '@/store/mutation-types'
 
 import defaultSettings from '@/config/defaultSettings'
@@ -262,14 +263,13 @@ const DEFAULT_TELEGRAM_URL = 'https://t.me/trazoom'
 
 // The multi-tab bar is hidden by default: navigating away from a page
 // discards its state, which is the expected behaviour for a top-menu
-// layout. Set to true to restore the tab bar and the keep-alive route
-// cache that goes with it.
+// layout. The settings drawer's "整体风格设置" block exposes a switch
+// that flips this via the store (TOGGLE_MULTI_TAB).
 //
 // Note the class binding in the template must follow this flag — the
 // `basic-layout-wrapper--multi-tab` rules in BasicLayout.less reserve
 // vertical space for the tab bar, so leaving the class on while the bar
 // is hidden opens a blank strip above the content.
-const MULTI_TAB_ENABLED = false
 
 export default {
   name: 'BasicLayout',
@@ -300,6 +300,7 @@ export default {
         primaryColor: defaultSettings.primaryColor,
         fixedHeader: defaultSettings.fixedHeader,
         fixSiderbar: defaultSettings.fixSiderbar,
+        multiTab: defaultSettings.multiTab,
 
         hideHintAlert: false,
         hideCopyButton: false
@@ -350,7 +351,9 @@ export default {
       return this.brandConfig
     },
     multiTabEnabled () {
-      return MULTI_TAB_ENABLED
+      // Default to off when nothing is persisted, so a stale value from a
+      // previous session never turns the bar back on unexpectedly.
+      return this.multiTab === undefined ? false : this.multiTab
     },
     // Contact values, with Telegram falling back to the project channel.
     // The deployment ships with BRAND_CONTACT_TELEGRAM_URL empty, and the
@@ -933,6 +936,9 @@ export default {
           break
         case 'fixSiderbar':
           this.$store.commit(TOGGLE_FIXED_SIDEBAR, value)
+          break
+        case 'multiTab':
+          this.$store.commit(TOGGLE_MULTI_TAB, value)
           break
       }
     }

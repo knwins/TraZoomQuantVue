@@ -962,6 +962,8 @@ const locale = {
   "app.setting.pagestyle.dark": "다크 메뉴 스타일",
   "app.setting.pagestyle.light": "라이트 메뉴 스타일",
   "app.setting.pagestyle.realdark": "RealDark 스타일",
+  "app.setting.multitab": "멀티 탭",
+  "app.setting.multitab.tooltip": "열려 있는 페이지를 탭으로 유지하여 전환 시 상태가 손실되지 않습니다",
   "app.setting.production.hint": "설정 패널은 개발 환경에서만 표시되므로 수동으로 수정하십시오.",
   "app.setting.sidemenu": "사이드 메뉴 레이아웃",
   "app.setting.sidemenu.nav": "사이드바 탐색",
