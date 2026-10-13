@@ -221,8 +221,7 @@ const DISPLAY_NAMES = {
   okx: 'OKX',
   bitget: 'Bitget',
   bybit: 'Bybit',
-  gate: 'Gate.io',
-  htx: 'HTX'
+  gate: 'Gate.io'
 }
 
 const ICON_COLORS = {
@@ -230,8 +229,7 @@ const ICON_COLORS = {
   okx: '#000',
   bitget: '#00D1FF',
   bybit: '#F7A600',
-  gate: '#17E1A4',
-  htx: '#1B2C3B'
+  gate: '#17E1A4'
 }
 
 export default {

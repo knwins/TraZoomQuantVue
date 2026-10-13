@@ -3127,7 +3127,7 @@ registerOverlay({
         try {
           const exchangeId = props.exchangeId || await _fetchExchangeId()
           if (gen !== _realtimeGeneration) return
-          if (!['binance', 'bitget', 'bybit', 'okx', 'gate', 'htx', 'huobi'].includes(String(exchangeId).toLowerCase())) return
+          if (!['binance', 'bitget', 'bybit', 'okx', 'gate'].includes(String(exchangeId).toLowerCase())) return
           if (!wsClient) {
             wsClient = new ExchangeKlineWs()
           }

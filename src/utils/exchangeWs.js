@@ -57,17 +57,6 @@ function gateInstrumentId (symbol, instrumentId) {
   return String(instrumentId || '').trim().toUpperCase() || spotPair(symbol)
 }
 
-function htxInstrumentId (symbol, marketType, instrumentId) {
-  const supplied = String(instrumentId || '').trim()
-  if (supplied) {
-    return normalizedMarketType(marketType) === 'swap'
-      ? supplied.toUpperCase().replace(/_/g, '-')
-      : normalizedSymbol(supplied).toLowerCase()
-  }
-  const pair = spotPair(symbol)
-  return normalizedMarketType(marketType) === 'swap' ? pair.replace('_', '-') : pair.replace('_', '').toLowerCase()
-}
-
 export function parseGateSpotBar (data, context = {}) {
   if (!['spot.candlesticks', 'futures.candlesticks'].includes(data.channel) || data.event !== 'update') return null
   const c = Array.isArray(data.result) ? data.result[0] : data.result
@@ -232,37 +221,6 @@ const EXCHANGE_WS = {
       } catch (_) {}
     },
     pingInterval: 20000
-  },
-
-  htx: {
-    buildUrl (_symbol, _interval, context) {
-      return normalizedMarketType(context.marketType) === 'swap'
-        ? 'wss://api.hbdm.com/linear-swap-ws'
-        : 'wss://api.huobi.pro/ws'
-    },
-    subscribe (ws, symbol, interval, context) {
-      const instrument = htxInstrumentId(symbol, context.marketType, context.instrumentId)
-      ws.send(JSON.stringify({
-        sub: `market.${instrument}.kline.${interval}`,
-        id: `qd-${Date.now()}`
-      }))
-    },
-    parseBar (data, context) {
-      const channel = String(data.ch || '')
-      const c = data.tick
-      if (!channel.includes('.kline.') || !c) return null
-      const timestamp = parseInt(c.id) * 1000
-      return {
-        timestamp,
-        open: parseFloat(c.open),
-        high: parseFloat(c.high),
-        low: parseFloat(c.low),
-        close: parseFloat(c.close),
-        volume: parseFloat(c.amount || 0),
-        isClosed: closedByTime(timestamp, context.timeframe)
-      }
-    },
-    pingInterval: 0
   }
 }
 

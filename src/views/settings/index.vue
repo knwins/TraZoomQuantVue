@@ -1102,7 +1102,7 @@ export default {
       })
     },
     catalogVenueRows () {
-      const labels = { binance: 'Binance', bitget: 'Bitget', bybit: 'Bybit', okx: 'OKX', gate: 'Gate.io', htx: 'HTX' }
+      const labels = { binance: 'Binance', bitget: 'Bitget', bybit: 'Bybit', okx: 'OKX', gate: 'Gate.io' }
       const coverage = {}
       for (const row of ((this.catalogOverview && this.catalogOverview.venues) || [])) {
         const key = String(row.exchange || '').toLowerCase()

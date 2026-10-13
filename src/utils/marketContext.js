@@ -1,4 +1,4 @@
-export const CRYPTO_EXCHANGE_IDS = ['binance', 'bitget', 'bybit', 'okx', 'gate', 'htx']
+export const CRYPTO_EXCHANGE_IDS = ['binance', 'bitget', 'bybit', 'okx', 'gate']
 
 export function normalizeMarketType (value, market = 'Crypto') {
   if (market !== 'Crypto') return 'spot'
@@ -12,7 +12,6 @@ export function normalizeExchangeId (value) {
   const aliases = {
     okex: 'okx',
     gateio: 'gate',
-    huobi: 'htx',
     binanceusdm: 'binance'
   }
   return aliases[raw] || raw

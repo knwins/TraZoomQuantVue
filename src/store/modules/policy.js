@@ -13,8 +13,6 @@ const DEFAULT_POLICY = {
     bybit: { Crypto: ['spot', 'swap'] },
     bitget: { Crypto: ['spot', 'swap'] },
     gate: { Crypto: ['spot', 'swap'] },
-    htx: { Crypto: ['spot', 'swap'] },
-    huobi: { Crypto: ['spot', 'swap'] },
     ibkr: { USStock: ['spot'] },
     alpaca: { USStock: ['spot'] }
   },

@@ -5,7 +5,6 @@ import okxLogo from '@/assets/provider-logos/okx.ico'
 import bybitLogo from '@/assets/provider-logos/bybit.ico'
 import bitgetLogo from '@/assets/provider-logos/bitget.svg'
 import gateLogo from '@/assets/provider-logos/gate.svg'
-import htxLogo from '@/assets/provider-logos/htx.ico'
 
 export const PROVIDER_LOGOS = Object.freeze({
   alpaca: alpacaLogo,
@@ -14,8 +13,7 @@ export const PROVIDER_LOGOS = Object.freeze({
   okx: okxLogo,
   bybit: bybitLogo,
   bitget: bitgetLogo,
-  gate: gateLogo,
-  htx: htxLogo
+  gate: gateLogo
 })
 
 export function getProviderLogo (provider) {

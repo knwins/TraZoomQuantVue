@@ -5,7 +5,6 @@ export const CRYPTO_EXCHANGE_DISPLAY_NAMES = {
   bitget: 'Bitget',
   bybit: 'Bybit',
   gate: 'Gate.io',
-  htx: 'HTX',
   alpaca: 'Alpaca',
   ibkr: 'IBKR'
 }
@@ -15,8 +14,7 @@ export const CRYPTO_EXCHANGE_IDS = new Set([
   'okx',
   'bitget',
   'bybit',
-  'gate',
-  'htx'
+  'gate'
 ])
 
 export const US_STOCK_EXCHANGE_IDS = new Set([
@@ -29,8 +27,7 @@ export const QUICK_TRADE_EXCHANGE_IDS = new Set([
   'okx',
   'bitget',
   'bybit',
-  'gate',
-  'htx'
+  'gate'
 ])
 
 export function isCryptoExchangeCredential (cred) {

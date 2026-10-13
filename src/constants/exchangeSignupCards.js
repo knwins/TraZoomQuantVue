@@ -38,14 +38,6 @@ export const CRYPTO_SIGNUP_CARDS = [
     brandBg: 'rgba(42, 93, 255, 0.12)',
     brandColor: '#2a5dff',
     signupUrl: 'https://www.gateport.business/share/DINGER'
-  },
-  {
-    id: 'htx',
-    name: 'HTX',
-    short: 'HX',
-    brandBg: 'rgba(22, 119, 255, 0.12)',
-    brandColor: '#1677ff',
-    signupUrl: 'https://www.htx.com/invite/zh-cn/1f?invite_code=dinger'
   }
 ]
 

@@ -254,8 +254,7 @@ export default {
         { id: 'okx', name: 'OKX', docsUrl: 'https://www.okx.com/docs-v5/zh/#overview-v5-api-key-creation' },
         { id: 'bitget', name: 'Bitget', docsUrl: 'https://www.bitget.com/api-doc/common/quick-start' },
         { id: 'bybit', name: 'Bybit', docsUrl: 'https://www.bybit.com/en/help-center/article/How-to-create-your-API-key/' },
-        { id: 'gate', name: 'Gate.io', docsUrl: 'https://www.gate.com/docs/developers/apiv4/' },
-        { id: 'htx', name: 'HTX', docsUrl: 'https://www.htx.com/en-us/opend/newApiPages/?id=414' }
+        { id: 'gate', name: 'Gate.io', docsUrl: 'https://www.gate.com/docs/developers/apiv4/' }
       ]
     }
   },
@@ -369,7 +368,6 @@ export default {
         bitget: 'Bitget',
         bybit: 'Bybit',
         gate: 'Gate.io',
-        htx: 'HTX',
         ibkr: 'IBKR',
         alpaca: 'Alpaca'
       }

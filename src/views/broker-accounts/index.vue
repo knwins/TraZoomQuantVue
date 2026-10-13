@@ -154,8 +154,7 @@ const CRYPTO_PROVIDERS = [
   { id: 'okx', name: 'OKX', color: '#7c8798' },
   { id: 'bybit', name: 'Bybit', color: '#f7a600' },
   { id: 'bitget', name: 'Bitget', color: '#00a6c8' },
-  { id: 'gate', name: 'Gate.io', color: '#2354e6' },
-  { id: 'htx', name: 'HTX', color: '#2e64fe' }
+  { id: 'gate', name: 'Gate.io', color: '#2354e6' }
 ]
 
 export default {
