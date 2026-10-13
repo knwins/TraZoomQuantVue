@@ -53,3 +53,8 @@ docker-compose*.yml
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Design source files — not needed to compile, and large
+*.psd
+*.ai
+*.sketch
