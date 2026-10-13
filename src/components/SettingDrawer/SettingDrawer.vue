@@ -387,10 +387,20 @@ export default {
         }
       }
     }
+    // Auto-fit instead of a hard-coded column count. The drawer is 300px wide
+    // with 24px side padding, leaving 252px of usable width; eight 24px swatches
+    // plus seven 10px gaps need 262px, so a fixed `repeat(8, 24px)` overflowed
+    // and clipped the last swatch (and left a phantom empty cell).
     .setting-drawer-theme-color-list {
       display: grid;
-      grid-template-columns: repeat(8, 24px);
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, 24px);
+      // 8px rather than 10px: with 24px swatches, 8 gaps of 8px put all
+      // eight swatches on one row inside the 252px of usable drawer width
+      // (8*24 + 7*8 = 248). At 10px gaps the row needs 262px, auto-fit
+      // resolves to 7 columns and the 8th swatch wraps onto a second row,
+      // which is the empty cell this replaces.
+      gap: 8px;
+      justify-content: start;
       min-height: 28px;
       align-items: center;
     }
