@@ -4925,7 +4925,7 @@ const locale = {
   "fastAnalysis.analysisTime": "Analysis time",
   "fastAnalysis.startAnalysis": "Analyze",
   "fastAnalysis.history": "History",
-  "fastAnalysis.systemTitle": "QUANTDINGER AI",
+  "fastAnalysis.systemTitle": "TrazoomQuant AI",
   "fastAnalysis.systemOnline": "Online",
   "fastAnalysis.version": "Fast",
   "fastAnalysis.preparing": "Preparing...",

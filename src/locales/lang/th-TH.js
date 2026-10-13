@@ -5649,7 +5649,7 @@ const locale = {
   "trading-assistant.logs.marketData.action.rate_limited": "รอคอยการพยายามอัตโนมัติ ลดความถี่การลงคะแนน ถ้ามันเกิดขึ้นซ้ําอีก",
   "trading-assistant.logs.marketData.action.region_restricted": " ปรับแต่งพร็อกซีสําหรับ market-data ที่ได้รับอนุญาต หรือใช้การแลกเปลี่ยนกับพื้นที่ของคุณ",
   "trading-assistant.logs.marketData.action.symbol_not_found": " ยืนยันสัญลักษณ์ จุด/ สวาป ชนิด และคู่นี้จะถูกแสดงอยู่ในรายการแลกเปลี่ยนนี้",
-  "trading-assistant.logs.marketData.action.unsupported_timeframe": " เลือกกรอบเวลาที่รองรับโดยการแลกเปลี่ยนนี้ หรือที่ Quantdinger สามารถ recameple",
+  "trading-assistant.logs.marketData.action.unsupported_timeframe": " เลือกกรอบเวลาที่รองรับโดยการแลกเปลี่ยนนี้ หรือที่ TrazoomQuant สามารถ recameple",
   "trading-assistant.logs.marketData.reason.exchange_unavailable": " ไม่สามารถแลกเปลี่ยนค่าได้",
   "trading-assistant.logs.marketData.reason.incomplete_market_data": "ข้อมูลแท่งเทียนไม่สมบูรณ์ชั่วคราว",
   "trading-assistant.logs.marketData.reason.no_market_data": " ไม่มีข้อมูลตลาด",
