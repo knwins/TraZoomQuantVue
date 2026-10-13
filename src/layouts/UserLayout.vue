@@ -391,13 +391,17 @@ export default {
   .user-layout-content {
     display: flex;
     flex-direction: column;
+    // Without align-items: center a column flex box stretches its children to
+    // the full content width, so .access-content's `margin: auto` had nothing
+    // to distribute and the card sat left of centre in the stacked layout.
+    align-items: center;
     min-height: 100vh;
     padding: clamp(64px, 8vh, 104px) clamp(44px, 6vw, 108px) 20px;
   }
 
   .access-content {
     width: ~"min(480px, 100%)";
-    margin: auto;
+    margin: auto 0;
   }
 
   .access-heading {
