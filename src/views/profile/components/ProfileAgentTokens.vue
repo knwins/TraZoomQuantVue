@@ -464,7 +464,7 @@ export default {
       }
     },
     openMcpDocs () {
-      window.open('https://github.com/OpenByteInc/QuantDinger/blob/main/docs/agent/MCP_SETUP.md', '_blank')
+      window.open('https://github.com/knwins/TrazoomQuant/blob/main/docs/agent/MCP_SETUP.md', '_blank')
     }
   },
   watch: {

@@ -6,7 +6,7 @@
         <span>{{ $t('agentTokens.title') || 'Agent Tokens' }}</span>
       </h2>
       <p class="page-desc">
-        {{ $t('agentTokens.description') || 'Issue and manage tokens that let external AI agents (Cursor, Claude Code, Codex, MCP, custom bots) call this QuantDinger instance through /api/agent/v1.' }}
+        {{ $t('agentTokens.description') || 'Issue and manage tokens that let external AI agents (Cursor, Claude Code, Codex, MCP, custom bots) call this TrazoomQuant instance through /api/agent/v1.' }}
       </p>
     </div>
 
@@ -469,7 +469,7 @@ export default {
       }
     },
     openQuickstart () {
-      window.open('https://github.com/OpenByteInc/QuantDinger/blob/main/docs/agent/AGENT_QUICKSTART.md', '_blank')
+      window.open('https://github.com/knwins/TrazoomQuant/blob/main/docs/agent/AGENT_QUICKSTART.md', '_blank')
     }
   },
   watch: {
