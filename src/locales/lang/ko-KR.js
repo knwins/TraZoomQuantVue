@@ -4675,7 +4675,7 @@ const locale = {
   "settings.group.contact": "연락 및 지원",
   "settings.group.data_source": "데이터 소스",
   "settings.group.email": "이메일 (SMTP)",
-  "settings.group.legal": "법률",
+  "settings.group.legal": "개인정보 및 약관",
   "settings.group.market_catalog": "시장 데이터",
   "settings.group.market_modules": "시장 모듈",
   "settings.group.network": "네트워크 및 프록시",

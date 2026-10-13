@@ -4675,7 +4675,7 @@ const locale = {
   "settings.group.contact": "تواصل والدعم",
   "settings.group.data_source": "مصادر البيانات",
   "settings.group.email": "البريد الإلكتروني (SMTP)",
-  "settings.group.legal": "قانوني",
+  "settings.group.legal": "الخصوصية والشروط",
   "settings.group.market_catalog": "بيانات السوق",
   "settings.group.market_modules": "وحدات السوق",
   "settings.group.network": "الشبكة والوكيل",

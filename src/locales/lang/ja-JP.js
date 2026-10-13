@@ -4675,7 +4675,7 @@ const locale = {
   "settings.group.contact": "連絡先とサポート",
   "settings.group.data_source": "市場・マクロデータ",
   "settings.group.email": "メール設定",
-  "settings.group.legal": "法務",
+  "settings.group.legal": "プライバシーと規約",
   "settings.group.market_catalog": "市場データ",
   "settings.group.market_modules": "マーケットモジュール",
   "settings.group.network": "ネットワークプロキシ",

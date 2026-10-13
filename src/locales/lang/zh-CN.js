@@ -4991,7 +4991,7 @@ const locale = {
   "settings.group.contact": "联系方式与支持",
   "settings.group.data_source": "行情与宏观数据源",
   "settings.group.email": "邮件配置",
-  "settings.group.legal": "法律",
+  "settings.group.legal": "隐私与协议",
   "settings.group.market_catalog": "市场数据",
   "settings.group.market_modules": "支持市场",
   "settings.group.network": "网络代理",
