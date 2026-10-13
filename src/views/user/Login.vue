@@ -826,7 +826,7 @@ export default {
       appColor: state => state.app.color
     }),
     themeAccent () {
-      return this.appColor || '#faad14'
+      return this.appColor || '#0f9ea8'
     },
     privacyPolicyContent () {
       const legal = this.brandConfig && this.brandConfig.legal
@@ -1251,7 +1251,6 @@ export default {
 
             await this.$nextTick()
 
-            const currentToken = storage.get(ACCESS_TOKEN)
             const currentRoles = this.$store.getters.roles
 
             if (currentRoles.length === 0) {
@@ -1433,7 +1432,6 @@ export default {
 
               await this.$nextTick()
 
-              const currentToken = storage.get(ACCESS_TOKEN)
               const currentRoles = this.$store.getters.roles
 
               if (currentRoles.length === 0) {
@@ -1449,13 +1447,13 @@ export default {
               this.$router.push({ path: '/' }).then(() => {
                 this.$notification.success({
                   message: 'Welcome',
-                  description: `${timeFix()}, welcome to QuantDinger!`
+                  description: `${timeFix()}, welcome to TrazoomQuant!`
                 })
               }).catch(err => {
                 console.error('Router push error:', err)
                 this.$notification.success({
                   message: 'Welcome',
-                  description: `${timeFix()}, welcome to QuantDinger!`
+                  description: `${timeFix()}, welcome to TrazoomQuant!`
                 })
               })
             } else {
@@ -1868,7 +1866,7 @@ export default {
         text-underline-offset: 3px;
 
         &:hover {
-          color: var(--login-accent, #faad14);
+          color: var(--login-accent, #0f9ea8);
           text-decoration-color: currentColor;
         }
       }
@@ -2077,7 +2075,7 @@ export default {
 
     ::v-deep .ant-tabs-ink-bar {
       height: 2px;
-      background: var(--login-accent, #faad14);
+      background: var(--login-accent, #0f9ea8);
     }
 
     ::v-deep .ant-form-item {
@@ -2163,17 +2161,35 @@ export default {
       height: 46px;
       color: #fff;
       font-size: 15px;
-      font-weight: 650;
-      background: #171717;
-      border-color: #171717;
-      border-radius: 6px;
-      box-shadow: none;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      // Follow the accent. This used to be #171717 with the accent only on
+      // hover, which left the primary action as the one element on the page
+      // ignoring the chosen colour — the login card sat next to a teal
+      // headline and a teal tab underline while its main button stayed black.
+      background: var(--login-accent, #0f9ea8);
+      border-color: var(--login-accent, #0f9ea8);
+      border-radius: 8px;
+      box-shadow: 0 4px 14px color-mix(in srgb, var(--login-accent, #0f9ea8) 26%, transparent);
+      transition: background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
 
       &:hover,
       &:focus {
-        color: #171717;
-        background: var(--login-accent, #faad14);
-        border-color: var(--login-accent, #faad14);
+        background: color-mix(in srgb, var(--login-accent, #0f9ea8) 88%, #000);
+        border-color: color-mix(in srgb, var(--login-accent, #0f9ea8) 88%, #000);
+        box-shadow: 0 6px 18px color-mix(in srgb, var(--login-accent, #0f9ea8) 32%, transparent);
+      }
+
+      &:active {
+        background: color-mix(in srgb, var(--login-accent, #0f9ea8) 78%, #000);
+        border-color: color-mix(in srgb, var(--login-accent, #0f9ea8) 78%, #000);
+      }
+
+      &[disabled],
+      &.ant-btn-loading:not(.ant-btn-loading-icon) {
+        background: color-mix(in srgb, var(--login-accent, #0f9ea8) 46%, #fff);
+        border-color: transparent;
+        box-shadow: none;
       }
     }
   }
@@ -2181,10 +2197,13 @@ export default {
   .login-method-switch {
     justify-content: stretch;
     gap: 4px;
-    margin-bottom: 20px;
+    // Normalised to the 4/8/12/16/24 rhythm the rest of the card uses. The
+    // old 7px/5px radii and 20px margin were off-grid values that read as
+    // arbitrary next to the 8px button radius above.
+    margin-bottom: 24px;
     padding: 4px;
     background: #f2f2f0;
-    border-radius: 7px;
+    border-radius: 8px;
 
     .ant-divider {
       display: none;
@@ -2192,12 +2211,16 @@ export default {
 
     a {
       flex: 1 1 0;
-      padding: 8px 10px;
-      color: #7d7d79;
-      line-height: 20px;
+      padding: 8px 12px;
+      color: #6b6b67;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 22px;
+      letter-spacing: 0.01em;
       text-align: center;
       border: 0;
-      border-radius: 5px;
+      border-radius: 6px;
+      transition: color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
 
       &:hover {
         color: #171717;
@@ -2205,23 +2228,28 @@ export default {
 
       &.active {
         color: #171717;
-        font-weight: 650;
+        font-weight: 600;
         background: #fff;
         border: 0;
-        box-shadow: 0 1px 4px rgba(16, 16, 16, 0.08);
+        box-shadow: 0 1px 3px rgba(16, 16, 16, 0.08);
       }
     }
   }
 
   .auth-links {
-    margin-top: 14px;
+    // Was 14px: visually glued to the button above and stranded above the
+    // consent row. 16px keeps it off the button while staying tighter than the
+    // consent block it precedes.
+    margin-top: 16px;
     text-align: right;
 
     a {
       color: #5d5d59;
+      font-size: 13px;
+      transition: color 0.16s ease;
 
       &:hover {
-        color: #111;
+        color: var(--login-accent, #0f9ea8);
         text-decoration: none;
       }
     }
@@ -2231,7 +2259,7 @@ export default {
     color: #858581;
 
     .anticon {
-      color: color-mix(in srgb, var(--login-accent, #faad14) 72%, #171717);
+      color: color-mix(in srgb, var(--login-accent, #0f9ea8) 72%, #171717);
     }
   }
 
@@ -2242,7 +2270,7 @@ export default {
       margin: 0 0 16px;
       color: #858581;
       font-size: 11px;
-      font-weight: 650;
+      font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
 
@@ -2291,8 +2319,8 @@ export default {
 
         &:focus {
           color: #111 !important;
-          border-color: var(--login-accent, #faad14) !important;
-          box-shadow: 0 0 0 3px color-mix(in srgb, var(--login-accent, #faad14) 16%, transparent);
+          border-color: var(--login-accent, #0f9ea8) !important;
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--login-accent, #0f9ea8) 16%, transparent);
         }
       }
 
@@ -2508,9 +2536,9 @@ html body .ant-modal-wrap.turnstile-modal-wrap {
     justify-content: center;
     width: 32px;
     height: 32px;
-    color: var(--login-accent, #faad14);
-    background: color-mix(in srgb, var(--login-accent, #faad14) 11%, #fff);
-    border: 1px solid color-mix(in srgb, var(--login-accent, #faad14) 24%, #fff);
+    color: var(--login-accent, #0f9ea8);
+    background: color-mix(in srgb, var(--login-accent, #0f9ea8) 11%, #fff);
+    border: 1px solid color-mix(in srgb, var(--login-accent, #0f9ea8) 24%, #fff);
     border-radius: 8px;
   }
 
@@ -2556,9 +2584,9 @@ html body .ant-modal-wrap.turnstile-modal-wrap {
     justify-content: center;
     width: 34px;
     height: 34px;
-    color: var(--login-accent, #faad14);
-    background: color-mix(in srgb, var(--login-accent, #faad14) 11%, #fff);
-    border: 1px solid color-mix(in srgb, var(--login-accent, #faad14) 24%, #fff);
+    color: var(--login-accent, #0f9ea8);
+    background: color-mix(in srgb, var(--login-accent, #0f9ea8) 11%, #fff);
+    border: 1px solid color-mix(in srgb, var(--login-accent, #0f9ea8) 24%, #fff);
     border-radius: 9px;
   }
 
@@ -2620,7 +2648,7 @@ html body .ant-modal-wrap.turnstile-modal-wrap {
 
   .reset-step strong {
     font-size: 12px;
-    font-weight: 650;
+    font-weight: 600;
     white-space: nowrap;
   }
 
@@ -2632,8 +2660,8 @@ html body .ant-modal-wrap.turnstile-modal-wrap {
   .reset-step.active > span,
   .reset-step.done > span {
     color: #171717;
-    background: color-mix(in srgb, var(--login-accent, #faad14) 15%, #fff);
-    border-color: var(--login-accent, #faad14);
+    background: color-mix(in srgb, var(--login-accent, #0f9ea8) 15%, #fff);
+    border-color: var(--login-accent, #0f9ea8);
   }
 
   .reset-step-line {
@@ -2642,7 +2670,7 @@ html body .ant-modal-wrap.turnstile-modal-wrap {
   }
 
   .reset-step-line.active {
-    background: var(--login-accent, #faad14);
+    background: var(--login-accent, #0f9ea8);
   }
 
   .reset-step-copy {
@@ -2664,7 +2692,7 @@ html body .ant-modal-wrap.turnstile-modal-wrap {
 
   .submit-button {
     min-height: 46px;
-    font-weight: 650;
+    font-weight: 600;
   }
 
   .email-display {

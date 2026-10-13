@@ -83,11 +83,14 @@ export default {
       appColor: state => state.app.color
     }),
     themeAccent () {
-      return this.appColor || '#faad14'
+      return this.appColor || '#0f9ea8'
     },
     loginLogo () {
-      const remote = this.brandConfig && this.brandConfig.logos && this.brandConfig.logos.dark
-      return remote || defaultLogo
+      const logos = (this.brandConfig && this.brandConfig.logos) || {}
+      // Operator-supplied logo first. The bundled fallbacks are white-plate
+      // PNGs (see the note on .brand-logo), which look wrong on this #0a0a0a
+      // panel — an operator is expected to set BRAND_LOGO_DARK_URL for it.
+      return logos.dark || defaultLogo
     }
   },
   mounted () {
@@ -145,7 +148,7 @@ export default {
       height: 1px;
       content: '';
       opacity: 0.2;
-      background: linear-gradient(90deg, transparent, var(--login-accent, #faad14), transparent);
+      background: linear-gradient(90deg, transparent, var(--login-accent, #0f9ea8), transparent);
       transform: rotate(-18deg);
       transform-origin: right center;
     }
@@ -168,10 +171,10 @@ export default {
   .tech-orbit {
     position: absolute;
     display: block;
-    border: 1px solid color-mix(in srgb, var(--login-accent, #faad14) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--login-accent, #0f9ea8) 18%, transparent);
     border-radius: 50%;
     box-shadow:
-      inset 0 0 40px color-mix(in srgb, var(--login-accent, #faad14) 4%, transparent),
+      inset 0 0 40px color-mix(in srgb, var(--login-accent, #0f9ea8) 4%, transparent),
       0 0 30px rgba(255, 255, 255, 0.015);
 
     &::before,
@@ -187,8 +190,8 @@ export default {
       left: 18%;
       width: 5px;
       height: 5px;
-      background: var(--login-accent, #faad14);
-      box-shadow: 0 0 14px color-mix(in srgb, var(--login-accent, #faad14) 62%, transparent);
+      background: var(--login-accent, #0f9ea8);
+      box-shadow: 0 0 14px color-mix(in srgb, var(--login-accent, #0f9ea8) 62%, transparent);
     }
 
     &::after {
@@ -221,8 +224,8 @@ export default {
     width: 72%;
     height: 1px;
     opacity: 0;
-    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--login-accent, #faad14) 64%, #fff), transparent);
-    box-shadow: 0 0 18px color-mix(in srgb, var(--login-accent, #faad14) 22%, transparent);
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--login-accent, #0f9ea8) 64%, #fff), transparent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--login-accent, #0f9ea8) 22%, transparent);
     animation: login-scan 10s ease-in-out infinite;
   }
 
@@ -232,9 +235,9 @@ export default {
     right: 13%;
     width: 6px;
     height: 6px;
-    background: var(--login-accent, #faad14);
+    background: var(--login-accent, #0f9ea8);
     border-radius: 50%;
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--login-accent, #faad14) 34%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--login-accent, #0f9ea8) 34%, transparent);
     animation: login-pulse 3.8s ease-out infinite;
   }
 
@@ -263,6 +266,12 @@ export default {
     width: clamp(210px, 17vw, 292px);
     max-width: 100%;
     height: auto;
+    // The bundled wordmarks are opaque white-plate PNGs. Screen keeps their
+    // light pixels and drops the plate, so the mark reads as if drawn on the
+    // panel instead of sitting on a white rectangle. Set
+    // BRAND_LOGO_DARK_URL to a transparent or dark-background asset for an
+    // exact brand rendering.
+    mix-blend-mode: screen;
   }
 
   .brand-edition {
@@ -279,6 +288,9 @@ export default {
   }
 
   .brand-story {
+    // The ~"" escape is required: Less 3.x tries to evaluate min() itself and
+    // rejects px against %, so a bare min(620px, 100%) fails the build with
+    // "incompatible types". The escape passes it through to CSS untouched.
     width: ~"min(620px, 100%)";
     margin: auto 0;
     padding: clamp(38px, 6vh, 54px) 0;
@@ -287,37 +299,45 @@ export default {
   .story-kicker {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    margin-bottom: 28px;
-    color: var(--login-accent, #faad14);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    gap: 8px;
+    margin-bottom: 24px;
+    color: var(--login-accent, #0f9ea8);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
 
     .anticon {
-      font-size: 16px;
+      font-size: 15px;
     }
   }
 
   h1 {
-    max-width: 620px;
+    max-width: 600px;
     margin: 0;
     color: #fff;
-    font-size: clamp(40px, 3.5vw, 60px);
-    font-weight: 750;
-    line-height: 1.12;
-    letter-spacing: -0.045em;
+    // Was clamp(40px, 3.5vw, 60px) at weight 750 with -0.045em tracking: at
+    // 1440px that rendered 50px/1.12 across three lines and outweighed the
+    // login card it was supposed to sit beside. Tighter tracking (-0.02em)
+    // and a slightly smaller ceiling give the headline room to breathe, and
+    // 700 reads cleaner than 750 at this size — intermediate weights are
+    // synthesised by the font and render unevenly.
+    font-size: clamp(34px, 3vw, 46px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     overflow-wrap: anywhere;
     white-space: pre-line;
   }
 
   .story-summary {
-    max-width: 540px;
-    margin: 22px 0 0;
+    max-width: 520px;
+    margin: 20px 0 0;
     color: #a8a8a8;
-    font-size: clamp(15px, 1.15vw, 18px);
-    line-height: 1.8;
+    font-size: 15px;
+    // 1.8 is loose for a two-line summary at 15px; 1.65 keeps it readable
+    // without the paragraph looking loose against the tight headline above.
+    line-height: 1.65;
   }
 
   .brand-footer {
@@ -329,7 +349,7 @@ export default {
   }
 
   .status-icon {
-    color: var(--login-accent, #faad14);
+    color: var(--login-accent, #0f9ea8);
     font-size: 13px;
   }
 
@@ -387,9 +407,9 @@ export default {
   .access-kicker {
     display: block;
     margin-bottom: 10px;
-    color: color-mix(in srgb, var(--login-accent, #faad14) 72%, #171717);
+    color: color-mix(in srgb, var(--login-accent, #0f9ea8) 72%, #171717);
     font-size: 11px;
-    font-weight: 750;
+    font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
@@ -398,7 +418,7 @@ export default {
     margin: 0;
     color: #141414;
     font-size: 30px;
-    font-weight: 750;
+    font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.025em;
   }
@@ -479,7 +499,7 @@ export default {
 @keyframes login-pulse {
   0% {
     opacity: 0.72;
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--login-accent, #faad14) 32%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--login-accent, #0f9ea8) 32%, transparent);
   }
   72%,
   100% {
