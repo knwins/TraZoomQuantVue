@@ -11,7 +11,7 @@
     <div class="profile-overview-grid">
       <a-card :bordered="false" class="profile-card">
         <div class="profile-identity">
-          <a-avatar :size="72" :src="profile.avatar || '/avatar2.png'" />
+          <a-avatar :size="72" :class="{'default-avatar': !profile.avatar}" :src="profile.avatar || '/avatar2.png'" />
           <div class="profile-identity-copy">
             <h3 class="username">{{ profile.nickname || profile.username }}</h3>
             <div class="user-role">
@@ -659,7 +659,7 @@
                 >
                   <template slot="user" slot-scope="text, record">
                     <div class="referral-user-cell">
-                      <a-avatar :size="32" :src="record.avatar || '/avatar2.png'" />
+                      <a-avatar :size="32" :class="{'default-avatar': !record.avatar}" :src="record.avatar || '/avatar2.png'" />
                       <div class="user-info">
                         <span class="nickname">{{ record.nickname || record.username }}</span>
                         <span class="username">@{{ record.username }}</span>
@@ -3147,6 +3147,14 @@ export default {
       .ant-avatar {
         flex: 0 0 72px;
         box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color, #1890ff) 12%, transparent);
+      }
+
+      // The bundled avatar is a transparent PNG with the wordmark drawn in the
+      // light-theme accent, so it vanishes against a dark surface. This class
+      // is applied only when no photo was uploaded, so a user's own picture is
+      // never given a plate behind it.
+      .default-avatar img {
+        background: #f4f4f2;
       }
     }
 
