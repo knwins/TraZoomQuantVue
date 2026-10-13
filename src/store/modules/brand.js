@@ -1,7 +1,7 @@
 import { getBrandConfig } from '@/api/brand'
 
 const BUILD_APP_VERSION = typeof APP_VERSION !== 'undefined' ? APP_VERSION : '0.0.0-dev'
-const DEFAULT_COPYRIGHT = 'Copyright 2025-2026 QuantDinger. All rights reserved.'
+const DEFAULT_COPYRIGHT = 'Copyright 2025-2026 TrazoomQuant. All rights reserved.'
 
 function normalizeCopyright (value) {
   const text = String(value || '').trim()
@@ -16,7 +16,7 @@ function normalizeCopyright (value) {
  * yet (or fails entirely).
  */
 const DEFAULT_BRAND = {
-  app_name: 'QuantDinger',
+  app_name: 'TrazoomQuant',
   app_version: BUILD_APP_VERSION,
   copyright: DEFAULT_COPYRIGHT,
   logos: {
@@ -25,19 +25,18 @@ const DEFAULT_BRAND = {
     collapsed: '',
     favicon: ''
   },
+  // TrazoomQuant is a private deployment that is not publicly distributed.
+  // Contact and social entries stay empty so the sidebar renders no links —
+  // mirroring the backend defaults in app/services/settings/branding.py. The
+  // old values pointed at the upstream project's public channels, which would
+  // route private-deployment users to a third party.
   contact: {
-    email: 'support@quantdinger.com',
-    support_url: 'https://t.me/quantdinger',
-    feature_request_url: 'https://github.com/OpenByteInc/QuantDinger/issues',
-    live_chat_url: 'https://t.me/quantdinger'
+    email: '',
+    support_url: '',
+    feature_request_url: '',
+    telegram_url: ''
   },
-  social_accounts: [
-    { name: 'GitHub', icon: 'github', url: 'https://github.com/OpenByteInc/QuantDinger' },
-    { name: 'X', icon: 'x', url: 'https://x.com/quantdinger_en' },
-    { name: 'Discord', icon: 'discord', url: 'https://discord.com/invite/tyx5B6TChr' },
-    { name: 'Telegram', icon: 'telegram', url: 'https://t.me/quantdinger' },
-    { name: 'YouTube', icon: 'youtube', url: 'https://youtube.com/@quantdinger' }
-  ],
+  social_accounts: [],
   legal: {
     user_agreement_url: '',
     user_agreement_text: '',
@@ -50,7 +49,10 @@ const DEFAULT_BRAND = {
   }
 }
 
-const STORAGE_KEY = 'quantdinger.brand-config.v1'
+// Namespaced per product. The v1 suffix was kept so a stale cache written by
+// an older build (which stored the upstream defaults) can never be picked up —
+// bumping it is the intended way to invalidate.
+const STORAGE_KEY = 'trazoomquant.brand-config.v1'
 
 function readCachedBrand () {
   try {
@@ -142,6 +144,10 @@ const brand = {
         const res = await getBrandConfig()
         if (res && res.code === 1 && res.data) {
           // Shallow-merge over defaults so a partial response still works.
+          // social_accounts is NOT treated as a fallback-able field: an empty
+          // array from the backend means "operator configured no social links",
+          // so we must honour it. Falling back to DEFAULT_BRAND here would
+          // resurrect hardcoded third-party links on a private deployment.
           const merged = {
             ...DEFAULT_BRAND,
             ...res.data,
@@ -149,7 +155,7 @@ const brand = {
             contact: { ...DEFAULT_BRAND.contact, ...(res.data.contact || {}) },
             legal: { ...DEFAULT_BRAND.legal, ...(res.data.legal || {}) },
             mobile_app: { ...DEFAULT_BRAND.mobile_app, ...(res.data.mobile_app || {}) },
-            social_accounts: Array.isArray(res.data.social_accounts) && res.data.social_accounts.length > 0
+            social_accounts: Array.isArray(res.data.social_accounts)
               ? res.data.social_accounts
               : DEFAULT_BRAND.social_accounts
           }

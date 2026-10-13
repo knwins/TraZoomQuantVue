@@ -45,20 +45,27 @@
 
       <setting-drawer ref="settingDrawer" :settings="settings" @change="handleSettingChange">
         <div class="setting-drawer-support">
-          <div class="support-block">
+          <div class="support-block" v-if="menuFooterConfig.contact.support_url || menuFooterConfig.contact.feature_request_url">
             <div class="support-title">{{ $t('menu.footer.contactUs') }}</div>
             <div class="support-links">
-              <a :href="menuFooterConfig.contact.support_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.support') }}</a>
-              <span class="separator">|</span>
-              <a :href="menuFooterConfig.contact.feature_request_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.featureRequest') }}</a>
+              <a v-if="menuFooterConfig.contact.support_url" :href="menuFooterConfig.contact.support_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.support') }}</a>
+              <template v-if="menuFooterConfig.contact.support_url && menuFooterConfig.contact.feature_request_url">
+                <span class="separator">|</span>
+              </template>
+              <a v-if="menuFooterConfig.contact.feature_request_url" :href="menuFooterConfig.contact.feature_request_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.featureRequest') }}</a>
             </div>
           </div>
           <div class="support-block">
             <div class="support-title">{{ $t('menu.footer.getSupport') }}</div>
             <div class="support-links">
-              <a :href="'mailto:' + menuFooterConfig.contact.email">{{ $t('menu.footer.email') }}</a>
-              <span class="separator">|</span>
-              <a :href="menuFooterConfig.contact.live_chat_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.liveChat') }}</a>
+              <!-- The row is email + Telegram only. The former "Live Chat"
+                   entry was removed: it pointed at upstream hosted chat,
+                   which a private deployment has no equivalent for. -->
+              <a v-if="menuFooterConfig.contact.email" :href="'mailto:' + menuFooterConfig.contact.email">{{ $t('menu.footer.email') }}</a>
+              <template v-if="menuFooterConfig.contact.email && menuFooterConfig.contact.telegram_url">
+                <span class="separator">|</span>
+              </template>
+              <a v-if="menuFooterConfig.contact.telegram_url" :href="menuFooterConfig.contact.telegram_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.telegram') }}</a>
             </div>
           </div>
           <div class="support-block" v-if="menuFooterConfig.social_accounts && menuFooterConfig.social_accounts.length > 0">
@@ -148,21 +155,25 @@
 
     <div v-if="false" class="custom-menu-footer" :class="{ 'collapsed': collapsed, 'drawer-open': isMobile && isDrawerOpen, 'drawer-animating': isMobile && isDrawerAnimating }">
       <div v-if="!collapsed" class="menu-footer-content">
-        <div class="footer-section">
+        <div class="footer-section" v-if="menuFooterConfig.contact.support_url || menuFooterConfig.contact.feature_request_url">
           <div class="section-title">{{ $t('menu.footer.contactUs') }}</div>
           <div class="section-links">
-            <a :href="menuFooterConfig.contact.support_url" target="_blank">{{ $t('menu.footer.support') }}</a>
-            <span class="separator">|</span>
-            <a :href="menuFooterConfig.contact.feature_request_url" target="_blank">{{ $t('menu.footer.featureRequest') }}</a>
+            <a v-if="menuFooterConfig.contact.support_url" :href="menuFooterConfig.contact.support_url" target="_blank">{{ $t('menu.footer.support') }}</a>
+            <template v-if="menuFooterConfig.contact.support_url && menuFooterConfig.contact.feature_request_url">
+              <span class="separator">|</span>
+            </template>
+            <a v-if="menuFooterConfig.contact.feature_request_url" :href="menuFooterConfig.contact.feature_request_url" target="_blank">{{ $t('menu.footer.featureRequest') }}</a>
           </div>
         </div>
 
-        <div class="footer-section">
+        <div class="footer-section" v-if="menuFooterConfig.contact.email || menuFooterConfig.contact.telegram_url">
           <div class="section-title">{{ $t('menu.footer.getSupport') }}</div>
           <div class="section-links">
-            <a :href="'mailto:' + menuFooterConfig.contact.email">{{ $t('menu.footer.email') }}</a>
-            <span class="separator">|</span>
-            <a :href="menuFooterConfig.contact.live_chat_url" target="_blank">{{ $t('menu.footer.liveChat') }}</a>
+            <a v-if="menuFooterConfig.contact.email" :href="'mailto:' + menuFooterConfig.contact.email">{{ $t('menu.footer.email') }}</a>
+            <template v-if="menuFooterConfig.contact.email && menuFooterConfig.contact.telegram_url">
+              <span class="separator">|</span>
+            </template>
+            <a v-if="menuFooterConfig.contact.telegram_url" :href="menuFooterConfig.contact.telegram_url" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.telegram') }}</a>
           </div>
         </div>
 
