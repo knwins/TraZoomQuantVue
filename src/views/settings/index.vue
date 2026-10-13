@@ -833,31 +833,6 @@
               </div>
             </a-form>
 
-            <!-- Brand group footer: commercial license notice. Shown only
-                 under "Brand & Identity" so it's visible right where an
-                 operator sets up their fork. -->
-            <div v-if="activeGroupKey === 'brand'" class="commercial-license-notice">
-              <a-alert
-                type="warning"
-                show-icon
-                :message="$t('settings.commercialLicense.title')"
-              >
-                <div slot="description" class="license-body">
-                  <p>{{ $t('settings.commercialLicense.body') }}</p>
-                  <p class="license-contact">
-                    <span class="contact-label">{{ $t('settings.commercialLicense.contactLabel') }}:</span>
-                    <a
-                      href="https://www.quantdinger.com/#license"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="contact-link"
-                    >
-                      <a-icon type="link" /> {{ $t('settings.commercialLicense.applyLink') }}
-                    </a>
-                  </p>
-                </div>
-              </a-alert>
-            </div>
           </div>
         </section>
       </div>
@@ -2328,49 +2303,6 @@ export default {
     }
   }
 
-  .commercial-license-notice {
-    margin-top: 24px;
-
-    .license-body {
-      margin-top: 4px;
-      line-height: 1.7;
-      color: #5c4a16;
-
-      p {
-        margin: 0 0 8px 0;
-      }
-
-      p:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    .license-contact {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-    }
-
-    .contact-label {
-      font-weight: 600;
-    }
-
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--primary-color, #1890ff);
-      text-decoration: none;
-
-      &:hover {
-        color: var(--primary-color-active, #096dd9);
-        text-decoration: underline;
-      }
-    }
-  }
-
   .openrouter-balance-card {
     margin-bottom: 20px;
 
@@ -2664,16 +2596,6 @@ export default {
     .restart-alert {
       background: #1c1c1c;
       border-color: #b08800;
-    }
-
-    .commercial-license-notice {
-      .license-body {
-        color: #f0d97a;
-      }
-      .contact-link {
-        color: #69c0ff;
-        &:hover { color: #91d5ff; }
-      }
     }
 
     .settings-header {
