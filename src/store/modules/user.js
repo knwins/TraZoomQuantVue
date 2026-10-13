@@ -89,7 +89,7 @@ const user = {
 
             const name = info.nickname || info.username || 'User'
             commit('SET_NAME', { name: name, welcome: welcome() })
-            commit('SET_AVATAR', info.avatar || '/avatar2.jpg')
+            commit('SET_AVATAR', info.avatar || '/avatar2.png')
 
             let roles = [DEFAULT_ROLE]
             if (info.role) {

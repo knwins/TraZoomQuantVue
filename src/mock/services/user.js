@@ -7,7 +7,7 @@ const info = options => {
     name: '天野远子',
     username: 'admin',
     password: '',
-    avatar: '/avatar2.jpg',
+    avatar: '/avatar2.png',
     status: 1,
     telephone: '',
     lastLoginIp: '27.154.74.117',
