@@ -1,12 +1,23 @@
 import { getBrandConfig } from '@/api/brand'
 
 const BUILD_APP_VERSION = typeof APP_VERSION !== 'undefined' ? APP_VERSION : '0.0.0-dev'
-const DEFAULT_COPYRIGHT = 'Copyright 2025-2026 TrazoomQuant. All rights reserved.'
+
+// Mirrors BRAND_DEFAULTS['copyright'] in the backend, which rewrites the year
+// on read. Keep the two in step.
+const currentYear = new Date().getFullYear()
+const DEFAULT_COPYRIGHT = `© ${currentYear} TrazoomQuant. All rights reserved.`
+
+// First 4-digit year, or a 4-digit range such as "2025-2026". Only the digits
+// are matched so the © / (c) mark survives.
+const YEAR_RANGE = /\d{4}(?:\s*[-–—]\s*\d{4})?/
 
 function normalizeCopyright (value) {
   const text = String(value || '').trim()
   if (!text) return DEFAULT_COPYRIGHT
-  return text.replace(/^漏\s*/, 'Copyright ')
+  // Refresh the year client-side too: this string can arrive from the backend
+  // (which already did it), from a cached localStorage payload, or from an
+  // operator who typed a literal year in BRAND_COPYRIGHT.
+  return text.replace(YEAR_RANGE, String(currentYear))
 }
 
 /**
