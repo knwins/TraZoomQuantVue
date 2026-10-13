@@ -118,3 +118,24 @@ export const BROKER_META = {
     cloudFriendly: false
   }
 }
+
+/**
+ * Which venues this deployment offers.
+ *
+ * Resolves to the full map on success. A failure resolves to "everything
+ * enabled" rather than rejecting: this list drives navigation, and hiding
+ * every exchange because one request failed would be a worse outcome than
+ * showing a venue the operator disabled.
+ */
+export function fetchExchangeAvailability () {
+  return request({ url: '/api/exchanges/availability', method: 'get' })
+    .then(res => {
+      const data = (res && res.data) || {}
+      return {
+        brokers: Array.isArray(data.brokers) ? data.brokers : [],
+        crypto: Array.isArray(data.crypto) ? data.crypto : [],
+        all: data.all && typeof data.all === 'object' ? data.all : {}
+      }
+    })
+    .catch(() => null)
+}

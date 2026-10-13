@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { broker, BROKER_IDS, BROKER_META } from '@/api/broker'
+import { broker, BROKER_IDS, BROKER_META, fetchExchangeAvailability } from '@/api/broker'
 import { getDesktopBrokersPolicy, listExchangeCredentials } from '@/api/credentials'
 import BrokerPanel from './components/BrokerPanel.vue'
 import CryptoExchangeAccountsCard from './components/CryptoExchangeAccountsCard.vue'
@@ -175,7 +175,10 @@ export default {
       refreshing: false,
       signupModalVisible: false,
       desktopBrokersAllowed: true,
-      desktopBrokersAllowedLoading: true
+      desktopBrokersAllowedLoading: true,
+      // venue id -> enabled. Absent keys are treated as enabled so a failed
+      // fetch leaves the sidebar at its full default list.
+      exchangeAvailability: {}
     }
   },
   computed: {
@@ -184,10 +187,10 @@ export default {
       return theme === 'dark' || theme === 'realdark'
     },
     availableBrokers () {
-      return BROKER_IDS.map(id => BROKER_META[id])
+      return BROKER_IDS.map(id => BROKER_META[id]).filter(b => this.exchangeAvailability[b.id] !== false)
     },
     cryptoProviders () {
-      return CRYPTO_PROVIDERS
+      return CRYPTO_PROVIDERS.filter(p => this.exchangeAvailability[p.id] !== false)
     },
     selectedBroker () {
       return BROKER_META[this.activeProvider] || null
@@ -207,7 +210,7 @@ export default {
     // /api/ibkr/status requests. On SaaS deployments those endpoints
     // intentionally return a long bilingual rejection message which used to
     // surface as a misleading toast/console error during the initial load.
-    await this.loadDesktopPolicy()
+    await Promise.all([this.loadDesktopPolicy(), this.loadExchangeAvailability()])
     this.refreshAll()
   },
   methods: {
@@ -251,6 +254,22 @@ export default {
           : []
       } catch (_) {
         this.cryptoCredentialItems = []
+      }
+    },
+    /**
+     * Venues the operator disabled in Settings › Exchanges are hidden from the
+     * sidebar. A failed request leaves the map empty, which the computed
+     * filters read as "everything enabled" — an unreachable endpoint should
+     * not empty the page.
+     */
+    async loadExchangeAvailability () {
+      const result = await fetchExchangeAvailability()
+      this.exchangeAvailability = (result && result.all) || {}
+      // The default selection may have just been filtered away.
+      if (this.selectedBroker && this.exchangeAvailability[this.selectedBroker.id] === false) {
+        const next = this.availableBrokers[0]
+        this.activeProvider = next ? next.id : 'crypto:' + (this.cryptoProviders[0] ? this.cryptoProviders[0].id : '')
+        this.activeBroker = next ? next.id : this.activeBroker
       }
     },
     async loadDesktopPolicy () {
