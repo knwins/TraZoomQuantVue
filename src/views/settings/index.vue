@@ -941,7 +941,7 @@ export default {
         {
           key: 'organization',
           title: this.tOr('settings.nav.organization', 'Organization'),
-          keys: ['billing', 'brand', 'contact', 'social', 'legal']
+          keys: ['billing', 'contact', 'social', 'legal']
         }
       ]
       const claimed = new Set()
