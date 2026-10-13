@@ -1,5 +1,5 @@
 <template>
-  <div :class="['basic-layout-wrapper', settings.theme, 'basic-layout-wrapper--multi-tab']">
+  <div :class="['basic-layout-wrapper', settings.theme, { 'basic-layout-wrapper--multi-tab': multiTabEnabled }]">
     <pro-layout
       :menus="menus"
       :collapsed="collapsed"
@@ -137,11 +137,11 @@
       <template #footerRender>
         <div style="display: none;"></div>
       </template>
-      <!-- Multi-tab is always on: the toggle was removed, so the tab bar and
-           the keep-alive route cache are no longer conditional. -->
-      <multi-tab />
+      <!-- Multi-tab is off by default. The settings toggle was removed, so this
+           constant is the single switch; flip it to bring the tab bar back. -->
+      <multi-tab v-if="multiTabEnabled" />
       <div class="basic-route-view-shell">
-        <route-view :key="refreshKey" :keep-alive="true" />
+        <route-view :key="refreshKey" :keep-alive="multiTabEnabled" />
       </div>
     </pro-layout>
 
@@ -260,6 +260,17 @@ import slogoImg from '@/assets/slogo.png'
 // heading. Point the env var at your own channel to replace it.
 const DEFAULT_TELEGRAM_URL = 'https://t.me/trazoom'
 
+// The multi-tab bar is hidden by default: navigating away from a page
+// discards its state, which is the expected behaviour for a top-menu
+// layout. Set to true to restore the tab bar and the keep-alive route
+// cache that goes with it.
+//
+// Note the class binding in the template must follow this flag — the
+// `basic-layout-wrapper--multi-tab` rules in BasicLayout.less reserve
+// vertical space for the tab bar, so leaving the class on while the bar
+// is hidden opens a blank strip above the content.
+const MULTI_TAB_ENABLED = false
+
 export default {
   name: 'BasicLayout',
   components: {
@@ -337,6 +348,9 @@ export default {
     },
     menuFooterConfig () {
       return this.brandConfig
+    },
+    multiTabEnabled () {
+      return MULTI_TAB_ENABLED
     },
     // Contact values, with Telegram falling back to the project channel.
     // The deployment ships with BRAND_CONTACT_TELEGRAM_URL empty, and the
