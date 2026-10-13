@@ -3795,7 +3795,7 @@ const locale = {
   "settings.group.auth": "Security & Authentication",
   "settings.group.legal": "Privacy & Terms",
   "settings.group.social": "Social Accounts",
-  "settings.group.contact": "Contact & Support",
+  "settings.group.contact": "Technical Support",
   "settings.group.brand": "Brand & Identity",
   "settings.group.ai": "AI / LLM",
   "settings.group.trading": "Live Trading",

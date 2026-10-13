@@ -4672,7 +4672,7 @@ const locale = {
   "settings.group.auth": "보안 및 인증",
   "settings.group.billing": "결제 설정",
   "settings.group.brand": "브랜드 및 정체성",
-  "settings.group.contact": "연락 및 지원",
+  "settings.group.contact": "기술 지원",
   "settings.group.data_source": "데이터 소스",
   "settings.group.email": "이메일 (SMTP)",
   "settings.group.legal": "개인정보 및 약관",

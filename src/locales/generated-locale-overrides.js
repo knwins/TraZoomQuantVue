@@ -2954,7 +2954,7 @@ const messages = {
     "result.success.step2-operator": "Zhou Maomao",
     "settings.field.PYTHON_API_PORT": "Port",
     "settings.field.SEARCH_GOOGLE_CX": "Google CX",
-    "settings.group.contact": "Contact & Support",
+    "settings.group.contact": "Technical Support",
     "settings.group.notification": "Notifications",
     "settings.group.sms": "SMS (Twilio)",
     "settings.market.sourceLabel.cryptoquant": "CryptoQuant",

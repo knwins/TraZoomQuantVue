@@ -4672,7 +4672,7 @@ const locale = {
   "settings.group.auth": "الأمان والمصادقة",
   "settings.group.billing": "إعدادات الفوترة والرصيد",
   "settings.group.brand": "العلامة التجارية والهوية",
-  "settings.group.contact": "تواصل والدعم",
+  "settings.group.contact": "الدعم الفني",
   "settings.group.data_source": "مصادر البيانات",
   "settings.group.email": "البريد الإلكتروني (SMTP)",
   "settings.group.legal": "الخصوصية والشروط",

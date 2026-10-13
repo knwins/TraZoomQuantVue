@@ -4718,7 +4718,7 @@ const locale = {
   "settings.group.auth": "安全認證",
   "settings.group.billing": "計費配置",
   "settings.group.brand": "品牌與標識",
-  "settings.group.contact": "聯絡方式與支援",
+  "settings.group.contact": "技術支援",
   "settings.group.data_source": "行情與宏觀數據源",
   "settings.group.email": "郵件配置",
   "settings.group.legal": "隐私与协议",

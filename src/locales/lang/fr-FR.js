@@ -4672,7 +4672,7 @@ const locale = {
   "settings.group.auth": "Sécurité et authentification",
   "settings.group.billing": "Facturation & Crédits",
   "settings.group.brand": "Marque & identité",
-  "settings.group.contact": "Contact & Support",
+  "settings.group.contact": "Technical Support",
   "settings.group.data_source": "Sources de données",
   "settings.group.email": " Courriel (SMTP)",
   "settings.group.legal": "Confidentialité & Conditions",

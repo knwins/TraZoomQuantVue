@@ -4672,7 +4672,7 @@ const locale = {
   "settings.group.auth": "Безопасность и аутентификация",
   "settings.group.billing": "Биллинг и кредиты",
   "settings.group.brand": "Бренд и идентичность",
-  "settings.group.contact": "Контакты и поддержка",
+  "settings.group.contact": "Техническая поддержка",
   "settings.group.data_source": "Рыночные и макроданные",
   "settings.group.email": "Электронная почта (SMTP)",
   "settings.group.legal": "Конфиденциальность и условия",

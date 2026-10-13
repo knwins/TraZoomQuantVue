@@ -4672,7 +4672,7 @@ const locale = {
   "settings.group.auth": "Xác thực bảo mật",
   "settings.group.billing": "Cấu hình thanh toán",
   "settings.group.brand": "Thương hiệu & Nhận diện",
-  "settings.group.contact": "Liên hệ & Hỗ trợ",
+  "settings.group.contact": "Hỗ trợ kỹ thuật",
   "settings.group.data_source": "Nguồn dữ liệu",
   "settings.group.email": "Cấu hình email (SMTP)",
   "settings.group.legal": "Quyền riêng tư & Điều khoản",

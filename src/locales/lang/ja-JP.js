@@ -4672,7 +4672,7 @@ const locale = {
   "settings.group.auth": "セキュリティ認証",
   "settings.group.billing": "課金設定",
   "settings.group.brand": "ブランドと識別",
-  "settings.group.contact": "連絡先とサポート",
+  "settings.group.contact": "技術サポート",
   "settings.group.data_source": "市場・マクロデータ",
   "settings.group.email": "メール設定",
   "settings.group.legal": "プライバシーと規約",
