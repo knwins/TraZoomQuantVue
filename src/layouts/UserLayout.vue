@@ -401,17 +401,20 @@ export default {
   }
 
   .access-heading {
-    margin-bottom: 20px;
+    // More air under the heading block than before (was 20px). At 30px the
+    // title needed the separation more than the description did.
+    margin-bottom: 28px;
   }
 
   .access-kicker {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: color-mix(in srgb, var(--login-accent, #0f9ea8) 72%, #171717);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    line-height: 1.4;
   }
 
   .access-heading h2 {
@@ -419,15 +422,20 @@ export default {
     color: #141414;
     font-size: 30px;
     font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.025em;
+    // 1.25 (37.5px) clipped descenders in CJK glyphs and let the two lines of
+    // the bilingual greeting sit on top of each other. 1.35 is the usual
+    // floor for Chinese display type.
+    line-height: 1.35;
+    letter-spacing: -0.02em;
   }
 
   .access-heading p {
-    margin: 9px 0 0;
+    // Was 9px — visually part of the title block. 12px separates it as its
+    // own line while staying tighter than the gap below the whole heading.
+    margin: 12px 0 0;
     color: #777;
     font-size: 14px;
-    line-height: 1.65;
+    line-height: 1.7;
   }
 
   .main-content {

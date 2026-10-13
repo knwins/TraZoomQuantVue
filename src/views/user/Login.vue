@@ -1837,10 +1837,14 @@ export default {
     .legal-agree {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      // Was 6px, which pressed the checkbox row against the rule above it.
+      gap: 10px;
       color: #61615d;
       font-size: 12px;
-      line-height: 1.65;
+      // 1.75 keeps two-line Chinese consent text from crowding; at 12px a
+      // wrapped "法律免责声明和 用户隐私条款" needs the extra leading or the
+      // second line touches the first.
+      line-height: 1.75;
 
       .ant-checkbox-wrapper {
         display: inline-flex;
@@ -2065,6 +2069,9 @@ export default {
       color: #8b8b87;
       font-size: 15px;
       font-weight: 600;
+      // Ant's default is 1.5, which crams two-character Chinese labels.
+      line-height: 1.6;
+      letter-spacing: 0.02em;
       text-align: center;
     }
 
@@ -2079,7 +2086,10 @@ export default {
     }
 
     ::v-deep .ant-form-item {
-      margin-bottom: 16px;
+      // Was 16px. With 46px inputs the old gap made the username and password
+      // fields read as one dense block; 18px separates them without breaking
+      // the card's compact rhythm.
+      margin-bottom: 18px;
     }
 
     ::v-deep .ant-input,
@@ -2091,6 +2101,11 @@ export default {
       background: #fbfbfa !important;
       border-color: #d8d8d4 !important;
       border-radius: 6px;
+      // At 46px tall with Ant's 1.5 line-height the text sat slightly high in
+      // the box. 1.6 centres it and gives Chinese input values room.
+      line-height: 1.6;
+      font-size: 15px;
+      letter-spacing: 0.01em;
     }
 
     ::v-deep .ant-input:hover,
@@ -2162,7 +2177,8 @@ export default {
       color: #fff;
       font-size: 15px;
       font-weight: 600;
-      letter-spacing: 0.01em;
+      line-height: 1.6;
+      letter-spacing: 0.04em;
       // Follow the accent. This used to be #171717 with the accent only on
       // hover, which left the primary action as the one element on the page
       // ignoring the chosen colour — the login card sat next to a teal
@@ -2211,12 +2227,15 @@ export default {
 
     a {
       flex: 1 1 0;
-      padding: 8px 12px;
+      padding: 9px 12px;
       color: #6b6b67;
       font-size: 14px;
       font-weight: 500;
-      line-height: 22px;
-      letter-spacing: 0.01em;
+      // 22px on 14px Chinese leaves the glyphs sitting tight in the pill;
+      // 24px is the standard CJK leading at this size and matches the pill's
+      // 18px vertical padding total.
+      line-height: 24px;
+      letter-spacing: 0.02em;
       text-align: center;
       border: 0;
       border-radius: 6px;
