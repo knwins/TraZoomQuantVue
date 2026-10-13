@@ -1,7 +1,7 @@
-<h1 align="center">QuantDinger 桌面端前端</h1>
+<h1 align="center">TrazoomQuant 桌面端前端</h1>
 
 <p align="center">
-  <strong>QuantDinger AI Trading OS 的桌面 Web 工作台。</strong><br/>
+  <strong>TrazoomQuant AI Trading OS 的桌面 Web 工作台。</strong><br/>
   在一个浏览器应用中完成行情研究、策略编写与校验、回测、虚拟或实盘运行以及平台管理。
 </p>
 
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/OpenByteInc/QuantDinger"><img src="https://img.shields.io/badge/Main_Repo-QuantDinger-blue?logo=github" alt="主仓库" /></a>
+  <a href="https://github.com/knwins/TraZoomQuantVue"><img src="https://img.shields.io/badge/Repo-knwins%2FTraZoomQuantVue-blue?logo=github" alt="本仓库" /></a>
   <img src="https://img.shields.io/badge/Vue-2.7-4FC08D?logo=vue.js" alt="Vue 2.7" />
   <img src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite" alt="Vite 5" />
   <img src="https://img.shields.io/badge/UI-Ant_Design_Vue-1890ff?logo=ant-design" alt="Ant Design Vue" />
@@ -22,14 +22,14 @@
 
 ## 仓库范围
 
-本仓库包含 [QuantDinger](https://github.com/OpenByteInc/QuantDinger) 的 Vue 桌面端前端源码。QuantDinger 是 **Open Byte Inc** 的产品。本仓库只负责浏览器客户端；后端 API、Worker、数据库、Docker Compose、迁移和运维文档位于主仓库。
+本仓库包含 TrazoomQuant 的 Vue 桌面端前端源码，是上游 **Open Byte Inc** 的 [QuantDinger](https://github.com/OpenByteInc/QuantDinger) 前端的私有 fork，不对外分发，也不接受外部贡献。本仓库只负责浏览器客户端；后端 API、Worker、数据库、Docker Compose、迁移和运维文档位于主仓库。
 
 安装或运行完整系统时，请使用：
 
-- [QuantDinger 主仓库](https://github.com/OpenByteInc/QuantDinger)
-- [部署与运维文档](https://github.com/OpenByteInc/QuantDinger/tree/main/docs)
+- [上游项目](https://github.com/OpenByteInc/QuantDinger)
+- [部署与运维文档](https://github.com/knwins/TrazoomQuant/tree/main/docs)
 
-前端需要配套版本的 QuantDinger 后端。单独运行本仓库只能提供 UI 外壳和本地 Mock 能力；行情研究、策略、计费和交易等工作流需要后端 API。
+前端需要配套版本的 TrazoomQuant 后端。单独运行本仓库只能提供 UI 外壳和本地 Mock 能力；行情研究、策略、计费和交易等工作流需要后端 API。
 
 ## 当前产品能力
 
@@ -75,8 +75,8 @@
 ```text
 浏览器
   └── Vue 2.7 单页应用
-        ├── /api/* ── Vite 代理（开发环境）── QuantDinger 后端
-        ├── /api/* ── Nginx 代理（容器环境）── QuantDinger 后端
+        ├── /api/* ── Vite 代理（开发环境）── TrazoomQuant 后端
+        ├── /api/* ── Nginx 代理（容器环境）── TrazoomQuant 后端
         ├── CodeMirror 策略与指标编辑器
         ├── ECharts 与 KLineCharts 图表
         └── Pyodide Worker，执行受支持的浏览器端 Python 任务
@@ -93,13 +93,13 @@
 Linux 或 macOS：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/OpenByteInc/QuantDinger/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/knwins/TrazoomQuant/main/install.sh | bash
 ```
 
 Windows PowerShell：
 
 ```powershell
-irm https://raw.githubusercontent.com/OpenByteInc/QuantDinger/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/knwins/TrazoomQuant/main/install.ps1 | iex
 ```
 
 桌面端默认地址：
@@ -113,8 +113,8 @@ http://localhost:8888
 ### 使用已发布的 Compose 文件
 
 ```bash
-curl -O https://raw.githubusercontent.com/OpenByteInc/QuantDinger/main/docker-compose.ghcr.yml
-curl -o backend.env https://raw.githubusercontent.com/OpenByteInc/QuantDinger/main/backend_api_python/env.example
+curl -O https://raw.githubusercontent.com/knwins/TrazoomQuant/main/docker-compose.ghcr.yml
+curl -o backend.env https://raw.githubusercontent.com/knwins/TrazoomQuant/main/backend_api_python/env.example
 # 对外开放前，请检查并修改 backend.env。
 docker compose -f docker-compose.ghcr.yml pull
 docker compose -f docker-compose.ghcr.yml up -d
@@ -158,15 +158,15 @@ docker run -d --name quantdinger-frontend \
 |------|------|
 | Node.js | Node 18 或更高版本，推荐 Node 22 LTS |
 | pnpm | 通过 Corepack 使用 pnpm 10.x；准确版本已固定在 `package.json` |
-| 后端 | 默认通过 `http://127.0.0.1:5000` 访问 QuantDinger API，也可以修改代理目标 |
+| 后端 | 默认通过 `http://127.0.0.1:5000` 访问 TrazoomQuant API，也可以修改代理目标 |
 
 请使用 `pnpm` 和仓库中的 `pnpm-lock.yaml`。`package-lock.json` 已被有意忽略。
 
 ### 安装并启动
 
 ```bash
-git clone https://github.com/OpenByteInc/QuantDinger-Vue.git
-cd QuantDinger-Vue
+git clone https://github.com/knwins/TraZoomQuantVue.git
+cd TraZoomQuantVue
 corepack enable
 pnpm install --frozen-lockfile
 pnpm run dev
@@ -268,7 +268,7 @@ pnpm run i18n:audit
 ## 目录结构
 
 ```text
-QuantDinger-Vue/
+TraZoomQuantVue/
 ├── .github/workflows/       # 正式版本和 GHCR 镜像发布流程
 ├── deploy/                  # Nginx 与 Caddy 部署配置
 ├── public/                  # 静态资源、地图、robots.txt 和 HTML 外壳
@@ -330,18 +330,20 @@ QuantDinger-Vue/
 
 | 仓库 | 作用 |
 |------|------|
-| [QuantDinger](https://github.com/OpenByteInc/QuantDinger) | 后端、Worker、Docker Compose、数据库与运维文档 |
-| **QuantDinger-Vue** | 本仓库：桌面 Web 前端 |
-| [QuantDinger-Mobile](https://github.com/OpenByteInc/QuantDinger-Mobile) | 手机端与 H5 前端 |
+| [TrazoomQuant](https://github.com/knwins/TrazoomQuant) | 后端、Worker、Docker Compose、数据库与运维文档 |
+| **TraZoomQuantVue** | 本仓库：桌面 Web 前端 |
+| 上游前端 | 原发布为 `OpenByteInc/QuantDinger-Vue`，本仓库为其私有 fork |
 
 ## 许可协议
 
-本仓库使用 **QuantDinger Frontend Source-Available License v1.0**。分发、修改或商业使用前，请阅读 [`LICENSE`](./LICENSE)。
+本仓库是 Open Byte Inc 前端的私有 fork，仍受 **QuantDinger Frontend Source-Available License v1.0** 约束。使用前请完整阅读 [`LICENSE`](./LICENSE)。
 
-符合条款的非商业用途和合格非营利用途可以使用；商业用途需要取得 **Open Byte Inc** 的书面授权。请保留版权声明、许可文件以及协议要求的 QuantDinger 品牌署名。
+要点：非商业用途与合格非营利用途可免费使用；**任何商业用途都需要取得 Open Byte Inc 的单独书面授权**；必须保留版权声明、许可文件与协议要求的上游署名。本 fork 仅用于内部非商业部署。
 
 ## 联系方式
 
-- 官网：[quantdinger.com](https://quantdinger.com)
-- Telegram：[t.me/worldinbroker](https://t.me/worldinbroker)
-- 邮箱：[support@quantdinger.com](mailto:support@quantdinger.com)
+以下渠道属于上游项目（**Open Byte Inc**），其持有本前端的著作权与商业授权。此处列出是为满足协议的署名要求——本 fork 不运营这些渠道，也无法代其受理事务。
+
+- 上游官网：[quantdinger.com](https://quantdinger.com)
+- 上游 Telegram：[t.me/worldinbroker](https://t.me/worldinbroker)
+- 上游授权邮箱：[support@quantdinger.com](mailto:support@quantdinger.com)

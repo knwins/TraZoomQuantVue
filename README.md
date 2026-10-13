@@ -1,7 +1,7 @@
-<h1 align="center">QuantDinger Web Frontend</h1>
+<h1 align="center">TrazoomQuant Web Frontend</h1>
 
 <p align="center">
-  <strong>The desktop web workspace for QuantDinger, an AI Trading OS.</strong><br/>
+  <strong>The desktop web workspace for TrazoomQuant, an AI Trading OS.</strong><br/>
   Research markets, build and validate strategies, run backtests, operate virtual or live deployments, and administer the platform from one browser application.
 </p>
 
@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/OpenByteInc/QuantDinger"><img src="https://img.shields.io/badge/Main_Repo-QuantDinger-blue?logo=github" alt="Main repository" /></a>
+  <a href="https://github.com/knwins/TraZoomQuantVue"><img src="https://img.shields.io/badge/Repo-knwins%2FTraZoomQuantVue-blue?logo=github" alt="This repository" /></a>
   <img src="https://img.shields.io/badge/Vue-2.7-4FC08D?logo=vue.js" alt="Vue 2.7" />
   <img src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite" alt="Vite 5" />
   <img src="https://img.shields.io/badge/UI-Ant_Design_Vue-1890ff?logo=ant-design" alt="Ant Design Vue" />
@@ -22,14 +22,16 @@
 
 ## Repository scope
 
-This repository contains the Vue desktop frontend for [QuantDinger](https://github.com/OpenByteInc/QuantDinger), a product of **Open Byte Inc**. It is the browser client only. Backend APIs, workers, databases, Docker Compose definitions, migrations, and operational documentation live in the main repository.
+This repository contains the Vue desktop frontend for TrazoomQuant, a private community fork of
+[QuantDinger](https://github.com/OpenByteInc/QuantDinger) by **Open Byte Inc**. It is not publicly
+distributed and does not accept outside contributions. It is the browser client only. Backend APIs, workers, databases, Docker Compose definitions, migrations, and operational documentation live in the main repository.
 
 Use the main repository when you want to install or operate the complete platform:
 
-- [QuantDinger main repository](https://github.com/OpenByteInc/QuantDinger)
+- [Upstream project](https://github.com/OpenByteInc/QuantDinger)
 - [Deployment and operations documentation](https://github.com/OpenByteInc/QuantDinger/tree/main/docs)
 
-The frontend expects a compatible QuantDinger backend. Running this repository by itself provides the UI shell and local mock support, but backend-powered research, strategy, billing, and trading workflows require the API service.
+The frontend expects a compatible TrazoomQuant backend. Running this repository by itself provides the UI shell and local mock support, but backend-powered research, strategy, billing, and trading workflows require the API service.
 
 ## Current product areas
 
@@ -75,8 +77,8 @@ The frontend expects a compatible QuantDinger backend. Running this repository b
 ```text
 Browser
   └── Vue 2.7 single-page application
-        ├── /api/* ── Vite proxy (development) ── QuantDinger backend
-        ├── /api/* ── Nginx proxy (container) ─── QuantDinger backend
+        ├── /api/* ── Vite proxy (development) ── TrazoomQuant backend
+        ├── /api/* ── Nginx proxy (container) ─── TrazoomQuant backend
         ├── CodeMirror strategy and indicator editors
         ├── ECharts and KLineCharts visualizations
         └── Pyodide worker for supported browser-side Python tasks
@@ -86,20 +88,20 @@ The application uses hash-based Vue Router routes. Production containers serve s
 
 ## Production deployment
 
-Most users should deploy the full stack from the main repository. A production installation does not require Node.js or a checkout of this frontend repository when it uses the published image.
+Deploy the full stack from the backend repository that pairs with this frontend. A production installation does not require Node.js or a checkout of this frontend repository when it uses the published image.
 
 ### Install the full stack
 
 Linux or macOS:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/OpenByteInc/QuantDinger/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/knwins/TrazoomQuant/main/install.sh | bash
 ```
 
 Windows PowerShell:
 
 ```powershell
-irm https://raw.githubusercontent.com/OpenByteInc/QuantDinger/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/knwins/TrazoomQuant/main/install.ps1 | iex
 ```
 
 The default desktop URL is:
@@ -108,13 +110,13 @@ The default desktop URL is:
 http://localhost:8888
 ```
 
-The port can be changed through `FRONTEND_PORT` in the main repository environment configuration.
+The port can be changed through `FRONTEND_PORT` in the backend repository environment configuration.
 
-### Start from the published Compose file
+### Start from the backend Compose file
 
 ```bash
-curl -O https://raw.githubusercontent.com/OpenByteInc/QuantDinger/main/docker-compose.ghcr.yml
-curl -o backend.env https://raw.githubusercontent.com/OpenByteInc/QuantDinger/main/backend_api_python/env.example
+curl -O https://raw.githubusercontent.com/knwins/TrazoomQuant/main/docker-compose.ghcr.yml
+curl -o backend.env https://raw.githubusercontent.com/knwins/TrazoomQuant/main/backend_api_python/env.example
 # Review backend.env before exposing the deployment publicly.
 docker compose -f docker-compose.ghcr.yml pull
 docker compose -f docker-compose.ghcr.yml up -d
@@ -158,15 +160,15 @@ A release tag publishes semantic-version aliases and `latest`. A manual run publ
 |------|-------------|
 | Node.js | Node 18 or newer; Node 22 LTS is recommended |
 | pnpm | 10.x through Corepack; the exact version is pinned in `package.json` |
-| Backend | QuantDinger API at `http://127.0.0.1:5000`, unless the proxy target is overridden |
+| Backend | TrazoomQuant API at `http://127.0.0.1:5000`, unless the proxy target is overridden |
 
 Use `pnpm` with the committed `pnpm-lock.yaml`. `package-lock.json` is intentionally ignored.
 
 ### Install and start
 
 ```bash
-git clone https://github.com/OpenByteInc/QuantDinger-Vue.git
-cd QuantDinger-Vue
+git clone https://github.com/knwins/TraZoomQuantVue.git
+cd TraZoomQuantVue
 corepack enable
 pnpm install --frozen-lockfile
 pnpm run dev
@@ -268,7 +270,7 @@ The `lint` and `lint:css` commands modify files. Use their non-fixing equivalent
 ## Project structure
 
 ```text
-QuantDinger-Vue/
+TraZoomQuantVue/
 ├── .github/workflows/       # Tagged release and GHCR image workflow
 ├── deploy/                  # Nginx and Caddy deployment configuration
 ├── public/                  # Static assets, maps, robots.txt, and HTML shell
@@ -330,18 +332,22 @@ QuantDinger-Vue/
 
 | Repository | Role |
 |------------|------|
-| [QuantDinger](https://github.com/OpenByteInc/QuantDinger) | Backend, workers, Docker Compose, databases, and operational documentation |
-| **QuantDinger-Vue** | This repository: desktop web frontend |
-| [QuantDinger-Mobile](https://github.com/OpenByteInc/QuantDinger-Mobile) | Mobile and H5 frontend |
+| [TrazoomQuant](https://github.com/knwins/TrazoomQuant) | Backend, workers, Docker Compose, databases, and operational documentation |
+| **TraZoomQuantVue** | This repository: desktop web frontend |
+| Upstream frontend | Originally published as `OpenByteInc/QuantDinger-Vue`; this repository is its private fork |
 
 ## License
 
-This repository is released under the **QuantDinger Frontend Source-Available License v1.0**. Read [`LICENSE`](./LICENSE) before distributing, modifying, or using the software commercially.
+This repository is a private fork of the frontend originally published by Open Byte Inc and remains subject to the **QuantDinger Frontend Source-Available License v1.0**. Read [`LICENSE`](./LICENSE) in full before any use.
 
-Qualified non-commercial and non-profit use is allowed under the license conditions. Commercial use requires a separate written agreement with **Open Byte Inc**. Preserve copyright notices, the license file, and required QuantDinger attribution.
+In short: non-commercial and qualified non-profit use is allowed under the license conditions; **any commercial use requires a separate written agreement with Open Byte Inc**; and the copyright notice, the license file, and required upstream attribution must be preserved. This fork is used for internal, non-commercial deployment only.
 
 ## Contact
 
-- Website: [quantdinger.com](https://quantdinger.com)
-- Telegram: [t.me/worldinbroker](https://t.me/worldinbroker)
-- Email: [support@quantdinger.com](mailto:support@quantdinger.com)
+The channels below belong to the upstream project (**Open Byte Inc**), which holds the
+copyright and the commercial license for this frontend. They are listed here because the
+license requires attribution — this fork does not operate them and cannot act on their behalf.
+
+- Upstream website: [quantdinger.com](https://quantdinger.com)
+- Upstream Telegram: [t.me/worldinbroker](https://t.me/worldinbroker)
+- Upstream licensing email: [support@quantdinger.com](mailto:support@quantdinger.com)
