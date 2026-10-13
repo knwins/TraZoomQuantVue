@@ -258,7 +258,7 @@ import slogoImg from '@/assets/slogo.png'
 // Shown in the settings drawer's "Get Support" row when the deployment has no
 // BRAND_CONTACT_TELEGRAM_URL configured, so the row never renders as a bare
 // heading. Point the env var at your own channel to replace it.
-const DEFAULT_TELEGRAM_URL = 'https://t.me/trazoomquant'
+const DEFAULT_TELEGRAM_URL = 'https://t.me/trazoom'
 
 export default {
   name: 'BasicLayout',
