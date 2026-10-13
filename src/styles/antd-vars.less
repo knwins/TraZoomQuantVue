@@ -1,5 +1,12 @@
 @ant-prefix: ant;
-@primary-color: #1890ff;
+// Build-time accent. Matches the first swatch of the settings drawer's
+// palette and the runtime default in src/config/defaultSettings.js.
+//
+// This only affects what LESS can resolve at compile time. Anything the
+// operator can recolour at runtime must use var(--primary-color) instead —
+// see the note on .ant-btn-primary in src/qd-layout-dark-override.less for a
+// case where the two disagreeing showed up as dark text on a coloured button.
+@primary-color: #0f9ea8;
 @layout-header-height: 64px;
 @screen-xs: 480px;
 @zindex-modal-mask: 1000;

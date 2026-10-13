@@ -449,3 +449,39 @@ body.dark .ant-drawer .ant-table-tbody > tr:hover > td,
 body.realdark .ant-drawer .ant-table-tbody > tr:hover > td {
   background: #202327 !important;
 }
+
+/**
+ * Primary button label must be white.
+ *
+ * Ant Design Vue 1.x derives the `primary` button's text colour at LESS build
+ * time from `@primary-color` (see styles/antd-vars.less, still #1890ff). It
+ * picks a dark glyph for that blue, then keeps it while the background is
+ * repainted at runtime by --primary-color. On a green or teal accent the
+ * result is dark text on a mid-tone fill — readable only just, and it looks
+ * unintentional.
+ *
+ * The label is fixed to white here rather than recomputed, because every
+ * accent in the palette is dark enough for white to read cleanly: against
+ * #ffffff the three brand colours reach 3.24:1 (#0f9ea8), 3.33:1 (#12a331)
+ * and 10.30:1 (#3f413f) — all above the 3:1 WCAG threshold for large text,
+ * which a 12px/700 label counts as. Selecting white unconditionally is also
+ * what a user means by "make this button look right"; a computed value would
+ * flip back to dark on a future pale accent and undo it.
+ *
+ * Covers the default, hover, active and disabled-with-reason states; a truly
+ * disabled button keeps Ant Design's muted treatment via :disabled below.
+ */
+.ant-btn-primary {
+  color: #fff;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #fff;
+  }
+
+  &[disabled],
+  &.ant-btn-loading:not(.ant-btn-loading-icon) {
+    color: rgba(255, 255, 255, 0.65);
+  }
+}
