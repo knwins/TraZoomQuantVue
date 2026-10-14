@@ -48,6 +48,9 @@ const DEFAULT_BRAND = {
     telegram_url: ''
   },
   social_accounts: [],
+  // Exchange referral links for the "Open Account" modal. Empty by default —
+  // mirrors the backend defaults in app/services/settings/branding.py.
+  exchange_signup_urls: {},
   legal: {
     user_agreement_url: '',
     user_agreement_text: '',
@@ -166,6 +169,10 @@ const brand = {
             contact: { ...DEFAULT_BRAND.contact, ...(res.data.contact || {}) },
             legal: { ...DEFAULT_BRAND.legal, ...(res.data.legal || {}) },
             mobile_app: { ...DEFAULT_BRAND.mobile_app, ...(res.data.mobile_app || {}) },
+            exchange_signup_urls: {
+              ...DEFAULT_BRAND.exchange_signup_urls,
+              ...(res.data.exchange_signup_urls || {})
+            },
             social_accounts: Array.isArray(res.data.social_accounts)
               ? res.data.social_accounts
               : DEFAULT_BRAND.social_accounts

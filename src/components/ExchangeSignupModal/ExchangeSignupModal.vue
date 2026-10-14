@@ -57,6 +57,7 @@
 
 <script>
 import { CRYPTO_SIGNUP_CARDS } from '@/constants/exchangeSignupCards'
+import { mapState } from 'vuex'
 
 export default {
   name: 'ExchangeSignupModal',
@@ -64,15 +65,31 @@ export default {
     visible: { type: Boolean, default: false },
     isDarkTheme: { type: Boolean, default: false }
   },
-  data () {
-    return {
-      cryptoCards: CRYPTO_SIGNUP_CARDS
-    }
-  },
   computed: {
+    ...mapState('brand', ['config']),
+    // Referral links come from deployment configuration (EXCHANGE_SIGNUP_* /
+    // admin Settings page) via brand-config. A card without a configured URL
+    // renders a disabled button instead of silently routing users to a
+    // third-party referral link.
+    cryptoCards () {
+      const urls = (this.config && this.config.exchange_signup_urls) || {}
+      return CRYPTO_SIGNUP_CARDS.map(card => ({
+        ...card,
+        signupUrl: urls[card.id] || ''
+      }))
+    },
     modalWrapClass () {
       const base = 'profile-exchange-modal'
       return this.isDarkTheme ? `${base} ${base}--dark` : base
+    }
+  },
+  watch: {
+    visible (val) {
+      if (val) {
+        // Ensure the links reflect the latest deployment config; the store
+        // action is a no-op when the config is already loaded.
+        this.$store.dispatch('LoadBrandConfig')
+      }
     }
   },
   methods: {
