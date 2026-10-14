@@ -123,7 +123,7 @@ docker compose -f docker-compose.ghcr.yml up -d
 前端镜像：
 
 ```text
-ghcr.io/openbyteinc/quantdinger-frontend
+ghcr.io/knwins/trazoomquant-frontend
 ```
 
 正式发布会生成完整语义化版本标签、主次版本别名以及 `latest`。使用 `IMAGE_TAG` 固定整套系统版本；只需要单独指定前端版本时，使用 `FRONTEND_TAG`。
@@ -133,10 +133,10 @@ ghcr.io/openbyteinc/quantdinger-frontend
 只应在已经有兼容后端时使用：
 
 ```bash
-docker run -d --name quantdinger-frontend \
+docker run -d --name trazoomquant-frontend \
   -p 8888:80 \
   -e BACKEND_URL=http://host.docker.internal:5000 \
-  ghcr.io/openbyteinc/quantdinger-frontend:latest
+  ghcr.io/knwins/trazoomquant-frontend:latest
 ```
 
 容器启动时读取 `BACKEND_URL`，并用它配置 Nginx 的 `/api/` 代理。完整 Compose 中通常保持为 `http://backend:5000`。
@@ -228,17 +228,17 @@ pnpm run preview
 从源码构建完整本地镜像：
 
 ```bash
-docker build -t quantdinger-frontend:local .
+docker build -t trazoomquant-frontend:local .
 docker run --rm -p 8888:80 \
   -e BACKEND_URL=http://host.docker.internal:5000 \
-  quantdinger-frontend:local
+  trazoomquant-frontend:local
 ```
 
 如果已经生成 `dist/`，并希望跳过 Node Builder 镜像：
 
 ```bash
 pnpm run build
-docker build -f Dockerfile.prebuilt -t quantdinger-frontend:local .
+docker build -f Dockerfile.prebuilt -t trazoomquant-frontend:local .
 ```
 
 ## 质量检查

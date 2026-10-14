@@ -29,7 +29,7 @@ distributed and does not accept outside contributions. It is the browser client 
 Use the main repository when you want to install or operate the complete platform:
 
 - [Upstream project](https://github.com/OpenByteInc/QuantDinger)
-- [Deployment and operations documentation](https://github.com/OpenByteInc/QuantDinger/tree/main/docs)
+- [Deployment and operations documentation](https://github.com/knwins/TrazoomQuant/tree/main/docs)
 
 The frontend expects a compatible TrazoomQuant backend. Running this repository by itself provides the UI shell and local mock support, but backend-powered research, strategy, billing, and trading workflows require the API service.
 
@@ -125,7 +125,7 @@ docker compose -f docker-compose.ghcr.yml up -d
 Published frontend image:
 
 ```text
-ghcr.io/openbyteinc/quantdinger-frontend
+ghcr.io/knwins/trazoomquant-frontend
 ```
 
 Release tags include the full semantic version, major/minor aliases, and `latest`. Pin the complete stack with `IMAGE_TAG`, or set `FRONTEND_TAG` when only the frontend should use a different image tag.
@@ -135,10 +135,10 @@ Release tags include the full semantic version, major/minor aliases, and `latest
 Use this only when a compatible backend is already available:
 
 ```bash
-docker run -d --name quantdinger-frontend \
+docker run -d --name trazoomquant-frontend \
   -p 8888:80 \
   -e BACKEND_URL=http://host.docker.internal:5000 \
-  ghcr.io/openbyteinc/quantdinger-frontend:latest
+  ghcr.io/knwins/trazoomquant-frontend:latest
 ```
 
 `BACKEND_URL` is read at container startup and controls the Nginx `/api/` proxy. In the full Compose stack it normally remains `http://backend:5000`.
@@ -230,17 +230,17 @@ pnpm run preview
 Build a complete local image from source:
 
 ```bash
-docker build -t quantdinger-frontend:local .
+docker build -t trazoomquant-frontend:local .
 docker run --rm -p 8888:80 \
   -e BACKEND_URL=http://host.docker.internal:5000 \
-  quantdinger-frontend:local
+  trazoomquant-frontend:local
 ```
 
 If `dist/` already exists and pulling a Node builder image is undesirable:
 
 ```bash
 pnpm run build
-docker build -f Dockerfile.prebuilt -t quantdinger-frontend:local .
+docker build -f Dockerfile.prebuilt -t trazoomquant-frontend:local .
 ```
 
 ## Quality checks
