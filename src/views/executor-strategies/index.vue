@@ -1399,7 +1399,7 @@ export default {
 
 <style lang="less" scoped>
 .executor-page {
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 80px);
   padding: 16px 20px;
   background: #f4f6f8;
   color: #1f2933;
@@ -1474,7 +1474,7 @@ export default {
 }
 
 .is-embedded .executor-workbench {
-  height: calc(100% - 64px);
+  height: calc(100% - 80px);
   grid-template-rows: auto minmax(0, 1fr);
   align-items: stretch;
 }

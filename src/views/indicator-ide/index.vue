@@ -4130,9 +4130,9 @@ export default {
 .indicator-ide {
   display: flex;
   flex-direction: column;
-  height: var(--ide-shell-height, calc(100vh - 64px));
+  height: var(--ide-shell-height, calc(100vh - 80px));
   min-height: 0;
-  max-height: var(--ide-shell-height, calc(100vh - 64px));
+  max-height: var(--ide-shell-height, calc(100vh - 80px));
   width: 100%;
   padding: 0;
   overflow: hidden;

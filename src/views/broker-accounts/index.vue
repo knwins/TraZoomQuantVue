@@ -431,7 +431,7 @@ export default {
 
 <style lang="less" scoped>
 .broker-accounts {
-  height: calc(100vh - 64px);
+  height: calc(100vh - 80px);
   min-height: 660px;
   padding: 24px 28px 28px !important;
   display: flex;
@@ -763,7 +763,7 @@ export default {
 @media (max-width: 1080px) {
   .broker-accounts {
     height: auto;
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - 80px);
     overflow: visible;
   }
 

@@ -1,3 +1,5 @@
+@import '@/styles/antd-vars.less';
+
 /* Shared product chrome. Page behavior stays in the existing views. */
 
 body {
@@ -112,7 +114,7 @@ body.dark .ant-pro-top-nav-header-logo,
 body.realdark .ant-pro-top-nav-header-logo {
   display: flex !important;
   align-items: center !important;
-  height: 64px !important;
+  height: @layout-header-height !important;
   padding: 0 8px 0 16px !important;
   border-right: 0 !important;
   background: inherit !important;
@@ -120,7 +122,7 @@ body.realdark .ant-pro-top-nav-header-logo {
 
 .basic-layout-wrapper .ant-menu-horizontal {
   border-bottom: 0 !important;
-  line-height: 64px !important;
+  line-height: @layout-header-height !important;
 }
 
 body.light .basic-layout-wrapper .ant-menu-horizontal {
@@ -138,21 +140,21 @@ body.realdark .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal
 .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item,
 .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu {
   top: 0 !important;
-  height: 64px !important;
+  height: @layout-header-height !important;
   margin: 0 4px !important;
   padding: 0 14px !important;
   border-bottom: 2px solid transparent !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
-  line-height: 64px !important;
+  line-height: @layout-header-height !important;
 }
 
 .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item > a,
 .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title {
-  height: 64px !important;
+  height: @layout-header-height !important;
   padding: 0 !important;
-  line-height: 64px !important;
+  line-height: @layout-header-height !important;
   font-size: 14px !important;
 }
 
@@ -205,7 +207,7 @@ body.realdark .layout-top-actions {
   align-items: center !important;
   flex: 0 0 auto !important;
   gap: 8px !important;
-  height: 64px !important;
+  height: @layout-header-height !important;
   margin-left: auto !important;
   padding-right: 14px !important;
   overflow: visible !important;

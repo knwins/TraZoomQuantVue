@@ -2766,7 +2766,7 @@ export default {
 <style lang="less" scoped>
 .strategy-ide-shell {
   box-sizing: border-box;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 80px);
   padding: 10px;
   color: #252a34;
   background: #f4f5f7;
@@ -3403,7 +3403,7 @@ export default {
 @media (max-width: 768px) {
   .strategy-ide-shell {
     height: auto;
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - 80px);
     overflow: auto;
   }
 

@@ -151,12 +151,13 @@ export default {
 </script>
 
 <style lang="less">
+@import '@/styles/antd-vars.less';
 .qd-account-trigger {
   display: inline-flex !important;
   align-items: center !important;
   gap: 10px;
   min-width: 0;
-  height: 64px !important;
+  height: @layout-header-height !important;
   margin-right: 8px;
   padding: 0 4px !important;
   line-height: normal !important;

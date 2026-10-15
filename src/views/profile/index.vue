@@ -11,9 +11,30 @@
     <div class="profile-overview-grid">
       <a-card :bordered="false" class="profile-card">
         <div class="profile-identity">
-          <a-avatar :size="72" :class="{'default-avatar': !profile.avatar}" :src="profile.avatar || '/avatar.jpg'" />
+          <div class="avatar-editor">
+            <a-upload
+              name="avatar"
+              accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+              :show-upload-list="false"
+              :before-upload="beforeAvatarUpload"
+              :custom-request="handleAvatarUpload"
+              :disabled="avatarUploading"
+            >
+              <div class="avatar-hitbox" :class="{ uploading: avatarUploading }">
+                <a-avatar
+                  :size="96"
+                  :class="{'default-avatar': !profile.avatar}"
+                  :src="profile.avatar || '/avatar.jpg'"
+                />
+                <div class="avatar-overlay">
+                  <a-icon :type="avatarUploading ? 'loading' : 'camera'" />
+                  <span>{{ $t('profile.changeAvatar') || 'Change avatar' }}</span>
+                </div>
+              </div>
+            </a-upload>
+          </div>
           <div class="profile-identity-copy">
-            <h3 class="username">{{ profile.nickname || profile.username }}</h3>
+            <h3 class="username">{{ profileDisplayName }}</h3>
             <div class="user-role">
               <a-tag :color="getRoleColor(profile.role)">
                 {{ getRoleLabel(profile.role) }}
@@ -37,12 +58,7 @@
           <div class="info-item">
             <a-icon type="user" />
             <span class="label">{{ $t('profile.username') || 'Username' }}</span>
-            <span class="value">{{ profile.username }}</span>
-          </div>
-          <div class="info-item">
-            <a-icon type="mail" />
-            <span class="label">{{ $t('profile.email') || 'Email' }}</span>
-            <span class="value">{{ profile.email || '-' }}</span>
+            <span class="value">{{ profile.username || profile.email || '-' }}</span>
           </div>
           <div class="info-item">
             <a-icon type="calendar" />
@@ -187,25 +203,13 @@
           <a-tab-pane key="basic">
             <span slot="tab"><a-icon type="idcard" />{{ $t('profile.basicInfo') || 'Basic Info' }}</span>
             <a-form :form="profileForm" layout="vertical" class="profile-form">
-              <a-form-item :label="$t('profile.nickname') || 'Nickname'">
+              <a-form-item :label="$t('profile.username') || 'Username'">
                 <a-input
-                  :value="profile.nickname || '-'"
+                  :value="profile.username || profile.email || '-'"
                   disabled
                 >
-                  <a-icon slot="prefix" type="smile" />
-                  <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Managed by the account center and shown here only'">
-                    <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
-                  </a-tooltip>
-                </a-input>
-              </a-form-item>
-
-              <a-form-item :label="$t('profile.email') || 'Email'">
-                <a-input
-                  :value="profile.email || '-'"
-                  disabled
-                >
-                  <a-icon slot="prefix" type="mail" />
-                  <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Managed by the account center and shown here only'">
+                  <a-icon slot="prefix" type="user" />
+                  <a-tooltip slot="suffix" :title="$t('profile.usernameFromAccount') || 'Username is your account-center email and cannot be changed here'">
                     <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
                   </a-tooltip>
                 </a-input>
@@ -214,7 +218,7 @@
               <div class="account-center-hint">
                 <div class="account-center-hint-copy">
                   <strong>{{ $t('profile.accountCenter.title') || 'Account center' }}</strong>
-                  <span>{{ $t('profile.accountCenter.hint') || 'Password, email, and MFA are managed in the account center.' }}</span>
+                  <span>{{ $t('profile.accountCenter.hint') || 'Password, email, nickname, and MFA are managed in the account center.' }}</span>
                 </div>
                 <a-button icon="link" @click="openAccountCenter">
                   {{ $t('profile.accountCenter.open') || 'Open account center' }}
@@ -621,7 +625,7 @@
 </template>
 
 <script>
-import { getProfile, updateProfile, getLoginLogs, getMyCreditsLog, getMyReferrals, getNotificationSettings, updateNotificationSettings, testNotificationSettings } from '@/api/user'
+import { getProfile, updateProfile, uploadProfileAvatar, getLoginLogs, getMyCreditsLog, getMyReferrals, getNotificationSettings, updateNotificationSettings, testNotificationSettings } from '@/api/user'
 import { createReferralWithdrawal, getReferralRewards } from '@/api/billing'
 import { getSettingsValues, getPublicSettingsConfig } from '@/api/settings'
 import { baseMixin } from '@/store/app-mixin'
@@ -641,6 +645,7 @@ export default {
     return {
       loading: false,
       saving: false,
+      avatarUploading: false,
       activeTab: 'basic',
       profileViewportWidth: 1280,
       profile: {
@@ -750,6 +755,11 @@ export default {
     },
     isDarkTheme () {
       return this.navTheme === 'dark' || this.navTheme === 'realdark'
+    },
+    profileDisplayName () {
+      // Display name is owned by the account center (synced into nickname on login).
+      // Username itself is the account email.
+      return this.profile.nickname || this.profile.username || this.profile.email || '-'
     },
     isVip () {
       if (!this.billing.vip_expires_at) return false
@@ -1073,6 +1083,42 @@ export default {
       const url = String(this.accountCenterUrl || 'https://accounts.trazoom.com').trim()
       if (!url) return
       window.open(url, '_blank', 'noopener,noreferrer')
+    },
+
+    beforeAvatarUpload (file) {
+      const allowed = ['image/jpeg', 'image/png', 'image/webp']
+      if (!allowed.includes(file.type)) {
+        this.$message.error(this.$t('profile.avatarTypeInvalid') || 'Use a JPEG, PNG, or WebP image')
+        return false
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        this.$message.error(this.$t('profile.avatarTooLarge') || 'Avatar must be 2 MB or smaller')
+        return false
+      }
+      return true
+    },
+
+    async handleAvatarUpload ({ file, onSuccess, onError }) {
+      this.avatarUploading = true
+      try {
+        const res = await uploadProfileAvatar(file)
+        if (res.code !== 1) {
+          throw new Error(res.msg || 'Avatar upload failed')
+        }
+        const avatar = (res.data && res.data.avatar) || ''
+        if (avatar) {
+          this.profile.avatar = avatar
+        }
+        this.$message.success(res.msg || this.$t('profile.avatarUpdated') || 'Avatar updated')
+        this.$store.dispatch('FetchUserInfo').catch(() => {})
+        if (typeof onSuccess === 'function') onSuccess(res, file)
+      } catch (error) {
+        const msg = (error && error.message) || this.$t('profile.avatarUploadFailed') || 'Avatar upload failed'
+        this.$message.error(msg)
+        if (typeof onError === 'function') onError(error)
+      } finally {
+        this.avatarUploading = false
+      }
     },
 
     formatCredits (credits) {
@@ -2580,13 +2626,58 @@ export default {
     .profile-identity {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding-bottom: 14px;
+      gap: 18px;
+      min-height: 120px;
+      padding: 8px 0 20px;
       border-bottom: 1px solid var(--qd-border);
 
+      .avatar-editor {
+        flex: 0 0 auto;
+      }
+
+      .avatar-hitbox {
+        position: relative;
+        width: 96px;
+        height: 96px;
+        overflow: hidden;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &.uploading {
+          pointer-events: none;
+          opacity: 0.72;
+        }
+      }
+
       .ant-avatar {
-        flex: 0 0 72px;
+        flex: 0 0 96px;
         box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color, #1890ff) 12%, transparent);
+      }
+
+      .avatar-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        color: #fff;
+        background: rgba(15, 23, 42, 0.55);
+        font-size: 12px;
+        line-height: 1.2;
+        opacity: 0;
+        transition: opacity 0.16s ease;
+        pointer-events: none;
+
+        .anticon {
+          font-size: 18px;
+        }
+      }
+
+      .avatar-hitbox:hover .avatar-overlay,
+      .avatar-hitbox.uploading .avatar-overlay {
+        opacity: 1;
       }
 
       // The bundled avatar is a transparent PNG with the wordmark drawn in the
@@ -2608,9 +2699,9 @@ export default {
 
     .username {
       overflow: hidden;
-      margin: 0 0 7px;
+      margin: 0 0 8px;
       color: var(--qd-text);
-      font-size: 17px;
+      font-size: 20px;
       font-weight: 700;
       line-height: 1.35;
       text-overflow: ellipsis;

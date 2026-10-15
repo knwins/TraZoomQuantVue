@@ -116,13 +116,32 @@ export function getProfile () {
 
 /**
  * Update current user profile
- * @param {Object} data - { avatar, timezone }
+ * @param {Object} data - { timezone }
  */
 export function updateProfile (data) {
   return request({
     url: '/api/users/profile/update',
     method: 'put',
     data
+  })
+}
+
+/**
+ * Upload current user avatar (multipart field: avatar)
+ * @param {FormData|File} fileOrForm
+ */
+export function uploadProfileAvatar (fileOrForm) {
+  const form = fileOrForm instanceof FormData
+    ? fileOrForm
+    : (() => {
+        const body = new FormData()
+        body.append('avatar', fileOrForm)
+        return body
+      })()
+  return request({
+    url: '/api/users/profile/avatar',
+    method: 'post',
+    data: form
   })
 }
 
