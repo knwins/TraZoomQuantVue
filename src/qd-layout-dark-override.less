@@ -21,28 +21,28 @@
  * 不依赖 body.dark，避免不同步时顶栏、侧栏底部 footer 仍是浅灰/深蓝。
  */
 
-/* ========== 顶栏：亮黑 #111 + 顶缘高光 ========== */
+/* ========== 顶栏：与 studio-shell 冷色 chrome 对齐，去掉顶缘高光 ========== */
 .basic-layout-wrapper.dark .ant-layout-header,
 .basic-layout-wrapper.realdark .ant-layout-header,
 body.dark .basic-layout-wrapper .ant-layout-header,
 body.realdark .basic-layout-wrapper .ant-layout-header {
-  background: #0f0f10 !important;
-  background-color: #0f0f10 !important;
-  border-bottom: 1px solid #1c1c1c !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  background: var(--qd-chrome, #121a22) !important;
+  background-color: var(--qd-chrome, #121a22) !important;
+  border-bottom: 1px solid var(--qd-border, rgba(148, 163, 184, 0.12)) !important;
+  box-shadow: none !important;
 }
 
 .basic-layout-wrapper.dark .ant-pro-global-header,
 .basic-layout-wrapper.realdark .ant-pro-global-header,
 body.dark .basic-layout-wrapper .ant-pro-global-header,
 body.realdark .basic-layout-wrapper .ant-pro-global-header {
-  background: #0f0f10 !important;
-  background-color: #0f0f10 !important;
+  background: var(--qd-chrome, #121a22) !important;
+  background-color: var(--qd-chrome, #121a22) !important;
   border-bottom: none !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  box-shadow: none !important;
 }
 
-/* 页面容器（例如 dashboard / settings 等）去蓝灰 */
+/* 页面容器与画布同色，避免蓝灰断层 */
 .basic-layout-wrapper.dark .ant-pro-page-header-wrap,
 .basic-layout-wrapper.realdark .ant-pro-page-header-wrap,
 .basic-layout-wrapper.dark .ant-pro-page-header-wrap-children-content,
@@ -53,8 +53,8 @@ body.dark .basic-layout-wrapper .ant-pro-page-header-wrap,
 body.realdark .basic-layout-wrapper .ant-pro-page-header-wrap,
 body.dark .basic-layout-wrapper .ant-pro-page-header-wrap-children-content,
 body.realdark .basic-layout-wrapper .ant-pro-page-header-wrap-children-content {
-  background: #0f0f10 !important;
-  background-color: #0f0f10 !important;
+  background: var(--qd-bg, #0e151c) !important;
+  background-color: var(--qd-bg, #0e151c) !important;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -63,20 +63,20 @@ body.realdark .basic-layout-wrapper .ant-pro-page-header-wrap-children-content {
 .basic-layout-wrapper.realdark .ant-layout-header .ant-menu,
 body.dark .basic-layout-wrapper .ant-layout-header .ant-menu,
 body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu {
-  background: #0f0f10 !important;
-  background-color: #0f0f10 !important;
+  background: var(--qd-chrome, #121a22) !important;
+  background-color: var(--qd-chrome, #121a22) !important;
 }
 
-/* ========== 侧栏底部「联系我们」：深黑底 + 区块亮一层（去掉 opacity 发灰）========== */
+/* ========== 侧栏底部 footer ========== */
 .basic-layout-wrapper.dark .custom-menu-footer,
 .basic-layout-wrapper.realdark .custom-menu-footer,
 body.dark .basic-layout-wrapper .custom-menu-footer,
 body.realdark .basic-layout-wrapper .custom-menu-footer {
-  background: #111111 !important;
-  background-color: #111111 !important;
-  border-top: 1px solid #1c1c1c !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
-  color: rgba(255, 255, 255, 0.88) !important;
+  background: var(--qd-chrome, #121a22) !important;
+  background-color: var(--qd-chrome, #121a22) !important;
+  border-top: 1px solid var(--qd-border, rgba(148, 163, 184, 0.12)) !important;
+  box-shadow: none !important;
+  color: var(--qd-text, #e6edf5) !important;
 }
 
 .basic-layout-wrapper.dark .custom-menu-footer .menu-footer-content .footer-section,
@@ -96,11 +96,12 @@ body.realdark .basic-layout-wrapper .custom-menu-footer {
 
 .basic-layout-wrapper.dark .custom-menu-footer .footer-section .section-title,
 .basic-layout-wrapper.realdark .custom-menu-footer .footer-section .section-title {
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: var(--qd-text-muted, #6b7c8f) !important;
   opacity: 1 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.5px !important;
   font-size: 9px !important;
+  font-weight: 400 !important;
 }
 
 .basic-layout-wrapper.dark .custom-menu-footer .footer-section .section-links,
@@ -110,26 +111,27 @@ body.realdark .basic-layout-wrapper .custom-menu-footer {
 
 .basic-layout-wrapper.dark .custom-menu-footer .footer-section .section-links a,
 .basic-layout-wrapper.realdark .custom-menu-footer .footer-section .section-links a {
-  color: rgba(255, 255, 255, 0.68) !important;
+  color: var(--qd-text-menu, #b6c2ce) !important;
 }
 
 .basic-layout-wrapper.dark .custom-menu-footer .footer-section.copyright,
 .basic-layout-wrapper.realdark .custom-menu-footer .footer-section.copyright {
-  color: rgba(255, 255, 255, 0.45) !important;
-  border-top-color: #1c1c1c !important;
+  color: var(--qd-text-muted, #6b7c8f) !important;
+  border-top-color: var(--qd-border, rgba(148, 163, 184, 0.12)) !important;
   background: transparent !important;
   box-shadow: none !important;
 }
 
 .basic-layout-wrapper.dark .custom-menu-footer .footer-section.version,
 .basic-layout-wrapper.realdark .custom-menu-footer .footer-section.version {
-  color: rgba(255, 255, 255, 0.35) !important;
+  color: var(--qd-text-muted, #6b7c8f) !important;
 }
 
 .basic-layout-wrapper.dark .custom-menu-footer .social-icon,
 .basic-layout-wrapper.realdark .custom-menu-footer .social-icon {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: rgba(255, 255, 255, 0.75) !important;
+  background: var(--qd-surface-subtle, #182029) !important;
+  color: var(--qd-text-menu, #b6c2ce) !important;
+  border: 1px solid var(--qd-border, rgba(148, 163, 184, 0.12));
 }
 
 /* ========== 浅色主题 footer（显式覆盖，避免残留暗色）========== */
@@ -149,22 +151,22 @@ body.realdark .basic-layout-wrapper .custom-menu-footer {
 body.dark .ant-modal-confirm,
 body.realdark .ant-modal-confirm {
   .ant-modal-content {
-    background: #1f1f1f !important;
+    background: var(--qd-surface, #141b22) !important;
   }
   .ant-modal-body {
-    background: #1f1f1f !important;
-    color: rgba(255, 255, 255, 0.85) !important;
+    background: var(--qd-surface, #141b22) !important;
+    color: var(--qd-text, #e6edf5) !important;
   }
   .ant-modal-confirm-title {
-    color: rgba(255, 255, 255, 0.85) !important;
+    color: var(--qd-text, #e6edf5) !important;
   }
   .ant-modal-confirm-content {
-    color: rgba(255, 255, 255, 0.65) !important;
+    color: var(--qd-text-secondary, #94a3b4) !important;
   }
   .ant-btn {
-    background: #2a2a2a !important;
-    border-color: #434343 !important;
-    color: rgba(255, 255, 255, 0.85) !important;
+    background: var(--qd-surface-subtle, #182029) !important;
+    border-color: var(--qd-border, rgba(148, 163, 184, 0.12)) !important;
+    color: var(--qd-text, #e6edf5) !important;
     &:hover {
       border-color: var(--primary-color, #1890ff) !important;
       color: var(--primary-color, #1890ff) !important;
@@ -173,10 +175,11 @@ body.realdark .ant-modal-confirm {
   .ant-btn-primary {
     background: var(--primary-color, #1890ff) !important;
     border-color: var(--primary-color, #1890ff) !important;
-    color: #fff !important;
+    color: var(--primary-on-color, #fff) !important;
     &:hover {
       background: var(--primary-color-hover, #40a9ff) !important;
       border-color: var(--primary-color-hover, #40a9ff) !important;
+      color: var(--primary-on-color, #fff) !important;
     }
   }
 }
@@ -256,7 +259,7 @@ body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-m
 body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu,
 body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item,
 body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu {
-  color: rgba(255, 255, 255, 0.68) !important;
+  color: var(--qd-text-menu, #b6c2ce) !important;
 }
 
 .basic-layout-wrapper.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item > a,
@@ -291,7 +294,7 @@ body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .a
 body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu > .ant-menu-submenu-title > span,
 body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu .anticon,
 body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu .ant-menu-title-content {
-  color: rgba(255, 255, 255, 0.68) !important;
+  color: var(--qd-text-menu, #b6c2ce) !important;
 }
 
 .basic-layout-wrapper.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item:hover,
@@ -390,7 +393,7 @@ body.realdark .ant-table-placeholder {
 .basic-layout-wrapper.realdark .ant-table-tbody > tr:hover > td,
 body.dark .ant-table-tbody > tr:hover > td,
 body.realdark .ant-table-tbody > tr:hover > td {
-  background: #202327 !important;
+  background: #1a222c !important;
 }
 
 /* Normalize Ant Design table borders across dark pages and portal overlays. */
@@ -447,41 +450,28 @@ body.realdark .ant-drawer .ant-table-bordered .ant-table-tbody > tr > td {
 .theme-dark .ant-table-tbody > tr:hover > td,
 body.dark .ant-drawer .ant-table-tbody > tr:hover > td,
 body.realdark .ant-drawer .ant-table-tbody > tr:hover > td {
-  background: #202327 !important;
+  background: #1a222c !important;
 }
 
 /**
- * Primary button label must be white.
+ * Primary button label follows --primary-on-color from the runtime theme.
  *
  * Ant Design Vue 1.x derives the `primary` button's text colour at LESS build
- * time from `@primary-color` (see styles/antd-vars.less, still #1890ff). It
- * picks a dark glyph for that blue, then keeps it while the background is
- * repainted at runtime by --primary-color. On a green or teal accent the
- * result is dark text on a mid-tone fill — readable only just, and it looks
- * unintentional.
- *
- * The label is fixed to white here rather than recomputed, because every
- * accent in the palette is dark enough for white to read cleanly: against
- * #ffffff the three brand colours reach 3.24:1 (#0f9ea8), 3.33:1 (#12a331)
- * and 10.30:1 (#3f413f) — all above the 3:1 WCAG threshold for large text,
- * which a 12px/700 label counts as. Selecting white unconditionally is also
- * what a user means by "make this button look right"; a computed value would
- * flip back to dark on a future pale accent and undo it.
- *
- * Covers the default, hover, active and disabled-with-reason states; a truly
- * disabled button keeps Ant Design's muted treatment via :disabled below.
+ * time from `@primary-color`. Runtime accents (including white) set
+ * --primary-on-color so dark fills keep white glyphs and pale fills keep
+ * dark glyphs.
  */
 .ant-btn-primary {
-  color: #fff;
+  color: var(--primary-on-color, #fff);
 
   &:hover,
   &:focus,
   &:active {
-    color: #fff;
+    color: var(--primary-on-color, #fff);
   }
 
   &[disabled],
   &.ant-btn-loading:not(.ant-btn-loading-icon) {
-    color: rgba(255, 255, 255, 0.65);
+    color: color-mix(in srgb, var(--primary-on-color, #fff) 65%, transparent);
   }
 }

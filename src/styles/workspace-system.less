@@ -6,6 +6,7 @@
   --qd-space-5: 24px;
   --qd-control-height: 32px;
   --qd-radius: 0;
+  --qd-control-radius: 6px;
   --qd-border: #e4e9ef;
   --qd-surface: #fff;
   --qd-surface-subtle: #f6f8fa;
@@ -84,18 +85,30 @@
   .ant-input-number-input,
   .ant-select-selection,
   .ant-cascader-picker,
-  .ant-calendar-picker-input,
+  .ant-calendar-picker-input {
+    min-height: var(--qd-control-height);
+    font-size: 12px;
+    line-height: 30px;
+    border-radius: var(--qd-control-radius, 6px);
+  }
+
   .ant-radio-button-wrapper {
     min-height: var(--qd-control-height);
     font-size: 12px;
     line-height: 30px;
-    border-radius: 0;
   }
 
   .ant-btn {
     height: var(--qd-control-height);
     padding: 0 12px;
     font-weight: 600;
+    border-radius: var(--qd-control-radius, 6px);
+  }
+
+  .ant-input,
+  .ant-input-affix-wrapper,
+  .ant-input-number {
+    border-radius: var(--qd-control-radius, 6px);
   }
 
   .ant-select-selection--single {
@@ -202,12 +215,14 @@
 
 .qd-workspace-page.theme-dark,
 .theme-dark .qd-workspace-page {
-  --qd-border: rgba(255, 255, 255, 0.08);
-  --qd-surface: #171c1f;
-  --qd-surface-subtle: #1c2327;
-  --qd-text: #eef2f4;
-  --qd-text-secondary: #a8b3bb;
-  --qd-text-muted: #7d8a94;
+  /* Same stack as body.dark in studio-shell — explicit so pages stay consistent
+     even if a view only toggles .theme-dark without body.dark yet. */
+  --qd-border: rgba(148, 163, 184, 0.12);
+  --qd-surface: #141b22;
+  --qd-surface-subtle: #182029;
+  --qd-text: #e6edf5;
+  --qd-text-secondary: #94a3b4;
+  --qd-text-muted: #6b7c8f;
 }
 
 @media (max-width: 768px) {

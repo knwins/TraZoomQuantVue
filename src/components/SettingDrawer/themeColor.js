@@ -3,9 +3,11 @@ const STYLE_ID = 'qd-runtime-theme-color'
 // Matches defaultSettings.primaryColor, so a malformed stored value degrades
 // to the brand accent rather than upstream Ant Design blue.
 const FALLBACK_COLOR = '#0f9ea8'
+const LIGHT_INK = '#14181c'
+const LIGHT_ACCENT = '#1f2937'
 
 function normalizeColor (color) {
-  return /^#[0-9a-fA-F]{6}$/.test(color) ? color : FALLBACK_COLOR
+  return /^#[0-9a-fA-F]{6}$/.test(color) ? color.toLowerCase() : FALLBACK_COLOR
 }
 
 function hexToRgb (hex) {
@@ -15,6 +17,19 @@ function hexToRgb (hex) {
     g: parseInt(value.slice(2, 4), 16),
     b: parseInt(value.slice(4, 6), 16)
   }
+}
+
+function relativeLuminance (hex) {
+  const { r, g, b } = hexToRgb(hex)
+  const channel = (value) => {
+    const srgb = value / 255
+    return srgb <= 0.03928 ? srgb / 12.92 : ((srgb + 0.055) / 1.055) ** 2.4
+  }
+  return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b)
+}
+
+function isLightColor (hex) {
+  return relativeLuminance(hex) >= 0.72
 }
 
 function mix (color, target, weight) {
@@ -47,11 +62,18 @@ function getStyleElement () {
 
 function buildThemeCss (primaryColor) {
   const color = normalizeColor(primaryColor)
-  const hover = mix(color, '#ffffff', 0.22)
-  const active = mix(color, '#000000', 0.12)
-  const soft = rgba(color, 0.1)
-  const softStrong = rgba(color, 0.18)
-  const ring = rgba(color, 0.22)
+  const light = isLightColor(color)
+  // Pale accents (white) need a dark ink for labels/links; solid fills stay white.
+  const textAccent = light ? LIGHT_ACCENT : color
+  const onPrimary = light ? LIGHT_INK : '#ffffff'
+  const hover = light ? mix(color, '#000000', 0.07) : mix(color, '#ffffff', 0.22)
+  const active = light ? mix(color, '#000000', 0.14) : mix(color, '#000000', 0.12)
+  const soft = light ? 'rgba(15, 23, 42, 0.06)' : rgba(color, 0.12)
+  const softStrong = light ? 'rgba(15, 23, 42, 0.1)' : rgba(color, 0.2)
+  const ring = light ? 'rgba(15, 23, 42, 0.16)' : rgba(color, 0.22)
+  const darkSoft = light ? 'rgba(255, 255, 255, 0.1)' : soft
+  const darkSoftStrong = light ? 'rgba(255, 255, 255, 0.16)' : softStrong
+  const darkTextAccent = light ? '#ffffff' : color
 
   return `
 :root {
@@ -61,6 +83,8 @@ function buildThemeCss (primaryColor) {
   --primary-color-soft: ${soft};
   --primary-color-soft-strong: ${softStrong};
   --primary-color-ring: ${ring};
+  --primary-on-color: ${onPrimary};
+  --primary-accent: ${textAccent};
 }
 
 .ant-btn-link,
@@ -96,34 +120,20 @@ function buildThemeCss (primaryColor) {
 .ant-menu-horizontal > .ant-menu-submenu-active > .ant-menu-submenu-title .anticon,
 .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title .anticon,
 .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-title-content,
-body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a,
-body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
-body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > span,
-body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected .ant-menu-title-content,
-body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
-body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
-body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-title-content,
-body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a,
-body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
-body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > span,
-body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected .ant-menu-title-content,
-body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
-body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
-body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-title-content,
-.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected,
-.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a,
-.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
-.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > span,
-.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected,
-.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
-.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
-.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected,
-.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a,
-.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
-.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > span,
-.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected,
-.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
-.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
+body.light .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a,
+body.light .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
+body.light .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > span,
+body.light .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected .ant-menu-title-content,
+body.light .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
+body.light .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
+body.light .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-title-content,
+.basic-layout-wrapper.light .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected,
+.basic-layout-wrapper.light .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a,
+.basic-layout-wrapper.light .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
+.basic-layout-wrapper.light .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > span,
+.basic-layout-wrapper.light .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected,
+.basic-layout-wrapper.light .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
+.basic-layout-wrapper.light .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
 .ant-menu-light .ant-menu-item:hover,
 .ant-menu-light .ant-menu-item-active,
 .ant-menu-light .ant-menu-item-selected,
@@ -171,7 +181,38 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
 .ant-pagination-prev:hover .ant-pagination-item-link,
 .ant-pagination-next:hover .ant-pagination-item-link,
 .ant-breadcrumb a:hover {
-  color: ${color} !important;
+  color: ${textAccent} !important;
+}
+
+body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a,
+body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
+body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > span,
+body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected .ant-menu-title-content,
+body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
+body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
+body.dark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-title-content,
+body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a,
+body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
+body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected > span,
+body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected .ant-menu-title-content,
+body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
+body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
+body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-title-content,
+.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected,
+.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a,
+.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
+.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > span,
+.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected,
+.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
+.basic-layout-wrapper.dark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span,
+.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected,
+.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a,
+.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > a > span,
+.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected > span,
+.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected,
+.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title,
+.basic-layout-wrapper.realdark .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected > .ant-menu-submenu-title > span {
+  color: ${darkTextAccent} !important;
 }
 
 .ant-btn-primary,
@@ -201,6 +242,7 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
 .ant-btn-primary,
 .ant-btn-primary:hover,
 .ant-btn-primary:focus,
+.ant-btn-primary:active,
 .ant-checkbox-checked .ant-checkbox-inner,
 .ant-checkbox-wrapper:hover .ant-checkbox-inner,
 .ant-checkbox:hover .ant-checkbox-inner,
@@ -235,15 +277,21 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
   background-color: ${color} !important;
 }
 
+.ant-btn-primary {
+  color: ${onPrimary} !important;
+}
+
 .ant-btn-primary:hover,
 .ant-btn-primary:focus {
   background-color: ${hover} !important;
   border-color: ${hover} !important;
+  color: ${onPrimary} !important;
 }
 
 .ant-btn-primary:active {
   background-color: ${active} !important;
   border-color: ${active} !important;
+  color: ${onPrimary} !important;
 }
 
 .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before,
@@ -255,13 +303,13 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
 
 .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
   box-shadow: -1px 0 0 0 ${color} !important;
-  color: #fff !important;
+  color: ${onPrimary} !important;
 }
 
 .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) > span,
 .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover > span,
 .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within > span {
-  color: #fff !important;
+  color: ${onPrimary} !important;
 }
 
 .ant-input:focus,
@@ -278,7 +326,15 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
 .ant-menu-horizontal > .ant-menu-item-active,
 .ant-menu-horizontal > .ant-menu-submenu:hover,
 .ant-menu-horizontal > .ant-menu-submenu-active {
-  color: ${color} !important;
+  color: ${textAccent} !important;
+  border-bottom-color: ${color} !important;
+}
+
+body.dark .ant-menu-horizontal > .ant-menu-item-selected,
+body.dark .ant-menu-horizontal > .ant-menu-submenu-selected,
+body.realdark .ant-menu-horizontal > .ant-menu-item-selected,
+body.realdark .ant-menu-horizontal > .ant-menu-submenu-selected {
+  color: ${darkTextAccent} !important;
   border-bottom-color: ${color} !important;
 }
 
@@ -320,6 +376,18 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
   background-color: ${soft} !important;
 }
 
+body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected,
+body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected,
+body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item-selected,
+body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-selected,
+body.dark .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected,
+body.dark .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected,
+body.realdark .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-item-selected,
+body.realdark .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-selected {
+  background: ${darkSoft} !important;
+  background-color: ${darkSoft} !important;
+}
+
 .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item:hover,
 .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item-active,
 .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu:hover,
@@ -330,6 +398,18 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
 .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal > .ant-menu-submenu-active {
   background: ${softStrong} !important;
   background-color: ${softStrong} !important;
+}
+
+body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item:hover,
+body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item-active,
+body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu:hover,
+body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-active,
+body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item:hover,
+body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-item-active,
+body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu:hover,
+body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-active {
+  background: ${darkSoftStrong} !important;
+  background-color: ${darkSoftStrong} !important;
 }
 
 .ant-menu-light .ant-menu-item-selected,
@@ -346,7 +426,7 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
 .ant-menu-light .ant-menu-submenu-active > .ant-menu-submenu-title,
 .ant-menu-light .ant-menu-submenu-title:hover .anticon,
 .ant-menu-light .ant-menu-submenu-active > .ant-menu-submenu-title .anticon {
-  color: ${color} !important;
+  color: ${textAccent} !important;
 }
 
 .ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item-selected {
@@ -364,21 +444,28 @@ body.realdark .ant-layout-header .ant-menu-horizontal > .ant-menu-submenu-select
 .ant-menu-submenu-popup .ant-menu-item-active,
 .ant-menu-submenu-popup .ant-menu-item-selected {
   background: ${soft} !important;
-  color: ${color} !important;
+  color: ${textAccent} !important;
 }
 
 .ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected,
 .ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-submenu-selected,
 body.dark .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected,
 body.realdark .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-  background: ${softStrong} !important;
+  background: ${darkSoftStrong} !important;
 }
 
 .setting-drawer-theme-color-swatch {
-  color: #fff !important;
+  color: ${onPrimary} !important;
+}
+
+.setting-drawer-theme-color-swatch.is-light-swatch {
+  color: ${LIGHT_INK} !important;
+  border-color: rgba(15, 23, 42, 0.18) !important;
 }
 `
 }
+
+export { isLightColor }
 
 export default {
   getAntdSerials () {
@@ -390,6 +477,14 @@ export default {
       return Promise.resolve()
     }
     document.documentElement.style.setProperty('--primary-color', nextColor)
+    document.documentElement.style.setProperty(
+      '--primary-on-color',
+      isLightColor(nextColor) ? LIGHT_INK : '#ffffff'
+    )
+    document.documentElement.style.setProperty(
+      '--primary-accent',
+      isLightColor(nextColor) ? LIGHT_ACCENT : nextColor
+    )
     getStyleElement().textContent = buildThemeCss(nextColor)
     return Promise.resolve()
   }

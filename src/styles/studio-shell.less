@@ -45,9 +45,24 @@ body.light .ant-pro-grid-content {
   background: #f3f5f7 !important;
 }
 
+/* Canonical dark palette for menu chrome + workspace surfaces.
+   Keep shell / header / card / text on one cool stack for clarity. */
 body.dark,
 body.realdark {
-  background: #101416;
+  --qd-bg: #0e151c;
+  --qd-chrome: #121a22;
+  --qd-surface: #141b22;
+  --qd-surface-subtle: #182029;
+  --qd-surface-hover: #1c2630;
+  --qd-border: rgba(148, 163, 184, 0.12);
+  --qd-border-strong: rgba(148, 163, 184, 0.2);
+  --qd-text: #e6edf5;
+  --qd-text-secondary: #94a3b4;
+  --qd-text-muted: #6b7c8f;
+  --qd-text-menu: #b6c2ce;
+
+  background: var(--qd-bg);
+  color: var(--qd-text);
 }
 
 body.dark .basic-layout-wrapper,
@@ -56,7 +71,8 @@ body.dark .ant-layout,
 body.realdark .ant-layout,
 body.dark .ant-pro-basicLayout,
 body.realdark .ant-pro-basicLayout {
-  background: #101416 !important;
+  background: var(--qd-bg) !important;
+  color: var(--qd-text);
 }
 
 body.dark .ant-layout-header,
@@ -87,8 +103,8 @@ body.dark .basic-layout-wrapper.dark .ant-pro-global-header,
 body.realdark .basic-layout-wrapper.realdark .ant-pro-global-header,
 body.dark .basic-layout-wrapper.dark .ant-menu-horizontal,
 body.realdark .basic-layout-wrapper.realdark .ant-menu-horizontal {
-  background: #0e151c !important;
-  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  background: var(--qd-chrome) !important;
+  border-bottom-color: var(--qd-border) !important;
   box-shadow: none !important;
   backdrop-filter: none;
 }
@@ -99,14 +115,14 @@ body.dark .ant-pro-global-header,
 body.realdark .ant-pro-global-header,
 body.dark .ant-pro-top-nav-header,
 body.realdark .ant-pro-top-nav-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 1px solid var(--qd-border) !important;
 }
 
 body.dark .ant-layout-content,
 body.realdark .ant-layout-content,
 body.dark .ant-pro-basicLayout-content,
 body.realdark .ant-pro-basicLayout-content {
-  background: #070b10 !important;
+  background: var(--qd-bg) !important;
 }
 
 body.light .ant-pro-top-nav-header-logo,
@@ -133,8 +149,8 @@ body.dark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal,
 body.realdark .basic-layout-wrapper .ant-layout-header .ant-menu-horizontal,
 body.dark .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal,
 body.realdark .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal {
-  background: #0e151c !important;
-  background-color: #0e151c !important;
+  background: var(--qd-chrome) !important;
+  background-color: var(--qd-chrome) !important;
 }
 
 .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item,
@@ -167,7 +183,8 @@ body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item > a,
 body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item > a,
 body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title,
 body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title {
-  color: #d5dee6 !important;
+  color: var(--qd-text-menu) !important;
+  font-weight: 400;
 }
 
 body.light .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-selected,
@@ -178,12 +195,12 @@ body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-selecte
 body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-selected {
   background: transparent !important;
   box-shadow: none !important;
-  border-bottom: 2px solid #0f9ea8 !important;
+  border-bottom: 2px solid var(--primary-color, #0f9ea8) !important;
 }
 
 body.light .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-selected > a,
 body.light .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
-  color: #0f9ea8 !important;
+  color: var(--primary-accent, var(--primary-color, #0f9ea8)) !important;
   font-weight: 600;
 }
 
@@ -191,8 +208,15 @@ body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-selected >
 body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-selected > a,
 body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title,
 body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
-  color: #7ee0e6 !important;
+  color: var(--primary-color, #2ecfcf) !important;
   font-weight: 600;
+}
+
+body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item:hover > a,
+body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item:hover > a,
+body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu:hover .ant-menu-submenu-title,
+body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu:hover .ant-menu-submenu-title {
+  color: var(--qd-text) !important;
 }
 
 .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-selected::after,
@@ -230,9 +254,29 @@ body.light .basic-layout-wrapper .top-admin-shortcut {
 
 body.dark .basic-layout-wrapper .top-admin-shortcut,
 body.realdark .basic-layout-wrapper .top-admin-shortcut {
-  background: #0e151c !important;
-  background-color: #0e151c !important;
-  color: #e8eef2 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--qd-text-menu) !important;
+  border-color: var(--qd-border) !important;
+}
+
+body.dark .basic-layout-wrapper .top-admin-shortcut:hover,
+body.realdark .basic-layout-wrapper .top-admin-shortcut:hover {
+  color: var(--qd-text) !important;
+  border-color: var(--qd-border-strong) !important;
+  background: color-mix(in srgb, var(--primary-color, #0f9ea8) 10%, transparent) !important;
+}
+
+body.dark .ant-pro-global-header-index-right .ant-pro-global-header-index-action,
+body.realdark .ant-pro-global-header-index-right .ant-pro-global-header-index-action,
+body.dark .ant-pro-global-header-index-right .header-notice,
+body.realdark .ant-pro-global-header-index-right .header-notice {
+  color: var(--qd-text-menu) !important;
+}
+
+body.dark .ant-pro-global-header-index-right .ant-pro-global-header-index-action:hover,
+body.realdark .ant-pro-global-header-index-right .ant-pro-global-header-index-action:hover {
+  color: var(--qd-text) !important;
 }
 
 body.dark .qd-account-trigger,
@@ -296,8 +340,22 @@ body.light .ant-pro-global-header-index-right .anticon {
 
 body.dark .ant-card,
 body.realdark .ant-card {
-  background: #171c1f;
-  border-color: rgba(255, 255, 255, 0.08);
+  background: var(--qd-surface);
+  border-color: var(--qd-border);
+  color: var(--qd-text);
+  box-shadow: none;
+}
+
+body.dark .ant-card-head-title,
+body.realdark .ant-card-head-title,
+body.dark .ant-card-meta-title,
+body.realdark .ant-card-meta-title {
+  color: var(--qd-text);
+}
+
+body.dark .ant-card-meta-description,
+body.realdark .ant-card-meta-description {
+  color: var(--qd-text-secondary);
 }
 
 .basic-layout-wrapper .ant-card-head {
@@ -306,8 +364,8 @@ body.realdark .ant-card {
 
 body.dark .ant-card-head,
 body.realdark .ant-card-head {
-  border-bottom-color: rgba(255, 255, 255, 0.06);
-  color: #eef2f4;
+  border-bottom-color: var(--qd-border);
+  color: var(--qd-text);
 }
 
 .basic-layout-wrapper .ant-table-thead > tr > th {
@@ -317,14 +375,14 @@ body.realdark .ant-card-head {
 
 body.dark .ant-table-thead > tr > th,
 body.realdark .ant-table-thead > tr > th {
-  background: #1c2327 !important;
-  color: #a8b3bb !important;
-  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+  background: var(--qd-surface-subtle) !important;
+  color: var(--qd-text-secondary) !important;
+  border-bottom-color: var(--qd-border) !important;
 }
 
 body.dark .ant-table-tbody > tr > td,
 body.realdark .ant-table-tbody > tr > td {
-  border-bottom-color: rgba(255, 255, 255, 0.05) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.07) !important;
 }
 
 .basic-layout-wrapper .ant-tabs-bar {
@@ -346,18 +404,100 @@ body.dark .ant-modal-content,
 body.realdark .ant-modal-content,
 body.dark .ant-drawer-content,
 body.realdark .ant-drawer-content {
-  background: #171c1f;
+  background: #151c24;
+  color: #e8eef4;
+}
+
+body.dark .ant-modal-header,
+body.realdark .ant-modal-header,
+body.dark .ant-drawer-header,
+body.realdark .ant-drawer-header {
+  background: #151c24;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  color: #e8eef4;
+}
+
+body.dark .ant-modal-title,
+body.realdark .ant-modal-title,
+body.dark .ant-drawer-title,
+body.realdark .ant-drawer-title {
+  color: #e8eef4;
+}
+
+body.dark .ant-modal-close,
+body.realdark .ant-modal-close,
+body.dark .ant-drawer-close,
+body.realdark .ant-drawer-close {
+  color: #9aabba;
+}
+
+body.dark .ant-table,
+body.realdark .ant-table,
+body.dark .ant-table-tbody > tr > td,
+body.realdark .ant-table-tbody > tr > td {
+  background: transparent;
+  color: #e8eef4;
+}
+
+body.dark .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+body.realdark .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+body.dark .ant-dropdown-menu,
+body.realdark .ant-dropdown-menu,
+body.dark .ant-select-dropdown,
+body.realdark .ant-select-dropdown {
+  background: #151c24;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+body.dark .ant-dropdown-menu-item,
+body.realdark .ant-dropdown-menu-item,
+body.dark .ant-select-dropdown-menu-item,
+body.realdark .ant-select-dropdown-menu-item {
+  color: #e8eef4;
+}
+
+body.dark .ant-tabs-tab,
+body.realdark .ant-tabs-tab {
+  color: #9aabba;
+}
+
+body.dark .ant-tabs-tab-active,
+body.realdark .ant-tabs-tab-active {
+  color: var(--primary-color, #e8eef4);
+}
+
+body.dark .ant-alert,
+body.realdark .ant-alert {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link),
+body.realdark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link) {
+  background: #1a222c;
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #e8eef4;
+}
+
+body.dark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):hover,
+body.realdark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):hover {
+  border-color: var(--primary-color, #ffffff);
+  color: var(--primary-color, #ffffff);
 }
 
 .basic-layout-wrapper .ant-btn {
-  border-radius: 0;
+  border-radius: var(--qd-control-radius, 6px);
   box-shadow: none;
 }
 
 .basic-layout-wrapper .ant-input,
 .basic-layout-wrapper .ant-select-selection,
-.basic-layout-wrapper .ant-input-number {
-  border-radius: 0;
+.basic-layout-wrapper .ant-input-number,
+.basic-layout-wrapper .ant-input-affix-wrapper {
+  border-radius: var(--qd-control-radius, 6px);
 }
 
 body.dark .ant-input,
@@ -366,50 +506,80 @@ body.dark .ant-select-selection,
 body.realdark .ant-select-selection,
 body.dark .ant-input-number,
 body.realdark .ant-input-number {
-  background: #12181b !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  color: #eef2f4;
+  background: var(--qd-surface-subtle, #182029) !important;
+  border-color: var(--qd-border, rgba(148, 163, 184, 0.12)) !important;
+  color: var(--qd-text, #e6edf5);
 }
 
-/* Framed surfaces are square. Avatars, switches, and radios stay round. */
-body .ant-card,
-body .ant-modal-content,
-body .ant-modal-header,
-body .ant-drawer-content,
-body .ant-btn:not(.ant-btn-circle):not(.ant-btn-circle-outline),
+/* Interactive controls get a soft radius; large framed surfaces stay square. */
+body {
+  --qd-control-radius: 6px;
+}
+
+body .ant-btn:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only),
 body .ant-input,
 body .ant-input-affix-wrapper,
 body .ant-input-group-addon,
 body .ant-select-selection,
+body .ant-input-number,
+body .ant-calendar-picker-input,
+body .ant-cascader-picker,
+body .ant-mentions,
+body .ant-pagination-item,
+body .ant-pagination-prev .ant-pagination-item-link,
+body .ant-pagination-next .ant-pagination-item-link {
+  border-radius: var(--qd-control-radius, 6px) !important;
+}
+
+body .ant-btn.ant-btn-sm:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only),
+body .ant-input-sm,
+body .ant-input-affix-wrapper-sm,
+body .ant-select-sm .ant-select-selection {
+  border-radius: 5px !important;
+}
+
+body .ant-btn.ant-btn-lg:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only),
+body .ant-input-lg,
+body .ant-input-affix-wrapper-lg,
+body .ant-select-lg .ant-select-selection {
+  border-radius: 8px !important;
+}
+
+/* Keep icon-only square controls readable in the header chrome. */
+body .ant-btn.ant-btn-icon-only:not(.ant-btn-circle):not(.ant-btn-circle-outline),
+body .top-admin-shortcut,
+body .language-action,
+body .header-notice,
+body .ant-pro-global-header-index-action {
+  border-radius: var(--qd-control-radius, 6px) !important;
+}
+
+body .ant-card,
+body .ant-modal-content,
+body .ant-modal-header,
+body .ant-drawer-content,
 body .ant-select-dropdown,
 body .ant-dropdown-menu,
-body .ant-input-number,
 body .ant-alert,
 body .ant-popover-inner,
 body .ant-tooltip-inner,
 body .ant-collapse,
 body .ant-collapse-item,
 body .ant-collapse-content,
-body .ant-tag,
-body .ant-pagination-item,
-body .ant-pagination-prev .ant-pagination-item-link,
-body .ant-pagination-next .ant-pagination-item-link,
 body .ant-checkbox-inner,
 body .ant-calendar,
-body .ant-calendar-picker-input,
-body .ant-tabs-tab,
 body .ant-tabs-ink-bar,
 body .settings-nav,
 body .settings-detail,
 body .settings-menu .ant-menu-item,
-body .top-admin-shortcut,
-body .language-action,
-body .header-notice,
-body .ant-pro-global-header-index-action,
 body .basic-layout-wrapper [class*="-card"],
 body .basic-layout-wrapper [class*="-panel"],
 body .basic-layout-wrapper [class*="-frame"] {
   border-radius: 0 !important;
+}
+
+body .ant-tag {
+  border-radius: 4px !important;
 }
 
 @media (max-width: 768px) {

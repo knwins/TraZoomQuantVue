@@ -40,21 +40,6 @@
               </div>
             </a-tooltip>
           </div>
-
-          <!-- Multi-tab lives here rather than in a separate "other settings"
-               block: it is a shell/layout preference, same family as the nav
-               theme above. Colour-weak mode was removed entirely. -->
-          <a-list :split="false" class="setting-drawer-inline-switch">
-            <a-list-item>
-              <a-switch slot="actions" size="small" :checked="currentMultiTab" @change="onMultiTab" />
-              <a-list-item-meta>
-                <a-tooltip slot="title" placement="left">
-                  <template slot="title">{{ $t('app.setting.multitab.tooltip') }}</template>
-                  <div>{{ $t('app.setting.multitab') }}</div>
-                </a-tooltip>
-              </a-list-item-meta>
-            </a-list-item>
-          </a-list>
         </div>
 
         <!-- Theme color selector controls app-level accent styles. -->
@@ -69,14 +54,28 @@
               <button
                 type="button"
                 class="setting-drawer-theme-color-swatch"
+                :class="{ 'is-light-swatch': isLightThemeColor(item.color) }"
                 :style="{ backgroundColor: item.color }"
                 @click="changeColor(item.color)"
               >
-                <a-icon type="check" v-if="item.color === currentPrimaryColor"></a-icon>
+                <a-icon type="check" v-if="item.color.toLowerCase() === String(currentPrimaryColor || '').toLowerCase()"></a-icon>
               </button>
             </a-tooltip>
-
           </div>
+
+          <!-- Multi-tab sits under theme colour: still a shell preference, but
+               kept out of the page-style swatch row so that row can breathe. -->
+          <a-list :split="false" class="setting-drawer-inline-switch">
+            <a-list-item>
+              <a-switch slot="actions" size="small" :checked="currentMultiTab" @change="onMultiTab" />
+              <a-list-item-meta>
+                <a-tooltip slot="title" placement="left">
+                  <template slot="title">{{ $t('app.setting.multitab.tooltip') }}</template>
+                  <div>{{ $t('app.setting.multitab') }}</div>
+                </a-tooltip>
+              </a-list-item-meta>
+            </a-list-item>
+          </a-list>
         </div>
         <a-divider />
 
@@ -169,6 +168,7 @@
 import SettingItem from './SettingItem'
 import config from '@/config/defaultSettings'
 import { updateTheme, getColorList } from './settingConfig'
+import { isLightColor } from './themeColor'
 import { baseMixin } from '@/store/app-mixin'
 
 export default {
@@ -300,6 +300,9 @@ export default {
     handleContentWidthChange (type) {
       this.$emit('change', { type: 'contentWidth', value: type })
     },
+    isLightThemeColor (color) {
+      return isLightColor(color)
+    },
     changeColor (color) {
       if (this.currentPrimaryColor !== color) {
         this.$emit('change', { type: 'primaryColor', value: color })
@@ -331,10 +334,20 @@ export default {
   }
 
   :deep(.ant-drawer-content),
-  :deep(.ant-drawer-wrapper-body),
+  :deep(.ant-drawer-wrapper-body) {
+    background: #fff;
+    color: rgba(15, 23, 42, 0.86);
+    height: 100%;
+  }
+
   :deep(.ant-drawer-body) {
     background: #fff;
     color: rgba(15, 23, 42, 0.86);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
   }
 
   :deep(.ant-drawer-close) {
@@ -346,6 +359,11 @@ export default {
   }
 
   .setting-drawer-index-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+
     .setting-drawer-index-title {
       color: rgba(15, 23, 42, 0.9);
       font-weight: 700;
@@ -353,21 +371,19 @@ export default {
 
     .setting-drawer-index-blockChecbox {
       display: flex;
-
-      // The multi-tab switch sits directly below the theme swatches inside
-      // this section; pull it clear of the 48px swatch row.
-      + .setting-drawer-inline-switch {
-        margin-top: 14px;
-      }
+      gap: 16px;
 
       .setting-drawer-index-item {
-        margin-right: 16px;
         position: relative;
-        border-radius: 4px;
+        border-radius: 8px;
         cursor: pointer;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
 
         img {
-          width: 48px;
+          display: block;
+          width: 72px;
+          height: auto;
         }
 
         .setting-drawer-index-selectIcon {
@@ -375,21 +391,28 @@ export default {
           top: 0;
           right: 0;
           width: 100%;
-          padding-top: 15px;
-          padding-left: 24px;
           height: 100%;
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-end;
+          padding: 8px 8px 0 0;
           color: var(--primary-color, #1890ff);
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 700;
         }
       }
     }
+
+    .setting-drawer-theme-color-list + .setting-drawer-inline-switch {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+    }
     // Track the palette width rather than a hard-coded column count. This used
     // to be `repeat(8, 24px)` with a 10px gap, needing 262px inside a drawer
     // that only offers 252px of usable width — the eighth swatch was clipped
-    // and left a phantom empty cell. The TraZoom Quant palette is now three
-    // swatches, so any of these approaches fits, but auto-fit keeps the row
-    // correct if colours are added again later.
+    // and left a phantom empty cell. auto-fit keeps the row correct as
+    // colours are added (teal / night cyan / green).
     .setting-drawer-theme-color-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, 24px);
@@ -504,13 +527,13 @@ export default {
 body.dark .setting-drawer,
 body.realdark .setting-drawer,
 .setting-drawer.setting-drawer--dark {
-  --setting-drawer-bg: #11161c;
-  --setting-drawer-panel: #171c22;
-  --setting-drawer-panel-soft: #202833;
-  --setting-drawer-border: #2b3542;
-  --setting-drawer-text: #e6edf5;
-  --setting-drawer-muted: #a4b2c2;
-  --setting-drawer-subtle: #738295;
+  --setting-drawer-bg: var(--qd-bg, #0e151c);
+  --setting-drawer-panel: var(--qd-surface, #141b22);
+  --setting-drawer-panel-soft: var(--qd-surface-subtle, #182029);
+  --setting-drawer-border: var(--qd-border-strong, rgba(148, 163, 184, 0.2));
+  --setting-drawer-text: var(--qd-text, #e6edf5);
+  --setting-drawer-muted: var(--qd-text-secondary, #94a3b4);
+  --setting-drawer-subtle: var(--qd-text-muted, #6b7c8f);
 }
 
 body.dark .setting-drawer .ant-drawer-content,
@@ -554,6 +577,12 @@ body.dark .setting-drawer .ant-divider,
 body.realdark .setting-drawer .ant-divider,
 .setting-drawer.setting-drawer--dark .ant-divider {
   background: var(--setting-drawer-border) !important;
+}
+
+body.dark .setting-drawer .setting-drawer-theme-color-list + .setting-drawer-inline-switch,
+body.realdark .setting-drawer .setting-drawer-theme-color-list + .setting-drawer-inline-switch,
+.setting-drawer.setting-drawer--dark .setting-drawer-theme-color-list + .setting-drawer-inline-switch {
+  border-top-color: var(--setting-drawer-border) !important;
 }
 
 body.dark .setting-drawer .ant-list-item,
@@ -601,29 +630,12 @@ body.realdark .setting-drawer .setting-drawer-support .support-title,
   color: var(--setting-drawer-text) !important;
 }
 
-body.dark .setting-drawer .setting-drawer-support a,
-body.realdark .setting-drawer .setting-drawer-support a,
-.setting-drawer.setting-drawer--dark .setting-drawer-support a {
-  color: var(--primary-color, #1890ff) !important;
-}
-
-body.dark .setting-drawer .setting-drawer-support .separator,
 body.dark .setting-drawer .setting-drawer-support .support-copy,
 body.dark .setting-drawer .setting-drawer-support .support-version,
-body.realdark .setting-drawer .setting-drawer-support .separator,
 body.realdark .setting-drawer .setting-drawer-support .support-copy,
 body.realdark .setting-drawer .setting-drawer-support .support-version,
-.setting-drawer.setting-drawer--dark .setting-drawer-support .separator,
 .setting-drawer.setting-drawer--dark .setting-drawer-support .support-copy,
 .setting-drawer.setting-drawer--dark .setting-drawer-support .support-version {
   color: var(--setting-drawer-subtle) !important;
-}
-
-body.dark .setting-drawer .setting-drawer-support .support-social,
-body.realdark .setting-drawer .setting-drawer-support .support-social,
-.setting-drawer.setting-drawer--dark .setting-drawer-support .support-social {
-  background: var(--setting-drawer-panel);
-  border-color: var(--setting-drawer-border);
-  color: var(--setting-drawer-muted);
 }
 </style>

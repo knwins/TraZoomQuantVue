@@ -2240,46 +2240,59 @@ export default {
     }
   }
 
-  // Dark theme
+  // Dark theme — align with workspace cool shell tokens (--qd-*), not warm #141414 greys.
   &.theme-dark {
-    background: linear-gradient(180deg, #141414 0%, #1c1c1c 100%);
+    background: transparent;
+    color: var(--qd-text);
 
     .page-header {
       .page-title {
-        color: #e0e6ed;
+        color: var(--qd-text);
       }
       .page-desc {
-        color: #8b949e;
+        color: var(--qd-text-secondary);
       }
     }
 
     .profile-card,
-    .edit-card {
-      background: #1c1c1c;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+    .edit-card,
+    .credits-card,
+    .referral-card {
+      background: var(--qd-surface);
+      border: 1px solid var(--qd-border);
+      box-shadow: none;
+      color: var(--qd-text);
 
       ::v-deep .ant-card-body {
-        background: #1c1c1c;
+        background: transparent;
       }
     }
 
     .profile-card {
-      .avatar-section {
-        .username {
-          color: #e0e6ed;
-        }
+      .avatar-section .username,
+      .username {
+        color: var(--qd-text);
       }
 
-      .profile-info {
+      .default-avatar img {
+        background: #243040;
+      }
+
+      .profile-identity {
+        border-bottom-color: var(--qd-border);
+      }
+
+      .profile-info,
+      .profile-account-meta {
         .info-item {
-          border-bottom-color: #2a2a2a;
+          border-bottom-color: var(--qd-border);
 
           .label {
-            color: #8b949e;
+            color: var(--qd-text-muted);
           }
 
           .value {
-            color: #e0e6ed;
+            color: var(--qd-text);
           }
         }
       }
@@ -2287,162 +2300,197 @@ export default {
 
     .edit-card {
       ::v-deep .ant-tabs-bar {
-        border-bottom-color: #2a2a2a;
+        border-bottom-color: var(--qd-border);
       }
 
       ::v-deep .ant-tabs-tab {
-        color: #8b949e;
+        color: var(--qd-text-secondary);
 
         &:hover {
           color: var(--primary-color, @primary-color);
-          background: color-mix(in srgb, var(--primary-color, @primary-color) 12%, #1c1c1c);
+          background: color-mix(in srgb, var(--primary-color, @primary-color) 12%, var(--qd-surface));
         }
       }
 
       ::v-deep .ant-tabs-tab-active {
         color: var(--primary-color, @primary-color);
-        background: color-mix(in srgb, var(--primary-color, @primary-color) 14%, #1c1c1c);
-      }
-
-      ::v-deep .ant-tabs-bar {
-        border-bottom-color: #30363d;
+        background: color-mix(in srgb, var(--primary-color, @primary-color) 14%, var(--qd-surface));
       }
 
       ::v-deep .ant-form-item-label label {
-        color: #c9d1d9;
+        color: var(--qd-text-secondary);
       }
 
       ::v-deep .ant-input,
-      ::v-deep .ant-input-password {
-        background: #141414;
-        border-color: #2a2a2a;
-        color: #c9d1d9;
+      ::v-deep .ant-input-password,
+      ::v-deep .ant-input-affix-wrapper {
+        background: var(--qd-surface-subtle);
+        border-color: var(--qd-border);
+        color: var(--qd-text);
 
         &:hover,
-        &:focus {
-          border-color: @primary-color;
+        &:focus,
+        &-focused {
+          border-color: var(--primary-color, @primary-color);
         }
       }
     }
 
     .credits-card {
-      background: linear-gradient(135deg, #1c1c1c 0%, #1a1a1a 50%, #141414 100%);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+      background: var(--qd-surface);
+      color: var(--qd-text);
 
       ::v-deep .ant-divider {
-        border-color: rgba(255, 255, 255, 0.1);
+        border-color: var(--qd-border);
       }
 
-      .credits-actions {
-        .ant-btn {
-          background: rgba(255, 255, 255, 0.15);
-          color: #fff;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+      .credits-title,
+      .amount-value {
+        color: var(--qd-text) !important;
+        text-shadow: none;
+      }
 
-          &:hover {
-            background: rgba(255, 255, 255, 0.25);
-          }
+      .amount-label,
+      .no-vip,
+      .vip-expired,
+      .credits-hint {
+        color: var(--qd-text-muted) !important;
+      }
+
+      .credits-actions .ant-btn,
+      .credits-recharge-btn {
+        background: color-mix(in srgb, var(--primary-color, @primary-color) 14%, var(--qd-surface));
+        color: var(--primary-color, @primary-color);
+        border: 1px solid color-mix(in srgb, var(--primary-color, @primary-color) 42%, var(--qd-border));
+        box-shadow: none;
+
+        &:hover {
+          background: color-mix(in srgb, var(--primary-color, @primary-color) 22%, var(--qd-surface));
+          color: var(--primary-color, @primary-color);
+          border-color: var(--primary-color, @primary-color);
         }
+      }
+    }
+
+    .referral-card {
+      .referral-title,
+      .referral-mini-stat strong {
+        color: var(--qd-text);
+      }
+
+      .link-label,
+      .referral-mini-stat span,
+      .referral-benefit {
+        color: var(--qd-text-muted);
+      }
+
+      .link-box ::v-deep .ant-input {
+        background: var(--qd-surface-subtle);
+        border-color: var(--qd-border);
+        color: var(--qd-text);
       }
     }
 
     ::v-deep .ant-table-wrapper {
       .ant-table {
-        background: #1c1c1c;
-        color: #c9d1d9;
+        background: var(--qd-surface);
+        color: var(--qd-text);
       }
 
       .ant-table-thead > tr > th {
-        background: #2a2a2a;
-        color: #c9d1d9;
-        border-bottom-color: #2a2a2a;
+        background: var(--qd-surface-subtle);
+        color: var(--qd-text-secondary);
+        border-bottom-color: var(--qd-border);
       }
 
       .ant-table-tbody > tr > td {
-        background: #1c1c1c;
-        color: #c9d1d9;
-        border-bottom-color: #2a2a2a;
+        background: var(--qd-surface);
+        color: var(--qd-text);
+        border-bottom-color: var(--qd-border);
       }
 
       .ant-table-tbody > tr:hover > td {
-        background: #2a2a2a;
+        background: var(--qd-surface-subtle);
       }
 
       .ant-table-placeholder {
-        background: #1c1c1c;
-        color: #8b949e;
+        background: var(--qd-surface);
+        color: var(--qd-text-muted);
       }
 
       .ant-table-tbody > tr > td,
       .ant-table-tbody > tr > td span,
       .ant-table-tbody > tr > td div,
       .ant-table-tbody > tr > td *:not(.ant-tag):not(.ant-btn) {
-        color: #c9d1d9;
+        color: var(--qd-text);
       }
 
       .amount-positive {
-        color: #52c41a;
+        color: #73d13d;
       }
 
       .amount-negative {
-        color: #f5222d;
+        color: #ff7875;
       }
 
       .ant-tag {
         border-width: 1px;
         font-weight: 600;
       }
-      .ant-tag-red { background: rgba(245,34,45,0.25); border-color: #f5222d; color: #ff7875; }
-      .ant-tag-green { background: rgba(82,196,26,0.25); border-color: #52c41a; color: #73d13d; }
+      .ant-tag-red { background: rgba(245,34,45,0.22); border-color: #f5222d; color: #ff7875; }
+      .ant-tag-green { background: rgba(82,196,26,0.22); border-color: #52c41a; color: #73d13d; }
       .ant-tag-blue {
-        background: color-mix(in srgb, var(--primary-color, #1890ff) 24%, transparent);
+        background: color-mix(in srgb, var(--primary-color, #1890ff) 22%, transparent);
         border-color: var(--primary-color, #1890ff);
         color: var(--primary-color-hover, var(--primary-color, #1890ff));
       }
-      .ant-tag-orange { background: rgba(250,173,20,0.25); border-color: #faad14; color: #ffc53d; }
-      .ant-tag-gold { background: rgba(250,173,20,0.25); border-color: #faad14; color: #ffc53d; }
-      .ant-tag-cyan { background: rgba(19,194,194,0.25); border-color: #13c2c2; color: #5cdbd3; }
-      .ant-tag-purple { background: rgba(114,46,209,0.25); border-color: #722ed1; color: #b37feb; }
-      .ant-tag-volcano { background: rgba(250,84,28,0.25); border-color: #fa541c; color: #ff9c6e; }
-      .ant-tag-lime { background: rgba(160,212,104,0.25); border-color: #a0d911; color: #bae637; }
-      .ant-tag-default { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); color: #c9d1d9; }
+      .ant-tag-orange { background: rgba(250,173,20,0.22); border-color: #faad14; color: #ffc53d; }
+      .ant-tag-gold { background: rgba(250,173,20,0.22); border-color: #faad14; color: #ffc53d; }
+      .ant-tag-cyan { background: rgba(19,194,194,0.22); border-color: #13c2c2; color: #5cdbd3; }
+      .ant-tag-purple { background: rgba(114,46,209,0.22); border-color: #722ed1; color: #b37feb; }
+      .ant-tag-volcano { background: rgba(250,84,28,0.22); border-color: #fa541c; color: #ff9c6e; }
+      .ant-tag-lime { background: rgba(160,212,104,0.22); border-color: #a0d911; color: #bae637; }
+      .ant-tag-default { background: rgba(255,255,255,0.06); border-color: var(--qd-border); color: var(--qd-text-secondary); }
     }
 
     .profile-form,
     .notification-settings-form {
       ::v-deep .ant-form-item-label > label {
-        color: #c9d1d9;
+        color: var(--qd-text-secondary);
       }
 
       ::v-deep .ant-form-item-explain,
       ::v-deep .ant-form-item-extra {
-        color: #8b949e;
+        color: var(--qd-text-muted);
       }
 
       ::v-deep .ant-input,
       ::v-deep .ant-input-password,
+      ::v-deep .ant-input-affix-wrapper,
+      ::v-deep .ant-select-selection,
       ::v-deep .ant-select-selector,
       ::v-deep .ant-input-number {
-        background: #141414;
-        border-color: #2a2a2a;
-        color: #c9d1d9;
+        background: var(--qd-surface-subtle) !important;
+        border-color: var(--qd-border) !important;
+        color: var(--qd-text) !important;
 
         &::placeholder {
-          color: #6e7681;
+          color: var(--qd-text-muted);
         }
       }
 
       ::v-deep .ant-select-selection-item,
-      ::v-deep .ant-select-selection-placeholder {
-        color: #c9d1d9;
+      ::v-deep .ant-select-selection-placeholder,
+      ::v-deep .ant-select-selection-selected-value {
+        color: var(--qd-text);
       }
 
       ::v-deep .ant-checkbox-wrapper,
       ::v-deep .ant-radio-wrapper {
-        color: #c9d1d9;
+        color: var(--qd-text);
 
         span {
-          color: #c9d1d9;
+          color: var(--qd-text);
         }
       }
 
@@ -2454,69 +2502,74 @@ export default {
 
       .email-hint,
       .field-hint {
-        color: #8b949e;
+        color: var(--qd-text-muted);
       }
 
       .email-warning {
-        color: #f5222d;
+        color: #ff7875;
+      }
+
+      .account-center-hint {
+        border-color: var(--qd-border);
+        background: color-mix(in srgb, var(--primary-color, @primary-color) 8%, var(--qd-surface-subtle));
       }
 
       ::v-deep .ant-checkbox-wrapper {
-        border-color: #2a2a2a;
-        background: #171717;
+        border-color: var(--qd-border);
+        background: var(--qd-surface-subtle);
 
         &:hover {
-          border-color: color-mix(in srgb, var(--primary-color, #1890ff) 52%, #2a2a2a);
-          background: #1e1e1e;
+          border-color: color-mix(in srgb, var(--primary-color, #1890ff) 48%, var(--qd-border));
+          background: color-mix(in srgb, var(--primary-color, #1890ff) 8%, var(--qd-surface-subtle));
         }
       }
 
       ::v-deep .ant-checkbox-wrapper-checked {
-        border-color: color-mix(in srgb, var(--primary-color, #1890ff) 62%, #2a2a2a);
-        background: color-mix(in srgb, var(--primary-color, #1890ff) 13%, #171717);
-        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.26);
+        border-color: color-mix(in srgb, var(--primary-color, #1890ff) 55%, var(--qd-border));
+        background: color-mix(in srgb, var(--primary-color, #1890ff) 14%, var(--qd-surface-subtle));
+        box-shadow: none;
       }
     }
 
     .notification-settings-form {
       ::v-deep .ant-alert {
-        background: #1c1c1c;
-        border-color: #2a2a2a;
-        color: #c9d1d9;
+        background: var(--qd-surface-subtle);
+        border-color: var(--qd-border);
+        color: var(--qd-text);
 
         .ant-alert-message {
-          color: #c9d1d9;
+          color: var(--qd-text);
         }
 
         .ant-alert-description {
-          color: #8b949e;
+          color: var(--qd-text-muted);
         }
       }
     }
 
     .test-result-msg {
       &.success {
-        color: #52c41a;
+        color: #73d13d;
       }
       &.error {
-        color: #f5222d;
+        color: #ff7875;
       }
     }
 
     .referral-user-cell {
       .user-info {
         .nickname {
-          color: #c9d1d9;
+          color: var(--qd-text);
         }
 
         .username {
-          color: #8b949e;
+          color: var(--qd-text-muted);
         }
       }
     }
 
     ::v-deep .ant-tag {
-      color: #c9d1d9;
+      color: var(--qd-text-secondary);
     }
 
     ::v-deep .ant-tag.ant-tag-has-color {
@@ -2530,16 +2583,16 @@ export default {
     ::v-deep .email-hint .anticon,
     ::v-deep .credits-hint .anticon,
     ::v-deep .notification-settings-form .anticon {
-      color: #c9d1d9 !important;
+      color: var(--qd-text-muted) !important;
     }
 
     ::v-deep .ant-pagination {
       .ant-pagination-item {
-        background: #1c1c1c;
-        border-color: #2a2a2a;
+        background: var(--qd-surface);
+        border-color: var(--qd-border);
 
         a {
-          color: #c9d1d9;
+          color: var(--qd-text-secondary);
         }
 
         &:hover {
@@ -2552,33 +2605,34 @@ export default {
         border-color: @primary-color;
 
         a {
-          color: #fff;
+          color: var(--primary-on-color, #fff);
         }
       }
 
       .ant-pagination-prev,
       .ant-pagination-next {
         .ant-pagination-item-link {
-          background: #1c1c1c;
-          border-color: #2a2a2a;
-          color: #c9d1d9;
+          background: var(--qd-surface);
+          border-color: var(--qd-border);
+          color: var(--qd-text-secondary);
         }
       }
 
       .ant-pagination-options {
-        .ant-select-selector {
-          background: #141414;
-          border-color: #2a2a2a;
-          color: #c9d1d9;
+        .ant-select-selector,
+        .ant-select-selection {
+          background: var(--qd-surface-subtle);
+          border-color: var(--qd-border);
+          color: var(--qd-text);
         }
       }
     }
 
     ::v-deep .ant-btn {
       &.ant-btn-default {
-        background: #1c1c1c;
-        border-color: #2a2a2a;
-        color: #c9d1d9;
+        background: var(--qd-surface-subtle);
+        border-color: var(--qd-border);
+        color: var(--qd-text);
 
         &:hover {
           border-color: @primary-color;
@@ -3078,9 +3132,29 @@ export default {
       box-shadow: none;
     }
 
-    .profile-settings-shell .edit-card ::v-deep .ant-tabs-left-bar {
-      border-right-color: var(--qd-border);
-      background: var(--qd-surface-subtle);
+    .profile-settings-shell .edit-card {
+      ::v-deep .ant-tabs-left-bar {
+        border-right-color: var(--qd-border);
+        background: color-mix(in srgb, var(--qd-surface-subtle) 88%, #0e151c);
+      }
+
+      ::v-deep .ant-tabs-left-bar .ant-tabs-tab {
+        color: var(--qd-text-secondary);
+
+        &:hover {
+          color: var(--qd-text);
+          background: color-mix(in srgb, var(--primary-color, #1890ff) 8%, transparent);
+        }
+      }
+
+      ::v-deep .ant-tabs-left-bar .ant-tabs-tab-active {
+        background: color-mix(in srgb, var(--primary-color, #1890ff) 14%, var(--qd-surface));
+        color: var(--primary-color, #1890ff);
+      }
+
+      ::v-deep .ant-tabs-left-content {
+        background: var(--qd-surface);
+      }
     }
   }
 }

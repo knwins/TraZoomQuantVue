@@ -4213,7 +4213,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 5px;
+  gap: 8px;
   min-width: 0;
   padding: 0;
   border-radius: 0;
@@ -4227,7 +4227,7 @@ export default {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #64748b;
-  line-height: 1;
+  line-height: 1.2;
   white-space: nowrap;
 }
 .ide-toolbar-select {
@@ -6267,24 +6267,25 @@ body.dark .ide-signal-alert-modal-wrap {
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 6px 10px 8px;
-    border-bottom: 1px solid #f0f0f0;
-    background: #fafafa;
+    gap: 12px;
+    padding: 12px 14px 14px;
+    border-bottom: 1px solid #e8edf2;
+    background: #f7f9fb;
   }
   .chart-panel-toolbar-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
-    min-height: 28px;
+    gap: 10px;
+    min-height: 32px;
   }
   .chart-panel-toolbar-controls {
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
-    gap: 12px;
+    gap: 14px 16px;
     min-width: 0;
+    padding-top: 2px;
     .ide-toolbar-group {
       flex: 0 1 auto;
       min-width: 0;
@@ -6348,6 +6349,8 @@ body.dark .ide-signal-alert-modal-wrap {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    padding-top: 10px;
+    box-sizing: border-box;
   }
   ::v-deep .chart-left,
   ::v-deep .chart-wrapper,
@@ -6708,8 +6711,11 @@ body.dark .ide-signal-alert-modal-wrap {
     background: #141414;
     border-bottom-color: #303030;
     .chart-panel-toolbar {
-      background: #1a1a1a;
-      border-bottom-color: #303030;
+      background: #151c24;
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    .chart-panel-inner {
+      padding-top: 10px;
     }
     .chart-panel-toolbar-title { color: rgba(255, 255, 255, 0.65); }
     .chart-panel-toolbar-controls .ide-toolbar-group {

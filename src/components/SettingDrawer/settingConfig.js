@@ -4,23 +4,23 @@ import themeColor from './themeColor.js'
 import i18n from '@/locales'
 
 // let lessNodesAppended
-// Accent colours offered in the settings drawer. Kept to the three the
-// TraZoom Quant brand actually uses; the palette is intentionally short so the
-// row stays on one line inside the 300px drawer without wrapping.
+// Accent colours offered in the settings drawer. Kept short so the row
+// stays on one line inside the 300px drawer.
 //
 // #0f9ea8 also doubles as the default (see primaryColor in
 // src/config/defaultSettings.js), so the first swatch is what a fresh
-// install renders with.
+// install renders with. #2ecfcf is a brighter cyan tuned for dark chrome
+// (higher luminance on #0e151c shells while still keeping white on-primary).
 const getColorList = () => {
   return [
     {
       key: i18n.t('app.setting.themecolor.teal'), color: '#0f9ea8'
     },
     {
-      key: i18n.t('app.setting.themecolor.green'), color: '#12a331'
+      key: i18n.t('app.setting.themecolor.nightCyan'), color: '#2ecfcf'
     },
     {
-      key: i18n.t('app.setting.themecolor.graphite'), color: '#3f413f'
+      key: i18n.t('app.setting.themecolor.green'), color: '#12a331'
     }
   ]
 }

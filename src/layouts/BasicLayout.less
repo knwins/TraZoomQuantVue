@@ -1,4 +1,4 @@
-@import '@/styles/antd-vars.less';
+﻿@import '@/styles/antd-vars.less';
 
 /* Header theme overrides. */
 .basic-layout-wrapper .ant-layout-header {
@@ -327,17 +327,17 @@ body.qd-code-ai-resizing * {
   .ant-layout.realdark .ant-layout-header,
   .ant-pro-layout.dark .ant-layout-header,
   .ant-pro-layout.realdark .ant-layout-header {
-    background: #0e151c !important;
+    background: var(--qd-bg, #0e151c) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     box-shadow: none !important;
     color: rgba(255, 255, 255, 0.85) !important;
 
-    /* Header 鍐呯殑鎵€鏈夋枃瀛楀拰鍥炬爣 */
+    /* Header 閸愬懐娈戦幍鈧張澶嬫瀮鐎涙鎷伴崶鐐垼 */
     * {
       color: rgba(255, 255, 255, 0.85) !important;
     }
 
-    /* Header 鍐呯殑鍥炬爣鎸夐挳 */
+    /* Header 閸愬懐娈戦崶鐐垼閹稿鎸?*/
     .anticon {
       color: rgba(255, 255, 255, 0.85) !important;
 
@@ -348,7 +348,7 @@ body.qd-code-ai-resizing * {
       }
     }
 
-    /* Header 鍐呯殑閾炬帴 */
+    /* Header 閸愬懐娈戦柧鐐复 */
     a {
       color: rgba(255, 255, 255, 0.85) !important;
 
@@ -414,7 +414,7 @@ body.qd-code-ai-resizing * {
   body.realdark .ant-layout-header .ant-pro-global-header,
   .ant-pro-layout.dark .ant-layout-header .ant-pro-global-header,
   .ant-pro-layout.realdark .ant-layout-header .ant-pro-global-header {
-    background: #0e151c !important;
+    background: var(--qd-bg, #0e151c) !important;
     border-bottom: none !important;
     box-shadow: none !important;
     color: rgba(255, 255, 255, 0.85) !important;
@@ -492,7 +492,7 @@ body.qd-code-ai-resizing * {
       }
     }
 
-    /* 澶村儚鍖哄煙 */
+    /* 婢舵潙鍎氶崠鍝勭厵 */
     .ant-pro-account-avatar {
       color: rgba(255, 255, 255, 0.85) !important;
 
@@ -521,7 +521,7 @@ body.qd-code-ai-resizing * {
     }
   }
 
-  /* 閾炬帴鏍峰紡 */
+  /* 闁剧偓甯撮弽宄扮础 */
   a {
     color: rgba(255, 255, 255, 0.85) !important;
 
@@ -530,7 +530,7 @@ body.qd-code-ai-resizing * {
     }
   }
 
-  /* 鎵€鏈夊浘鏍?*/
+  /* 閹碘偓閺堝娴橀弽?*/
   .anticon {
     color: rgba(255, 255, 255, 0.85) !important;
 
@@ -563,13 +563,13 @@ body.qd-code-ai-resizing * {
 
     /* 1. Header. */
     :global(.ant-layout-header) {
-      background: #0e151c !important;
+      background: var(--qd-bg, #0e151c) !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
       box-shadow: none !important;
       color: rgba(255, 255, 255, 0.85) !important;
 
       :global(.ant-pro-global-header) {
-        background: #0e151c !important;
+        background: var(--qd-bg, #0e151c) !important;
         border-bottom: none !important;
         box-shadow: none !important;
         color: rgba(255, 255, 255, 0.85) !important;
@@ -770,12 +770,12 @@ body.qd-code-ai-resizing * {
     }
     /* Theme compatibility override. */
     .ant-layout-header {
-      background: #0e151c !important;
+      background: var(--qd-bg, #0e151c) !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
       box-shadow: none !important;
     }
     .ant-pro-global-header {
-      background: #0e151c !important;
+      background: var(--qd-bg, #0e151c) !important;
       box-shadow: none !important;
     }
     .ant-pro-top-nav-header,
@@ -784,8 +784,8 @@ body.qd-code-ai-resizing * {
     .layout-top-actions,
     .ant-layout-header .ant-menu-horizontal,
     .ant-pro-top-nav-header .ant-menu-horizontal {
-      background: #0e151c !important;
-      background-color: #0e151c !important;
+      background: var(--qd-bg, #0e151c) !important;
+      background-color: var(--qd-bg, #0e151c) !important;
     }
   }
 }

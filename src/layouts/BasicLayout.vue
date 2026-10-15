@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div :class="['basic-layout-wrapper', settings.theme, { 'basic-layout-wrapper--multi-tab': multiTabEnabled }]">
     <pro-layout
       :menus="menus"
@@ -45,56 +45,29 @@
 
       <setting-drawer ref="settingDrawer" :settings="settings" @change="handleSettingChange">
         <div class="setting-drawer-support">
-          <div class="support-block">
-            <div class="support-title">{{ $t('menu.footer.getSupport') }}</div>
-            <div class="support-links">
-              <!-- Email and Telegram only. The former "Live Chat" entry was
-                   removed: it pointed at the upstream project's hosted chat,
-                   which a private deployment has no equivalent for. Telegram
-                   falls back to the project's channel so the row is never
-                   empty — operators override BRAND_CONTACT_TELEGRAM_URL. -->
-              <a v-if="contactEmail" :href="'mailto:' + contactEmail">{{ $t('menu.footer.email') }}</a>
-              <template v-if="contactEmail && contactTelegramUrl">
-                <span class="separator">|</span>
-              </template>
-              <a v-if="contactTelegramUrl" :href="contactTelegramUrl" target="_blank" rel="noopener noreferrer">{{ $t('menu.footer.telegram') }}</a>
+          <div class="support-footer">
+            <div class="support-block support-block--channels">
+              <div class="support-socials">
+                <a
+                  v-for="item in supportChannelLinks"
+                  :key="item.key"
+                  :href="item.url"
+                  :target="item.external ? '_blank' : null"
+                  :rel="item.external ? 'noopener noreferrer' : null"
+                  :title="item.label"
+                  :aria-label="item.label"
+                  class="support-social"
+                  :class="'support-social--' + item.key"
+                >
+                  <Icon :icon="item.icon" class="support-social__icon" />
+                </a>
+              </div>
+            </div>
+            <div class="support-meta">
+              <div class="support-copy">{{ menuFooterConfig.copyright }}</div>
+              <div class="support-version">V{{ appVersion }}</div>
             </div>
           </div>
-          <div class="support-block" v-if="menuFooterConfig.social_accounts && menuFooterConfig.social_accounts.length > 0">
-            <div class="support-title">{{ $t('menu.footer.socialAccounts') }}</div>
-            <div class="support-socials">
-              <a
-                v-for="(account, index) in menuFooterConfig.social_accounts"
-                :key="index"
-                :href="account.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                :title="account.name"
-                class="support-social"
-              >
-                <Icon :icon="`simple-icons:${account.icon}`" />
-              </a>
-            </div>
-          </div>
-          <div class="support-legal">
-            <a
-              v-if="menuFooterConfig.legal.user_agreement_url"
-              :href="menuFooterConfig.legal.user_agreement_url"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ $t('menu.footer.userAgreement') }}</a>
-            <a v-else @click="showLegalModal = true">{{ $t('menu.footer.userAgreement') }}</a>
-            <span class="separator">&</span>
-            <a
-              v-if="menuFooterConfig.legal.privacy_policy_url"
-              :href="menuFooterConfig.legal.privacy_policy_url"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ $t('menu.footer.privacyPolicy') }}</a>
-            <a v-else @click="showPrivacyModal = true">{{ $t('menu.footer.privacyPolicy') }}</a>
-          </div>
-          <div class="support-copy">{{ menuFooterConfig.copyright }}</div>
-          <div class="support-version">V{{ appVersion }}</div>
         </div>
       </setting-drawer>
       <template #rightContentRender>
@@ -246,17 +219,18 @@ import logoLight from '@/assets/logo.png'
 import logoDark from '@/assets/logo_w.png'
 import slogoImg from '@/assets/slogo.png'
 
-// Shown in the settings drawer's "Get Support" row when the deployment has no
-// BRAND_CONTACT_TELEGRAM_URL configured, so the row never renders as a bare
-// heading. Point the env var at your own channel to replace it.
+// Fallback channel URLs for the settings-drawer icon row when the operator
+// has not set BRAND_SOCIAL_* / BRAND_CONTACT_TELEGRAM_URL. Override via env.
+const DEFAULT_GITHUB_URL = 'https://github.com/knwins/TrazoomQuant'
+const DEFAULT_X_URL = 'https://x.com/trazoom'
 const DEFAULT_TELEGRAM_URL = 'https://t.me/trazoom'
 
 // The multi-tab bar is hidden by default: navigating away from a page
 // discards its state, which is the expected behaviour for a top-menu
-// layout. The settings drawer's "整体风格设置" block exposes a switch
+// layout. The settings drawer's "鏁翠綋椋庢牸璁剧疆" block exposes a switch
 // that flips this via the store (TOGGLE_MULTI_TAB).
 //
-// Note the class binding in the template must follow this flag — the
+// Note the class binding in the template must follow this flag 鈥?the
 // `basic-layout-wrapper--multi-tab` rules in BasicLayout.less reserve
 // vertical space for the tab bar, so leaving the class on while the bar
 // is hidden opens a blank strip above the content.
@@ -345,15 +319,56 @@ export default {
       // previous session never turns the bar back on unexpectedly.
       return this.multiTab === undefined ? false : this.multiTab
     },
-    // Contact values, with Telegram falling back to the project channel.
-    // The deployment ships with BRAND_CONTACT_TELEGRAM_URL empty, and the
-    // "Get Support" row would otherwise render as a heading with nothing
-    // under it. Operators set the env var to point at their own channel.
     contactEmail () {
       return (this.brandConfig.contact || {}).email || ''
     },
     contactTelegramUrl () {
       return (this.brandConfig.contact || {}).telegram_url || DEFAULT_TELEGRAM_URL
+    },
+    supportChannelLinks () {
+      const accounts = Array.isArray(this.menuFooterConfig.social_accounts)
+        ? this.menuFooterConfig.social_accounts
+        : []
+      const byIcon = accounts.reduce((map, item) => {
+        const key = String((item && item.icon) || '').toLowerCase()
+        const url = String((item && item.url) || '').trim()
+        if (key && url) map[key] = url
+        return map
+      }, {})
+      const telegramUrl = byIcon.telegram || this.contactTelegramUrl || DEFAULT_TELEGRAM_URL
+      const email = this.contactEmail
+      return [
+        {
+          key: 'github',
+          label: 'GitHub',
+          icon: 'simple-icons:github',
+          url: byIcon.github || DEFAULT_GITHUB_URL,
+          external: true
+        },
+        {
+          key: 'x',
+          label: 'X',
+          icon: 'simple-icons:x',
+          url: byIcon.x || byIcon.twitter || DEFAULT_X_URL,
+          external: true
+        },
+        {
+          key: 'telegram',
+          label: this.$t('menu.footer.telegram') || 'Telegram',
+          icon: 'simple-icons:telegram',
+          url: telegramUrl,
+          external: true
+        },
+        email
+          ? {
+              key: 'email',
+              label: email,
+              icon: 'mdi:email-outline',
+              url: `mailto:${email}`,
+              external: false
+            }
+          : null
+      ].filter(item => item && item.url)
     },
     // Support and feature-request URLs are no longer editable in Settings, so
     // the drawer's "Contact us" block is gone. These stay because the dormant
@@ -896,7 +911,7 @@ export default {
       this.$nextTick(() => {
         setTimeout(() => {
           this.updateMenuFooterPosition()
-        }, 300) // 等待 drawer 动画完成
+        }, 300) // 绛夊緟 drawer 鍔ㄧ敾瀹屾垚
       })
     },
     handleSettingChange ({ type, value }) {
@@ -1030,7 +1045,7 @@ export default {
     bottom: 0;
     left: 0;
     z-index: 100;
-    width: 256px; /* 统一固定宽度 256px */
+    width: 256px; /* 缁熶竴鍥哄畾瀹藉害 256px */
     background: #111111;
     border-top: 1px solid #1c1c1c;
     transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
@@ -1038,16 +1053,16 @@ export default {
                 max-width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
                 opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
     max-width: 256px;
-    display: block; /* 默认显示 */
+    display: block; /* 榛樿鏄剧ず */
     opacity: 1;
 
     &.collapsed {
-      width: 80px; /* 折叠时菜单宽度 */
+      width: 80px; /* 鎶樺彔鏃惰彍鍗曞搴?*/
       max-width: 80px;
     }
 
     @media (max-width: 768px) {
-      z-index: 1001; /* drawer 的 z-index 通常是 1000 */
+      z-index: 1001; /* drawer 鐨?z-index 閫氬父鏄?1000 */
 
       &:not(.drawer-open) {
         display: none !important;
@@ -1064,7 +1079,7 @@ export default {
         transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
                     width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
                     max-width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
-                    opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86) 0.1s; /* 延迟 0.1s 显示，确保 drawer 先出现 */
+                    opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86) 0.1s; /* 寤惰繜 0.1s 鏄剧ず锛岀‘淇?drawer 鍏堝嚭鐜?*/
       }
     }
 
@@ -1326,12 +1341,12 @@ export default {
   }
 
   .ant-layout-header {
-    background: #0e151c !important;
+    background: var(--qd-bg, #0e151c) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     box-shadow: none !important;
   }
   .ant-pro-global-header {
-    background: #0e151c !important;
+    background: var(--qd-bg, #0e151c) !important;
     border-bottom: none !important;
     box-shadow: none !important;
     color: rgba(255, 255, 255, 0.85) !important;
@@ -1407,90 +1422,117 @@ export default {
 }
 
 .setting-drawer-support {
+  /* Divider above comes from SettingDrawer's <a-divider />; avoid a second rule.
+     Grow to fill the drawer so tech-support + copyright sit on the panel bottom. */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
   margin-top: 4px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  padding-top: 4px;
   color: rgba(15, 23, 42, 0.72);
 
-  .support-block {
-    margin-bottom: 16px;
+  .support-footer {
+    margin-top: auto;
+    /* Keep a little air under the copyright so the block reads higher. */
+    padding-bottom: 12px;
+  }
 
-    // Last block before the legal row: drop its trailing space so the
-    // copyright line sits closer to the links it follows.
-    &:last-of-type {
-      margin-bottom: 12px;
-    }
+  .support-block--channels {
+    /* Sit the tech-support block a bit higher above the copyright rule. */
+    margin-bottom: 28px;
   }
 
   .support-title {
-    margin-bottom: 7px;
+    margin-bottom: 12px;
     font-size: 12px;
-    font-weight: 600;
-    color: rgba(15, 23, 42, 0.86);
-  }
-
-  .support-links,
-  .support-legal {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    line-height: 1.6;
-
-    a {
-      color: var(--primary-color, #0f9ea8);
-      text-decoration: none;
-      transition: opacity 0.16s ease;
-
-      &:hover {
-        opacity: 0.72;
-        text-decoration: underline;
-      }
-    }
-
-    .separator {
-      color: rgba(100, 116, 139, 0.58);
-    }
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgba(15, 23, 42, 0.88);
   }
 
   .support-socials {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
   }
 
   .support-social {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    border-radius: 6px;
-    color: rgba(15, 23, 42, 0.72);
-    background: rgba(248, 250, 252, 0.85);
-    transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 10px;
+    color: rgba(15, 23, 42, 0.78);
+    background: linear-gradient(180deg, #ffffff 0%, #f5f7fa 100%);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    transition: transform 0.16s ease, color 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+
+    .support-social__icon {
+      width: 16px;
+      height: 16px;
+    }
 
     &:hover {
-      color: var(--primary-color, #1890ff);
-      border-color: color-mix(in srgb, var(--primary-color, #1890ff) 34%, transparent);
-      background: color-mix(in srgb, var(--primary-color, #1890ff) 8%, #fff);
+      transform: translateY(-1px);
+      color: var(--primary-on-color, #fff);
+      border-color: var(--primary-color, #0f9ea8);
+      background: var(--primary-color, #0f9ea8);
+      box-shadow: 0 6px 14px color-mix(in srgb, var(--primary-color, #0f9ea8) 28%, transparent);
+    }
+
+    &:active {
+      transform: translateY(0);
     }
   }
 
-  .support-copy {
-    margin-top: 14px;
-    padding-top: 12px;
+  .support-social--github:hover {
+    background: #111827;
+    border-color: #111827;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(17, 24, 39, 0.22);
+  }
+
+  .support-social--x:hover {
+    background: #0f1419;
+    border-color: #0f1419;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(15, 20, 25, 0.22);
+  }
+
+  .support-social--telegram:hover {
+    background: #229ed9;
+    border-color: #229ed9;
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(34, 158, 217, 0.28);
+  }
+
+  .support-social--email:hover {
+    background: var(--primary-color, #0f9ea8);
+    border-color: var(--primary-color, #0f9ea8);
+    color: var(--primary-on-color, #fff);
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--primary-color, #0f9ea8) 28%, transparent);
+  }
+
+  .support-meta {
+    margin-top: 0;
+    padding-top: 14px;
     border-top: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .support-copy {
     font-size: 11px;
-    color: rgba(100, 116, 139, 0.78);
+    line-height: 1.55;
+    color: rgba(100, 116, 139, 0.82);
   }
 
   .support-version {
-    margin-top: 4px;
+    margin-top: 6px;
     font-size: 10px;
     letter-spacing: 0.06em;
+    line-height: 1.4;
     color: rgba(100, 116, 139, 0.58);
   }
 }
@@ -1499,35 +1541,49 @@ body.dark .setting-drawer-support,
 body.realdark .setting-drawer-support,
 .basic-layout-wrapper.dark .setting-drawer-support,
 .basic-layout-wrapper.realdark .setting-drawer-support {
-  border-top-color: rgba(255, 255, 255, 0.1);
   color: rgba(226, 232, 240, 0.72);
 
   .support-title {
-    color: rgba(248, 250, 252, 0.9);
-  }
-
-  .support-links,
-  .support-legal {
-    .separator {
-      color: rgba(148, 163, 184, 0.58);
-    }
+    color: rgba(248, 250, 252, 0.92);
   }
 
   .support-social {
-    color: rgba(226, 232, 240, 0.74);
-    border-color: rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
+    color: rgba(226, 232, 240, 0.86);
+    border-color: rgba(255, 255, 255, 0.12);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+    box-shadow: none;
 
     &:hover {
-      color: var(--primary-color, #1890ff);
-      border-color: color-mix(in srgb, var(--primary-color, #1890ff) 36%, transparent);
-      background: color-mix(in srgb, var(--primary-color, #1890ff) 12%, transparent);
+      color: var(--primary-on-color, #14181c);
+      border-color: var(--primary-color, #ffffff);
+      background: var(--primary-color, #ffffff);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
     }
   }
 
-  .support-copy {
+  .support-social--github:hover,
+  .support-social--x:hover {
+    color: #fff;
+  }
+
+  .support-social--telegram:hover {
+    color: #fff;
+    background: #229ed9;
+    border-color: #229ed9;
+  }
+
+  .support-social--email:hover {
+    color: var(--primary-on-color, #14181c);
+    background: var(--primary-color, #ffffff);
+    border-color: var(--primary-color, #ffffff);
+  }
+
+  .support-meta {
     border-top-color: rgba(255, 255, 255, 0.1);
-    color: rgba(148, 163, 184, 0.75);
+  }
+
+  .support-copy {
+    color: rgba(148, 163, 184, 0.78);
   }
 
   .support-version {

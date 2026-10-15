@@ -123,17 +123,17 @@ body.dark .@{multi-tab-prefix-cls},
 body.realdark .@{multi-tab-prefix-cls},
 .dark .@{multi-tab-prefix-cls},
 .realdark .@{multi-tab-prefix-cls} {
-  border-top-color: #1f2730;
-  border-bottom-color: #242b35;
-  background: #11161c;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  border-top-color: var(--qd-border, rgba(148, 163, 184, 0.12));
+  border-bottom-color: var(--qd-border, rgba(148, 163, 184, 0.12));
+  background: var(--qd-chrome, #121a22);
+  box-shadow: none;
 }
 
 body.dark .@{multi-tab-prefix-cls} .ant-tabs-bar,
 body.realdark .@{multi-tab-prefix-cls} .ant-tabs-bar,
 .dark .@{multi-tab-prefix-cls} .ant-tabs-bar,
 .realdark .@{multi-tab-prefix-cls} .ant-tabs-bar {
-  background: #11161c;
+  background: var(--qd-chrome, #121a22);
 }
 
 body.dark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab,
@@ -141,30 +141,30 @@ body.realdark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-ba
 .dark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab,
 .realdark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
   background: transparent;
-  color: #9aa7b5;
+  color: var(--qd-text-secondary, #94a3b4);
 }
 
 body.dark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active,
 body.realdark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active,
 .dark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active,
 .realdark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
-  background: color-mix(in srgb, var(--primary-color, #1890ff) 18%, #11161c);
-  color: var(--primary-color, #1890ff);
+  background: color-mix(in srgb, var(--primary-color, #0f9ea8) 14%, var(--qd-chrome, #121a22));
+  color: var(--primary-color, #0f9ea8);
 }
 
 body.dark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x,
 body.realdark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x,
 .dark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x,
 .realdark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x {
-  color: #8f9baa;
+  color: var(--qd-text-muted, #6b7c8f);
 }
 
 body.dark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x:hover,
 body.realdark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x:hover,
 .dark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x:hover,
 .realdark .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x:hover {
-  background: #27313c;
-  color: #f1f5f9;
+  background: var(--qd-surface-hover, #1c2630);
+  color: var(--qd-text, #e6edf5);
 }
 
 body.dark .@{multi-tab-prefix-cls}-clear,

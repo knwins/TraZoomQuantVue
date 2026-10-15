@@ -20,9 +20,6 @@
       <a-icon type="wallet" />
       <strong>{{ formattedCredits }}</strong>
     </span>
-    <a-button size="small" type="primary" class="account-recharge" @click.stop="handleBilling">
-      <span>{{ $t('profile.credits.rechargeShort') || '充值' }}</span>
-    </a-button>
   </span>
   <span v-else>
     <a-spin size="small" :style="{ marginLeft: 8, marginRight: 8 }" />
@@ -119,9 +116,6 @@ export default {
     },
     handleProfile () {
       this.$router.push({ name: 'Profile' }).catch(() => {})
-    },
-    handleBilling () {
-      this.$router.push({ name: 'Billing' }).catch(() => {})
     },
     handleCredits () {
       this.$router.push({ name: 'Profile', query: { tab: 'credits' } }).catch(() => {})
@@ -231,22 +225,6 @@ export default {
     }
   }
 
-  .account-recharge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    padding: 0 12px;
-    border-radius: 9px;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 30px;
-    box-shadow: 0 3px 8px color-mix(in srgb, var(--primary-color, #1890ff) 22%, transparent);
-
-    span {
-      line-height: 1;
-    }
-  }
 }
 
 .qd-account-dropdown {
@@ -347,19 +325,13 @@ body.realdark .qd-account-trigger,
       height: 30px;
       padding: 0 9px;
     }
-
-    .account-recharge {
-      height: 30px;
-      padding: 0 12px;
-    }
   }
 }
 
 @media (max-width: 920px) {
   .qd-account-trigger {
     .account-name,
-    .account-credits,
-    .account-recharge {
+    .account-credits {
       display: none;
     }
   }
@@ -377,28 +349,28 @@ body.realdark .qd-account-menu.ant-menu,
 .ant-layout.realdark .qd-account-menu.ant-menu,
 .ant-pro-layout.dark .qd-account-menu.ant-menu,
 .ant-pro-layout.realdark .qd-account-menu.ant-menu {
-  background-color: #1f1f1f;
-  border: 1px solid #303030;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background-color: var(--qd-surface-subtle, #182029);
+  border: 1px solid var(--qd-border, rgba(148, 163, 184, 0.12));
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 
   .ant-dropdown-menu-item,
   .ant-menu-item {
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--qd-text, #e6edf5);
 
     &:hover,
     &.ant-dropdown-menu-item-selected,
     &.ant-menu-item-selected {
-      background-color: #262626;
-      color: var(--primary-color, #1890ff);
+      background-color: var(--qd-surface-hover, #1c2630);
+      color: var(--primary-color, #0f9ea8);
     }
 
     .anticon {
-      color: rgba(255, 255, 255, 0.85);
+      color: var(--qd-text-secondary, #94a3b4);
     }
   }
 
   .ant-dropdown-menu-item-divider {
-    background-color: #303030;
+    background-color: var(--qd-border, rgba(148, 163, 184, 0.12));
   }
 }
 </style>
