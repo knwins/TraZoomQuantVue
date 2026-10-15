@@ -130,7 +130,11 @@ export default {
         title: this.$t('layouts.usermenu.dialog.title'),
         content: this.$t('layouts.usermenu.dialog.content'),
         onOk: () => {
-          return this.$store.dispatch('Logout').then(() => {
+          return this.$store.dispatch('Logout').then((logoutUrl) => {
+            if (logoutUrl) {
+              window.location.assign(logoutUrl)
+              return
+            }
             this.$router.push({ name: 'login' })
           })
         },

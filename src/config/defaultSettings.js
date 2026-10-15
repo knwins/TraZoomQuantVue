@@ -20,7 +20,7 @@ export default {
   menu: {
     locale: true
   },
-  title: 'TraZoom Quant',
+  title: 'Trazoom Quant',
   pwa: false,
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'

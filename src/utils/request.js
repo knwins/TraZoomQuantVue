@@ -5,6 +5,7 @@ import notification from 'ant-design-vue/es/notification'
 import { translateStrategyRuntimeError } from './strategyRuntimeError'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN, USER_INFO, USER_ROLES } from '@/store/mutation-types'
+import { startAccountLogin } from '@/utils/accountLogin'
 import i18n from '@/locales'
 
 const PHPSESSID_KEY = 'PHPSESSID'
@@ -225,11 +226,8 @@ const errorHandler = (error) => {
             tt('request.unauthorizedDesc', 'Token invalid or expired, please login again.')
         })
 
-        const curHash = window.location.hash || ''
-        if (!curHash.includes('/user/login')) {
-          const redirect = encodeURIComponent(curHash.replace('#', '') || '/')
-          window.location.assign(`/#/user/login?redirect=${redirect}`)
-        }
+        const curHash = (window.location.hash || '#/').replace(/^#/, '')
+        startAccountLogin(curHash.split('?')[0] || '/')
       }
     }
   }

@@ -238,7 +238,7 @@ const user = {
 
     Logout ({ commit, dispatch }) {
       return new Promise((resolve) => {
-        logout().then(() => {
+        const finish = (logoutUrl) => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           commit('SET_INFO', {})
@@ -248,14 +248,13 @@ const user = {
           storage.remove(USER_INFO)
           storage.remove(USER_ROLES)
           dispatch('ResetRoutes')
-          resolve()
+          resolve(logoutUrl || '')
+        }
+        logout().then((res) => {
+          const logoutUrl = res && res.data && res.data.logout_url
+          finish(logoutUrl)
         }).catch(() => {
-          storage.remove(ACCESS_TOKEN)
-          storage.remove(USER_INFO)
-          storage.remove(USER_ROLES)
-          dispatch('ResetRoutes')
-          resolve()
-        }).finally(() => {
+          finish('')
         })
       })
     }

@@ -6884,7 +6884,7 @@ const locale = {
   "user.login.hero.status": "خدمات الذكاء الاصطناعي متاحة",
   "user.login.hero.scope": "البيانات · النماذج · التنفيذ",
   "user.login.hero.secureAccess": "وصول آمن",
-  "user.login.hero.welcome": "مرحباً بك في TraZoom Quant",
+  "user.login.hero.welcome": "مرحباً بك في {name}",
   "user.login.hero.welcomeDesc": "سجّل الدخول لمتابعة أبحاثك وسير عمل التداول."
 }
 

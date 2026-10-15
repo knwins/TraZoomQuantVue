@@ -13,7 +13,7 @@ import {
   // i18n
   APP_LANGUAGE
 } from '@/store/mutation-types'
-import { loadLanguageAsync } from '@/locales'
+import { loadLanguageAsync, normalizeLocale } from '@/locales'
 
 const app = {
   state: {
@@ -78,9 +78,10 @@ const app = {
   },
   actions: {
     setLang ({ commit }, lang) {
+      const next = normalizeLocale(lang)
       return new Promise((resolve, reject) => {
-        commit(APP_LANGUAGE, lang)
-        loadLanguageAsync(lang).then(() => {
+        commit(APP_LANGUAGE, next)
+        loadLanguageAsync(next).then(() => {
           resolve()
         }).catch((e) => {
           reject(e)

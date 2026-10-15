@@ -35,6 +35,16 @@ Vue.use(VueI18n)
 
 export const defaultLang = 'en-US'
 
+export const supportedLocales = [
+  { value: 'zh-CN', label: '简体中文', short: '中文', icon: 'CN' },
+  { value: 'zh-TW', label: '繁體中文', short: '繁中', icon: 'TW' },
+  { value: 'en-US', label: 'English', short: 'EN', icon: 'EN' }
+]
+
+export function normalizeLocale (lang) {
+  return supportedLocales.some(item => item.value === lang) ? lang : defaultLang
+}
+
 const messages = {
   [defaultLang]: {
     ...enUS,
@@ -69,14 +79,6 @@ const messages = {
 }
 
 const localeLoaders = {
-  'ar-SA': () => import('./lang/ar-SA.js'),
-  'de-DE': () => import('./lang/de-DE.js'),
-  'fr-FR': () => import('./lang/fr-FR.js'),
-  'ja-JP': () => import('./lang/ja-JP.js'),
-  'ko-KR': () => import('./lang/ko-KR.js'),
-  'ru-RU': () => import('./lang/ru-RU.js'),
-  'th-TH': () => import('./lang/th-TH.js'),
-  'vi-VN': () => import('./lang/vi-VN.js'),
   'zh-CN': () => import('./lang/zh-CN.js'),
   'zh-TW': () => import('./lang/zh-TW.js')
 }
@@ -167,6 +169,7 @@ function mergeLocaleOverrides (lang) {
 }
 
 export async function loadLanguageAsync (lang = defaultLang) {
+  lang = normalizeLocale(lang)
   storage.set('lang', lang)
   if (i18n.locale === lang) {
     mergeLocaleOverrides(lang)

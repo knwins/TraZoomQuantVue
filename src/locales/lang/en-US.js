@@ -7231,7 +7231,7 @@ export default {
   "user.login.hero.status": "AI services online",
   "user.login.hero.scope": "Data · Models · Execution",
   "user.login.hero.secureAccess": "Secure access",
-  "user.login.hero.welcome": "Welcome to TraZoom Quant",
+  "user.login.hero.welcome": "Welcome to {name}",
   "user.login.hero.welcomeDesc": "Sign in to continue your research and trading workflow.",
   "aiDecisionFilter.title": "AI Decision Filter",
   "aiDecisionFilter.strategyHint": "JEV or the configured LLM reviews entries before exchange submission. Exit orders always proceed directly.",

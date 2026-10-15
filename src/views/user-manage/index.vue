@@ -116,10 +116,6 @@
         <!-- Toolbar -->
         <div class="toolbar">
           <div class="toolbar-left">
-            <a-button type="primary" @click="showCreateModal">
-              <a-icon type="user-add" />
-              {{ $t('userManage.createUser') || 'Create User' }}
-            </a-button>
             <a-button :loading="exportingUsers" @click="handleExportUsers">
               <a-icon type="download" />
               {{ $t('userManage.exportUsers') || 'Export Users' }}
@@ -275,11 +271,6 @@
                 <a-tooltip :title="$t('userManage.setVip') || 'Set VIP'">
                   <a-button type="link" size="small" @click="showVipModal(record)">
                     <a-icon type="crown" style="color: #faad14" />
-                  </a-button>
-                </a-tooltip>
-                <a-tooltip :title="$t('userManage.resetPassword') || 'Reset Password'">
-                  <a-button type="link" size="small" @click="showResetPasswordModal(record)">
-                    <a-icon type="key" />
                   </a-button>
                 </a-tooltip>
                 <a-tooltip :title="$t('systemOverview.viewUserStrategies') || 'View strategies'">
@@ -1260,20 +1251,6 @@
           </a-input>
         </a-form-item>
 
-        <a-form-item v-if="!isEdit" :label="$t('userManage.password') || 'Password'">
-          <a-input-password
-            v-decorator="['password', {
-              rules: [
-                { required: true, message: $t('userManage.passwordRequired') || 'Please enter password' },
-                { min: 6, message: $t('userManage.passwordMin') || 'Password must be at least 6 characters' }
-              ]
-            }]"
-            :placeholder="$t('userManage.passwordPlaceholder') || 'Enter password (min 6 characters)'"
-          >
-            <a-icon slot="prefix" type="lock" />
-          </a-input-password>
-        </a-form-item>
-
         <a-form-item :label="$t('userManage.nickname') || 'Nickname'">
           <a-input
             v-decorator="['nickname']"
@@ -1317,36 +1294,6 @@
       </a-form>
     </a-modal>
 
-    <!-- Reset Password Modal -->
-    <a-modal
-      v-model="resetPasswordVisible"
-      :wrap-class-name="userManageModalWrapClass"
-      :title="$t('userManage.resetPassword') || 'Reset Password'"
-      :confirmLoading="resetPasswordLoading"
-      @ok="handleResetPassword"
-    >
-      <a-form :form="resetPasswordForm" layout="vertical">
-        <a-alert
-          :message="$t('userManage.resetPasswordWarning') || 'This will reset the user\'s password'"
-          type="warning"
-          showIcon
-          style="margin-bottom: 16px"
-        />
-        <a-form-item :label="$t('userManage.newPassword') || 'New Password'">
-          <a-input-password
-            v-decorator="['new_password', {
-              rules: [
-                { required: true, message: $t('userManage.passwordRequired') || 'Please enter new password' },
-                { min: 6, message: $t('userManage.passwordMin') || 'Password must be at least 6 characters' }
-              ]
-            }]"
-            :placeholder="$t('userManage.newPasswordPlaceholder') || 'Enter new password'"
-          >
-            <a-icon slot="prefix" type="lock" />
-          </a-input-password>
-        </a-form-item>
-      </a-form>
-    </a-modal>
 
     <!-- Adjust Credits Modal -->
     <a-modal

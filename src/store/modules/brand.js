@@ -5,7 +5,7 @@ const BUILD_APP_VERSION = typeof APP_VERSION !== 'undefined' ? APP_VERSION : '0.
 // Mirrors BRAND_DEFAULTS['copyright'] in the backend, which rewrites the year
 // on read. Keep the two in step.
 const currentYear = new Date().getFullYear()
-const DEFAULT_COPYRIGHT = `© ${currentYear} TraZoom Quant. All rights reserved.`
+const DEFAULT_COPYRIGHT = `© ${currentYear} Trazoom Quant. All rights reserved.`
 
 // First 4-digit year, or a 4-digit range such as "2025-2026". Only the digits
 // are matched so the © / (c) mark survives.
@@ -27,7 +27,7 @@ function normalizeCopyright (value) {
  * yet (or fails entirely).
  */
 const DEFAULT_BRAND = {
-  app_name: 'TraZoom Quant',
+  app_name: 'Trazoom Quant',
   app_version: BUILD_APP_VERSION,
   copyright: DEFAULT_COPYRIGHT,
   logos: {
@@ -36,11 +36,9 @@ const DEFAULT_BRAND = {
     collapsed: '',
     favicon: ''
   },
-  // TraZoom Quant is a private deployment that is not publicly distributed.
-  // Contact and social entries stay empty so the sidebar renders no links —
-  // mirroring the backend defaults in app/services/settings/branding.py. The
-  // old values pointed at the upstream project's public channels, which would
-  // route private-deployment users to a third party.
+  // Trazoom Quant is a private deployment that is not publicly distributed.
+  // Contact and social entries stay empty so the sidebar renders no links,
+  // matching the backend defaults in app/services/settings/branding.py.
   contact: {
     email: '',
     support_url: '',
@@ -63,10 +61,9 @@ const DEFAULT_BRAND = {
   }
 }
 
-// Namespaced per product. The v1 suffix was kept so a stale cache written by
-// an older build (which stored the upstream defaults) can never be picked up —
-// bumping it is the intended way to invalidate.
-const STORAGE_KEY = 'trazoomquant.brand-config.v1'
+// Namespaced per product. The v2 suffix drops a cache that still carried the
+// previous display name, so first paint uses the current default.
+const STORAGE_KEY = 'trazoomquant.brand-config.v2'
 
 function readCachedBrand () {
   try {

@@ -7532,7 +7532,7 @@ export default {
   "user.login.hero.status": "AI 服务运行正常",
   "user.login.hero.scope": "数据 · 模型 · 执行",
   "user.login.hero.secureAccess": "安全访问",
-  "user.login.hero.welcome": "欢迎回到 TraZoom Quant",
+  "user.login.hero.welcome": "欢迎回到 {name}",
   "user.login.hero.welcomeDesc": "登录后继续你的策略研究与交易工作。",
   "aiDecisionFilter.title": "AI 决策过滤",
   "aiDecisionFilter.strategyHint": "开仓和加仓信号将在送往交易所前由 JEV 或已配置的大模型复核；退出交易始终直接执行。",

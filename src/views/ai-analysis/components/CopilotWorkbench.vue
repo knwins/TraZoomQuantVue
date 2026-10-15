@@ -701,6 +701,7 @@ import { getMembershipPlans } from '@/api/billing'
 import { getMonitors, addMonitor, updateMonitor, deleteMonitor } from '@/api/portfolio'
 import { fastAnalyze } from '@/api/fast-analysis'
 import storage from 'store'
+import { startAccountLogin } from '@/utils/accountLogin'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { loadEnabledMarketOptions, firstMarketValue } from '@/utils/marketModules'
 import { resolveMarketBiasLabelKey, resolveTradeActionLabelKey } from '@/utils/fastAnalysisPresentation'
@@ -2315,8 +2316,7 @@ export default {
         '/profile',
         '/indicator-ide',
         '/strategy-ide',
-        '/strategy-center',
-        '/user/login'
+        '/strategy-center'
       ]
       return allowed.includes(String(path || ''))
     },
@@ -2388,6 +2388,10 @@ export default {
       }
       if (action && action.type === 'ask_about_report') {
         this.askAboutReport(action.payload && action.payload.reportId)
+        return
+      }
+      if (action && action.type === 'account_login') {
+        startAccountLogin(this.$route && this.$route.fullPath)
         return
       }
       if (!action || !action.path) return
@@ -4723,9 +4727,9 @@ export default {
         },
         login: {
           key: 'login',
+          type: 'account_login',
           icon: 'login',
-          label: this.i18nText('aiCopilot.setup.action.login', 'Sign in again'),
-          path: '/user/login'
+          label: this.i18nText('aiCopilot.setup.action.login', 'Sign in again')
         }
       }
       return map[key]

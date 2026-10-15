@@ -194,7 +194,7 @@
                   disabled
                 >
                   <a-icon slot="prefix" type="mail" />
-                  <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Email cannot be changed after registration'">
+                  <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Email is managed by the account center'">
                     <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
                   </a-tooltip>
                 </a-input>
@@ -230,151 +230,6 @@
           <a-tab-pane key="agentTokens">
             <span slot="tab"><a-icon type="api" />{{ $t('profile.agentTokens.tab') || '我的 Agent Token' }}</span>
             <profile-agent-tokens :is-dark-theme="isDarkTheme" />
-          </a-tab-pane>
-
-          <!-- Change Password Tab -->
-          <a-tab-pane key="password">
-            <span slot="tab"><a-icon type="key" />{{ $t('profile.changePassword') || 'Change Password' }}</span>
-            <a-form :form="passwordForm" layout="vertical" class="password-form">
-              <a-alert
-                :message="$t('profile.passwordHintNew') || 'For security, email verification is required to change password. Password must be at least 8 characters with uppercase, lowercase, and number.'"
-                type="info"
-                showIcon
-                style="margin-bottom: 24px"
-              />
-
-              <!-- Email Display & Verification Code -->
-              <a-form-item :label="$t('profile.verificationCode') || 'Verification Code'">
-                <a-row :gutter="12">
-                  <a-col :span="16">
-                    <a-input
-                      v-decorator="['code', {
-                        rules: [{ required: true, message: $t('profile.codeRequired') || 'Please enter verification code' }]
-                      }]"
-                      :placeholder="$t('profile.codePlaceholder') || 'Enter verification code'"
-                    >
-                      <a-icon slot="prefix" type="safety-certificate" />
-                    </a-input>
-                  </a-col>
-                  <a-col :span="8">
-                    <a-button
-                      block
-                      :loading="sendingPwdCode"
-                      :disabled="sendingPwdCode || pwdCodeCountdown > 0 || !profile.email"
-                      @click="handleSendPwdCode"
-                    >
-                      {{ pwdCodeCountdown > 0 ? `${pwdCodeCountdown}s` : ($t('profile.sendCode') || 'Send Code') }}
-                    </a-button>
-                  </a-col>
-                </a-row>
-                <div class="email-hint" v-if="profile.email">
-                  {{ $t('profile.codeWillSendTo') || 'Code will be sent to' }}: {{ profile.email }}
-                </div>
-                <div class="email-hint email-warning" v-else>
-                  {{ $t('profile.noEmailWarning') || 'Please set your email first in Basic Info tab' }}
-                </div>
-              </a-form-item>
-
-              <a-form-item :label="$t('profile.newPassword') || 'New Password'">
-                <a-input-password
-                  v-decorator="['new_password', {
-                    rules: [
-                      { required: true, message: $t('profile.newPasswordRequired') || 'Please enter new password' },
-                      { validator: validateNewPassword }
-                    ]
-                  }]"
-                  :placeholder="$t('profile.newPasswordPlaceholder') || 'Enter new password'"
-                >
-                  <a-icon slot="prefix" type="lock" />
-                </a-input-password>
-              </a-form-item>
-
-              <a-form-item :label="$t('profile.confirmPassword') || 'Confirm Password'">
-                <a-input-password
-                  v-decorator="['confirm_password', {
-                    rules: [
-                      { required: true, message: $t('profile.confirmPasswordRequired') || 'Please confirm password' },
-                      { validator: validateConfirmPassword }
-                    ]
-                  }]"
-                  :placeholder="$t('profile.confirmPasswordPlaceholder') || 'Confirm new password'"
-                >
-                  <a-icon slot="prefix" type="lock" />
-                </a-input-password>
-              </a-form-item>
-
-              <a-form-item>
-                <a-button type="primary" :loading="changingPassword" @click="handleChangePassword" :disabled="!profile.email">
-                  <a-icon type="key" />
-                  {{ $t('profile.changePassword') || 'Change Password' }}
-                </a-button>
-              </a-form-item>
-            </a-form>
-          </a-tab-pane>
-
-          <a-tab-pane key="security">
-            <span slot="tab"><a-icon type="safety-certificate" />{{ $t('profile.security.title') }}</span>
-            <div class="security-section">
-              <a-alert
-                v-if="!mfaStatus.system_enabled"
-                type="warning"
-                showIcon
-                :message="$t('profile.mfa.systemDisabled')"
-                style="margin-bottom: 16px"
-              />
-              <div class="mfa-card">
-                <div class="mfa-card-main">
-                  <div class="mfa-icon">
-                    <a-icon type="safety-certificate" />
-                  </div>
-                  <div class="mfa-copy">
-                    <div class="mfa-title">
-                      <span>{{ $t('profile.mfa.title') }}</span>
-                      <a-tag
-                        class="mfa-status-tag"
-                        :class="mfaStatus.enabled ? 'is-enabled' : 'is-disabled'"
-                      >
-                        {{ mfaStatus.enabled ? $t('profile.mfa.enabled') : $t('profile.mfa.disabled') }}
-                      </a-tag>
-                    </div>
-                    <div class="mfa-desc">
-                      {{ $t('profile.mfa.desc') }}
-                    </div>
-                    <div v-if="mfaStatus.enabled && mfaStatus.confirmed_at" class="mfa-meta">
-                      <a-icon type="clock-circle" />
-                      {{ $t('profile.mfa.boundAt') }}: {{ formatTime(mfaStatus.confirmed_at) }}
-                    </div>
-                    <div class="mfa-feature-list">
-                      <span><a-icon type="mobile" />{{ $t('profile.mfa.featureApp') }}</span>
-                      <span><a-icon type="environment" />{{ $t('profile.mfa.featureRisk') }}</span>
-                      <span><a-icon type="key" />{{ $t('profile.mfa.featureRecovery') }}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="mfa-actions">
-                  <a-button
-                    v-if="!mfaStatus.enabled"
-                    type="primary"
-                    icon="qrcode"
-                    :disabled="!mfaStatus.system_enabled"
-                    :loading="mfaLoading"
-                    @click="handleStartMfaSetup"
-                  >
-                    {{ $t('profile.mfa.enable') }}
-                  </a-button>
-                  <a-button
-                    v-else
-                    type="danger"
-                    ghost
-                    icon="stop"
-                    :loading="mfaLoading"
-                    @click="showDisableMfaModal = true"
-                  >
-                    {{ $t('profile.mfa.disable') }}
-                  </a-button>
-                </div>
-              </div>
-            </div>
           </a-tab-pane>
 
           <a-tab-pane key="credits">
@@ -741,108 +596,6 @@
       </a-card>
     </div>
 
-    <a-modal
-      v-model="showMfaSetupModal"
-      :title="$t('profile.mfa.setupTitle')"
-      :footer="null"
-      :width="520"
-      :wrapClassName="mfaModalWrapClass"
-      :destroyOnClose="true"
-      @cancel="resetMfaSetup"
-    >
-      <div class="mfa-setup-modal">
-        <div class="mfa-setup-head">
-          <span class="mfa-setup-badge"><a-icon type="safety-certificate" /></span>
-          <div>
-            <div class="mfa-setup-heading">{{ $t('profile.mfa.setupIntroTitle') }}</div>
-            <div class="mfa-setup-subtitle">{{ $t('profile.mfa.scanHint') }}</div>
-          </div>
-        </div>
-        <div v-if="mfaSetup.qr_image" class="mfa-qr-card">
-          <img :src="mfaSetup.qr_image" alt="MFA QR code" class="mfa-qr" />
-        </div>
-        <div class="mfa-field">
-          <label>{{ $t('profile.mfa.manualKey') }}</label>
-          <a-input
-            :value="mfaSetup.secret_display || mfaSetup.secret"
-            readonly
-            class="mfa-secret-input"
-          >
-            <a-icon slot="prefix" type="key" />
-            <a-tooltip slot="suffix" :title="$t('common.copy')">
-              <a-icon type="copy" @click="copyText(mfaSetup.secret)" />
-            </a-tooltip>
-          </a-input>
-        </div>
-        <div class="mfa-field">
-          <label>{{ $t('profile.mfa.verifyCode') }}</label>
-          <a-input
-            v-model="mfaSetupCode"
-            size="large"
-            :maxLength="6"
-            autocomplete="one-time-code"
-            :placeholder="$t('profile.mfa.codePlaceholder')"
-            @pressEnter="handleConfirmMfaSetup"
-          >
-            <a-icon slot="prefix" type="safety-certificate" />
-          </a-input>
-        </div>
-        <div class="mfa-modal-actions">
-          <a-button @click="resetMfaSetup">{{ $t('common.cancel') }}</a-button>
-          <a-button type="primary" :loading="mfaConfirming" @click="handleConfirmMfaSetup">
-            <a-icon type="check" />
-            {{ $t('profile.mfa.confirmEnable') }}
-          </a-button>
-        </div>
-      </div>
-    </a-modal>
-
-    <a-modal
-      v-model="showMfaRecoveryModal"
-      :title="$t('profile.mfa.recoveryTitle')"
-      :width="460"
-      :wrapClassName="mfaModalWrapClass"
-      :okText="$t('common.done')"
-      :cancelButtonProps="{ style: { display: 'none' } }"
-      @ok="showMfaRecoveryModal = false"
-    >
-      <a-alert
-        type="warning"
-        showIcon
-        :message="$t('profile.mfa.recoveryHint')"
-        style="margin-bottom: 16px"
-      />
-      <div class="mfa-recovery-grid">
-        <code v-for="code in mfaRecoveryCodes" :key="code">{{ code }}</code>
-      </div>
-    </a-modal>
-
-    <a-modal
-      v-model="showDisableMfaModal"
-      :title="$t('profile.mfa.disableTitle')"
-      :confirmLoading="mfaDisabling"
-      :wrapClassName="mfaModalWrapClass"
-      :okText="$t('profile.mfa.disable')"
-      :cancelText="$t('common.cancel')"
-      @ok="handleDisableMfa"
-    >
-      <a-alert
-        type="warning"
-        showIcon
-        :message="$t('profile.mfa.disableHint')"
-        style="margin-bottom: 16px"
-      />
-      <a-input
-        v-model="mfaDisableCode"
-        size="large"
-        :maxLength="16"
-        autocomplete="one-time-code"
-        :placeholder="$t('profile.mfa.codePlaceholder')"
-        @pressEnter="handleDisableMfa"
-      >
-        <a-icon slot="prefix" type="safety-certificate" />
-      </a-input>
-    </a-modal>
   </div>
 </template>
 
@@ -1119,7 +872,7 @@ export default {
     referralLink () {
       const baseUrl = window.location.origin + window.location.pathname
       const ref = this.referralData.referral_code || this.profile.id
-      return `${baseUrl}#/user/login?ref=${ref}`
+      return `${baseUrl}#/ai-asset-analysis?ref=${ref}`
     },
     // ---- Webhook dialect detection (mirrors backend logic in
     // signal_notifier.py::_detect_webhook_dialect). Keep the patterns
@@ -1207,9 +960,6 @@ export default {
       }
       if (val === 'notifications' && !this.notificationSettings.telegram_chat_id && !this.notificationSettings.discord_webhook) {
         this.loadNotificationSettings()
-      }
-      if (val === 'security') {
-        this.loadMfaStatus()
       }
       // Mirror the active tab into ``?tab=xxx`` so URLs are shareable and
       // browser back/forward preserves state. Compare first to avoid a
