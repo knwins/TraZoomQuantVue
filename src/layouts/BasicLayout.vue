@@ -1326,14 +1326,14 @@ export default {
   }
 
   .ant-layout-header {
-    background: #111111 !important;
-    border-bottom: 1px solid #1c1c1c !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    background: #0e151c !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: none !important;
   }
   .ant-pro-global-header {
-    background: #111111 !important;
+    background: #0e151c !important;
     border-bottom: none !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    box-shadow: none !important;
     color: rgba(255, 255, 255, 0.85) !important;
 
     .ant-pro-global-header-trigger {

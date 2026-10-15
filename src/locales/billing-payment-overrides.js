@@ -26,7 +26,17 @@ const messages = {
     'settings.billingPlans.popular': 'Popular',
     'settings.billingPlans.save': 'Save plans',
     'settings.billingPlans.deactivated': 'This plan was disabled and retained for order history.',
-    'settings.billingPlans.saved': 'Membership plans saved'
+    'settings.billingPlans.saved': 'Membership plans saved',
+    'settings.billing.section.credits': 'Credits and usage',
+    'settings.billing.section.creditsDesc': 'Turn billing on and set the credits each feature spends, plus signup and free-tier allowances.',
+    'settings.billing.section.usdt': 'USDT checkout',
+    'settings.billing.section.usdtDesc': 'Enable scan-to-pay and set a receiving address for each chain.',
+    'settings.billing.section.usdc': 'USDC checkout',
+    'settings.billing.section.usdcDesc': 'Enable USDC payments. A blank address reuses the matching USDT address.',
+    'settings.billing.section.stripe': 'Card / Stripe',
+    'settings.billing.section.stripeDesc': 'Stripe checkout keys, webhook signing secret, and return URLs.',
+    'settings.billing.section.chain': 'On-chain reconciliation',
+    'settings.billing.section.chainDesc': 'Optional explorer API keys used to confirm incoming transfers.'
   },
   'zh-CN': {
     'billing.paymentMethod': '选择支付方式',
@@ -55,7 +65,17 @@ const messages = {
     'settings.billingPlans.popular': '热门',
     'settings.billingPlans.save': '保存套餐',
     'settings.billingPlans.deactivated': '该套餐已停用，并保留用于历史订单查询。',
-    'settings.billingPlans.saved': '会员套餐已保存'
+    'settings.billingPlans.saved': '会员套餐已保存',
+    'settings.billing.section.credits': '积分与消耗',
+    'settings.billing.section.creditsDesc': '开关计费，并设置各功能消耗的积分、注册赠送和免费额度。',
+    'settings.billing.section.usdt': 'USDT 收款',
+    'settings.billing.section.usdtDesc': '开启扫码支付，并填写各链收款地址。',
+    'settings.billing.section.usdc': 'USDC 收款',
+    'settings.billing.section.usdcDesc': '开启 USDC 支付。未填地址时沿用对应的 USDT 地址。',
+    'settings.billing.section.stripe': '银行卡 / Stripe',
+    'settings.billing.section.stripeDesc': 'Stripe 结账密钥、回调签名和跳转地址。',
+    'settings.billing.section.chain': '链上对账',
+    'settings.billing.section.chainDesc': '可选的浏览器 API 密钥，用于确认到账。'
   },
   'zh-TW': {
     'billing.paymentMethod': '選擇付款方式',
@@ -84,7 +104,17 @@ const messages = {
     'settings.billingPlans.popular': '熱門',
     'settings.billingPlans.save': '儲存方案',
     'settings.billingPlans.deactivated': '此方案已停用，並保留供歷史訂單查詢。',
-    'settings.billingPlans.saved': '會員方案已儲存'
+    'settings.billingPlans.saved': '會員方案已儲存',
+    'settings.billing.section.credits': '積分與消耗',
+    'settings.billing.section.creditsDesc': '開關計費，並設定各功能消耗的積分、註冊贈送與免費額度。',
+    'settings.billing.section.usdt': 'USDT 收款',
+    'settings.billing.section.usdtDesc': '開啟掃碼付款，並填寫各鏈收款地址。',
+    'settings.billing.section.usdc': 'USDC 收款',
+    'settings.billing.section.usdcDesc': '開啟 USDC 付款。未填地址時沿用對應的 USDT 地址。',
+    'settings.billing.section.stripe': '銀行卡 / Stripe',
+    'settings.billing.section.stripeDesc': 'Stripe 結帳金鑰、回呼簽章與跳轉地址。',
+    'settings.billing.section.chain': '鏈上對帳',
+    'settings.billing.section.chainDesc': '選用的瀏覽器 API 金鑰，用於確認到帳。'
   },
   'ja-JP': {
     'billing.paymentMethod': '支払い方法を選択',

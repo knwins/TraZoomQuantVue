@@ -4972,15 +4972,15 @@ export default {
 
 <style scoped lang="less">
 .copilot-workbench {
-  --qd-bg: #eef3f8;
+  --qd-bg: #f3f5f7;
   --qd-panel: #ffffff;
-  --qd-panel-soft: #f7fafd;
-  --qd-panel-strong: #f1f6fb;
-  --qd-border: #dce6f1;
-  --qd-border-soft: #e8eff7;
-  --qd-text: #12243d;
-  --qd-text-muted: #6b7f99;
-  --qd-text-subtle: #92a2b6;
+  --qd-panel-soft: #f6f8fa;
+  --qd-panel-strong: #eef2f5;
+  --qd-border: #e3e8ee;
+  --qd-border-soft: #e8edf2;
+  --qd-text: #1c2430;
+  --qd-text-muted: #667386;
+  --qd-text-subtle: #8b97a6;
   --qd-accent: var(--primary-color, #1677ff);
   --qd-accent-soft: color-mix(in srgb, var(--qd-accent) 10%, #ffffff);
   --qd-accent-weak: color-mix(in srgb, var(--qd-accent) 8%, transparent);
@@ -4988,11 +4988,11 @@ export default {
   --qd-accent-ring: color-mix(in srgb, var(--qd-accent) 12%, transparent);
   --qd-green: #0aa375;
   --qd-red: #e54b4b;
-  --qd-shadow: 0 12px 34px rgba(20, 43, 72, 0.08);
+  --qd-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
 
   display: grid;
   grid-template-columns: minmax(240px, 280px) minmax(560px, 1fr) minmax(270px, 320px);
-  gap: 10px;
+  gap: 12px;
   height: 100%;
   min-height: 0;
   overflow: hidden;
@@ -5022,9 +5022,9 @@ export default {
 .chat-panel {
   background: color-mix(in srgb, var(--qd-panel) 82%, transparent);
   border: 1px solid var(--qd-border-soft);
-  border-radius: 8px;
+  border-radius: 14px;
   box-shadow: var(--qd-shadow);
-  backdrop-filter: blur(18px);
+  backdrop-filter: none;
 }
 
 .rail-panel {
@@ -5125,14 +5125,12 @@ export default {
   border: 1px solid var(--qd-border-soft);
   border-radius: 8px;
   background: var(--qd-panel-soft);
-  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s;
+  transition: border-color 0.18s, background 0.18s;
 }
 
 .session-row:hover {
   border-color: var(--qd-accent-border);
   background: var(--qd-panel);
-  box-shadow: 0 6px 18px var(--qd-accent-weak);
-  transform: translateY(-1px);
 }
 
 .session-row.active {
@@ -7137,31 +7135,14 @@ export default {
 }
 
 .chat-hero {
-  min-height: 104px;
-  padding: 18px 20px 16px;
-  border-bottom-color: rgba(148, 163, 184, 0.18);
-  background:
-    radial-gradient(circle at 71% 0%, rgba(20, 184, 166, 0.14), transparent 34%),
-    radial-gradient(circle at 36% 0%, color-mix(in srgb, var(--qd-accent) 16%, transparent), transparent 34%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(238, 246, 255, 0.7));
+  min-height: 72px;
+  padding: 14px 18px;
+  border-bottom-color: var(--qd-border-soft);
+  background: transparent;
 }
 
 .chat-hero::after {
-  content: "";
-  position: absolute;
-  right: 380px;
-  top: 18px;
-  width: 92px;
-  height: 92px;
-  border: 1px solid color-mix(in srgb, var(--qd-accent) 24%, transparent);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9), transparent 16%),
-    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--qd-accent) 28%, transparent), transparent 47%),
-    linear-gradient(135deg, rgba(20, 184, 166, 0.26), color-mix(in srgb, var(--qd-accent) 24%, transparent));
-  box-shadow: 0 18px 38px color-mix(in srgb, var(--qd-accent) 16%, transparent);
-  opacity: 0.72;
-  pointer-events: none;
+  display: none;
 }
 
 .hero-main {
@@ -7201,12 +7182,8 @@ export default {
 }
 
 .messages {
-  padding: 28px 28px 22px;
-  background:
-    linear-gradient(rgba(22, 119, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22, 119, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(247, 250, 253, 0.92));
-  background-size: 38px 38px, 38px 38px, auto;
+  padding: 24px 24px 18px;
+  background: transparent;
 }
 
 .welcome {
@@ -7488,16 +7465,16 @@ export default {
 body.dark .copilot-workbench,
 body.realdark .copilot-workbench,
 .theme-dark .copilot-workbench {
-  --qd-bg: #050505;
-  --qd-panel: #0b0b0b;
-  --qd-panel-soft: #111111;
-  --qd-panel-strong: #161616;
-  --qd-text: #f4f7fb;
-  --qd-text-muted: #9ba7b7;
-  --qd-text-subtle: #718096;
-  --qd-border: rgba(255, 255, 255, 0.12);
-  --qd-border-soft: rgba(255, 255, 255, 0.08);
-  background: #050505 !important;
+  --qd-bg: #101416;
+  --qd-panel: #171c1f;
+  --qd-panel-soft: #1c2327;
+  --qd-panel-strong: #222a2e;
+  --qd-text: #eef2f4;
+  --qd-text-muted: #9aa6b0;
+  --qd-text-subtle: #73808a;
+  --qd-border: rgba(255, 255, 255, 0.08);
+  --qd-border-soft: rgba(255, 255, 255, 0.06);
+  background: #101416 !important;
 }
 
 body.dark .copilot-workbench .chat-panel,
@@ -7506,14 +7483,14 @@ body.realdark .copilot-workbench .chat-panel,
 body.dark .copilot-workbench .rail-panel,
 body.realdark .copilot-workbench .rail-panel,
 .theme-dark .copilot-workbench .rail-panel {
-  background: #0b0b0b !important;
+  background: #171c1f !important;
   box-shadow: none !important;
 }
 
 body.dark .copilot-workbench .chat-hero,
 body.realdark .copilot-workbench .chat-hero,
 .theme-dark .copilot-workbench .chat-hero {
-  background: #0d0d0d !important;
+  background: transparent !important;
 }
 
 body.dark .copilot-workbench .chat-panel::before,
@@ -7531,7 +7508,7 @@ body.realdark .copilot-workbench .chat-hero::after,
 body.dark .copilot-workbench .messages,
 body.realdark .copilot-workbench .messages,
 .theme-dark .copilot-workbench .messages {
-  background: #080808 !important;
+  background: transparent !important;
 }
 
 body.dark .copilot-workbench .session-row,
@@ -8931,17 +8908,13 @@ body.realdark .followup-suggestions,
 body.dark .copilot-workbench .messages,
 body.realdark .copilot-workbench .messages,
 .theme-dark .copilot-workbench .messages {
-  background: #080908 !important;
+  background: transparent !important;
 }
 
 body.dark .copilot-workbench .messages::before,
 body.realdark .copilot-workbench .messages::before,
 .theme-dark .copilot-workbench .messages::before {
-  background:
-    radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--qd-accent) 12%, transparent), transparent 34%),
-    linear-gradient(rgba(82, 196, 26, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(82, 196, 26, 0.025) 1px, transparent 1px);
-  background-size: auto, 44px 44px, 44px 44px;
+  display: none;
 }
 
 body.dark .copilot-workbench .session-row,
@@ -8953,14 +8926,14 @@ body.realdark .copilot-workbench .monitor-card,
 .theme-dark .copilot-workbench .session-row,
 .theme-dark .copilot-workbench .watch-card,
 .theme-dark .copilot-workbench .monitor-card {
-  background: #121312 !important;
+  background: #1c2327 !important;
 }
 
 body.dark .copilot-workbench .composer,
 body.realdark .copilot-workbench .composer,
 .theme-dark .copilot-workbench .composer {
-  background: #0c0d0c !important;
-  box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.16);
+  background: #171c1f !important;
+  box-shadow: none;
 }
 
 body.dark .copilot-workbench .composer textarea,
@@ -8970,5 +8943,27 @@ body.dark .copilot-workbench .research-mode-bar button,
 body.realdark .copilot-workbench .research-mode-bar button,
 .theme-dark .copilot-workbench .research-mode-bar button {
   background: #111311 !important;
+}
+
+body.dark .copilot-workbench,
+body.realdark .copilot-workbench,
+.theme-dark .copilot-workbench {
+  box-sizing: border-box !important;
+  gap: 16px !important;
+  height: 100% !important;
+  padding: 16px !important;
+  background: #070b10 !important;
+}
+
+body.dark .copilot-workbench .chat-panel,
+body.realdark .copilot-workbench .chat-panel,
+.theme-dark .copilot-workbench .chat-panel,
+body.dark .copilot-workbench .rail-panel,
+body.realdark .copilot-workbench .rail-panel,
+.theme-dark .copilot-workbench .rail-panel {
+  background: #141c24 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28) !important;
 }
 </style>

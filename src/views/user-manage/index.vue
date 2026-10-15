@@ -1251,23 +1251,27 @@
           </a-input>
         </a-form-item>
 
-        <a-form-item :label="$t('userManage.nickname') || 'Nickname'">
+        <a-form-item v-if="isEdit" :label="$t('userManage.nickname') || 'Nickname'">
           <a-input
-            v-decorator="['nickname']"
-            :placeholder="$t('userManage.nicknamePlaceholder') || 'Enter nickname'"
+            :value="editingUser && editingUser.nickname || '-'"
+            disabled
           >
             <a-icon slot="prefix" type="smile" />
+            <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Managed by the account center and shown here only'">
+              <a-icon type="info-circle" />
+            </a-tooltip>
           </a-input>
         </a-form-item>
 
-        <a-form-item :label="$t('userManage.email') || 'Email'">
+        <a-form-item v-if="isEdit" :label="$t('userManage.email') || 'Email'">
           <a-input
-            v-decorator="['email', {
-              rules: [{ type: 'email', message: $t('userManage.emailInvalid') || 'Invalid email format' }]
-            }]"
-            :placeholder="$t('userManage.emailPlaceholder') || 'Enter email'"
+            :value="editingUser && editingUser.email || '-'"
+            disabled
           >
             <a-icon slot="prefix" type="mail" />
+            <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Managed by the account center and shown here only'">
+              <a-icon type="info-circle" />
+            </a-tooltip>
           </a-input>
         </a-form-item>
 
@@ -2783,8 +2787,6 @@ export default {
       this.$nextTick(() => {
         this.form.setFieldsValue({
           username: record.username,
-          nickname: record.nickname,
-          email: record.email,
           role: record.role,
           status: record.status
         })
@@ -2805,8 +2807,6 @@ export default {
           let res
           if (this.isEdit) {
             res = await updateUser(this.editingUser.id, {
-              nickname: values.nickname,
-              email: values.email,
               role: values.role,
               status: values.status
             })

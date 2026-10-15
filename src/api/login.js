@@ -1,29 +1,8 @@
 import request from '@/utils/request'
 
 const userApi = {
-  Login: '/api/auth/login',
   Logout: '/api/auth/logout',
-  UserInfo: '/api/auth/info',
-  UserMenu: '/user/nav'
-}
-
-/**
- * login func
- * parameter: {
- *     username: '',
- *     password: '',
- *     remember_me: true,
- *     captcha: '12345'
- * }
- * @param parameter
- * @returns {*}
- */
-export function login (parameter) {
-  return request({
-    url: userApi.Login,
-    method: 'post',
-    data: parameter
-  })
+  UserInfo: '/api/auth/info'
 }
 
 export function getInfo () {
@@ -48,12 +27,5 @@ export function logout () {
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
     }
-  })
-}
-
-export function getCurrentUserNav () {
-  return request({
-    url: userApi.UserMenu,
-    method: 'get'
   })
 }

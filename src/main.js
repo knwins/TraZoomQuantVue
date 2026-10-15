@@ -15,6 +15,7 @@ import './global.less' // global style
 import './qd-layout-dark-override.less'
 import './mobile-responsive.less'
 import './styles/workspace-system.less'
+import './styles/studio-shell.less'
 
 Vue.config.productionTip = false
 

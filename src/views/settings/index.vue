@@ -926,7 +926,7 @@ export default {
         {
           key: 'core',
           title: this.tOr('settings.nav.core', 'Core setup'),
-          keys: ['auth', 'ai', 'trading', 'market_modules']
+          keys: ['ai', 'trading', 'market_modules']
         },
         {
           key: 'research',
@@ -988,6 +988,9 @@ export default {
       }
       if (this.activeGroupKey === 'search') {
         return this.buildCategorizedEntries(items, this.searchSectionDefinitions(), 'search')
+      }
+      if (this.activeGroupKey === 'billing') {
+        return this.buildCategorizedEntries(items, this.billingSectionDefinitions(), 'billing')
       }
       return this.buildSettingEntries(items, this.activeGroupKey)
     },
@@ -1572,6 +1575,76 @@ export default {
         }
       ]
     },
+    billingSectionDefinitions () {
+      return [
+        {
+          key: 'credits',
+          title: this.tOr('settings.billing.section.credits', 'Credits and usage'),
+          description: this.tOr('settings.billing.section.creditsDesc', 'Turn billing on and set the credits each feature spends, plus signup and free-tier allowances.'),
+          keys: [
+            'BILLING_ENABLED',
+            'BILLING_COST_BACKTEST',
+            'BILLING_COST_AI_REVIEW',
+            'BILLING_COST_AI_ANALYSIS',
+            'BILLING_COST_AI_CODE_GEN',
+            'BILLING_COST_AI_COPILOT_CHAT',
+            'BILLING_COST_AI_COPILOT_IMAGE',
+            'BILLING_COST_AI_DECISION_FILTER',
+            'BILLING_COST_EVENT_RADAR',
+            'CREDITS_REGISTER_BONUS',
+            'CREDITS_REFERRAL_BONUS',
+            'FREE_USER_STRATEGY_LIMIT',
+            'MARKETPLACE_PLATFORM_FEE_RATE'
+          ]
+        },
+        {
+          key: 'usdt',
+          title: this.tOr('settings.billing.section.usdt', 'USDT checkout'),
+          description: this.tOr('settings.billing.section.usdtDesc', 'Enable scan-to-pay and set a receiving address for each chain.'),
+          keys: [
+            'USDT_PAY_ENABLED',
+            'USDT_PAY_ENABLED_CHAINS',
+            'USDT_TRC20_ADDRESS',
+            'USDT_BEP20_ADDRESS',
+            'USDT_ERC20_ADDRESS',
+            'USDT_SOL_ADDRESS'
+          ]
+        },
+        {
+          key: 'usdc',
+          title: this.tOr('settings.billing.section.usdc', 'USDC checkout'),
+          description: this.tOr('settings.billing.section.usdcDesc', 'Enable USDC payments. A blank address reuses the matching USDT address.'),
+          keys: [
+            'USDC_PAY_ENABLED',
+            'USDC_PAY_ENABLED_CHAINS',
+            'USDC_ERC20_ADDRESS',
+            'USDC_SOL_ADDRESS'
+          ]
+        },
+        {
+          key: 'stripe',
+          title: this.tOr('settings.billing.section.stripe', 'Card / Stripe'),
+          description: this.tOr('settings.billing.section.stripeDesc', 'Stripe checkout keys, webhook signing secret, and return URLs.'),
+          keys: [
+            'STRIPE_PAY_ENABLED',
+            'STRIPE_SECRET_KEY',
+            'STRIPE_WEBHOOK_SECRET',
+            'STRIPE_PRODUCT_TAX_CODE',
+            'STRIPE_SUCCESS_URL',
+            'STRIPE_CANCEL_URL'
+          ]
+        },
+        {
+          key: 'chain',
+          title: this.tOr('settings.billing.section.chain', 'On-chain reconciliation'),
+          description: this.tOr('settings.billing.section.chainDesc', 'Optional explorer API keys used to confirm incoming transfers.'),
+          keys: [
+            'TRONGRID_API_KEY',
+            'ETHERSCAN_API_KEY'
+          ]
+        }
+      ]
+    },
     searchSectionDefinitions () {
       return [
         {
@@ -1797,7 +1870,6 @@ export default {
         contact: 'customer-service',
         social: 'team',
         legal: 'safety-certificate',
-        auth: 'lock',
         email: 'mail',
         sms: 'phone',
         network: 'global',
@@ -2064,7 +2136,7 @@ export default {
 
 <style lang="less" scoped>
 @success-color: #52c41a;
-@border-radius: 12px;
+@border-radius: 0;
 @card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
 .settings-page {
@@ -2247,10 +2319,16 @@ export default {
       }
     }
 
+    .ant-row > .ant-col:first-child > .settings-subsection-heading {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
     .settings-subsection-heading {
-      margin: 6px 0 16px;
-      padding-top: 18px;
-      border-top: 1px solid #f1f5f9;
+      margin: 8px 0 16px;
+      padding-top: 20px;
+      border-top: 1px solid #e6ebf0;
 
       .settings-subsection-title-row {
         display: flex;

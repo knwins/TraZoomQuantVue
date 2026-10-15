@@ -23,6 +23,14 @@
                 VIP
               </a-tag>
             </div>
+            <a-button
+              class="account-center-btn"
+              icon="link"
+              size="small"
+              @click="openAccountCenter"
+            >
+              {{ $t('profile.accountCenter.open') || 'Open account center' }}
+            </a-button>
           </div>
         </div>
         <div class="profile-account-meta">
@@ -181,10 +189,13 @@
             <a-form :form="profileForm" layout="vertical" class="profile-form">
               <a-form-item :label="$t('profile.nickname') || 'Nickname'">
                 <a-input
-                  v-decorator="['nickname', { initialValue: profile.nickname }]"
-                  :placeholder="$t('profile.nicknamePlaceholder') || 'Enter your nickname'"
+                  :value="profile.nickname || '-'"
+                  disabled
                 >
                   <a-icon slot="prefix" type="smile" />
+                  <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Managed by the account center and shown here only'">
+                    <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
+                  </a-tooltip>
                 </a-input>
               </a-form-item>
 
@@ -194,11 +205,21 @@
                   disabled
                 >
                   <a-icon slot="prefix" type="mail" />
-                  <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Email is managed by the account center'">
+                  <a-tooltip slot="suffix" :title="$t('profile.emailCannotChange') || 'Managed by the account center and shown here only'">
                     <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
                   </a-tooltip>
                 </a-input>
               </a-form-item>
+
+              <div class="account-center-hint">
+                <div class="account-center-hint-copy">
+                  <strong>{{ $t('profile.accountCenter.title') || 'Account center' }}</strong>
+                  <span>{{ $t('profile.accountCenter.hint') || 'Password, email, and MFA are managed in the account center.' }}</span>
+                </div>
+                <a-button icon="link" @click="openAccountCenter">
+                  {{ $t('profile.accountCenter.open') || 'Open account center' }}
+                </a-button>
+              </div>
 
               <a-form-item :label="$t('profile.timezone') || '时区'">
                 <a-select
@@ -600,9 +621,9 @@
 </template>
 
 <script>
-import { getProfile, updateProfile, getLoginLogs, getMyCreditsLog, getMyReferrals, getNotificationSettings, updateNotificationSettings, testNotificationSettings, getMfaStatus, startMfaSetup, confirmMfaSetup, disableMfa } from '@/api/user'
+import { getProfile, updateProfile, getLoginLogs, getMyCreditsLog, getMyReferrals, getNotificationSettings, updateNotificationSettings, testNotificationSettings } from '@/api/user'
 import { createReferralWithdrawal, getReferralRewards } from '@/api/billing'
-import { getSettingsValues } from '@/api/settings'
+import { getSettingsValues, getPublicSettingsConfig } from '@/api/settings'
 import { baseMixin } from '@/store/app-mixin'
 import ProfileAgentTokens from '@/views/profile/components/ProfileAgentTokens.vue'
 import { formatBrowserLocalDateTime } from '@/utils/userTime'
@@ -620,10 +641,6 @@ export default {
     return {
       loading: false,
       saving: false,
-      changingPassword: false,
-      sendingPwdCode: false,
-      pwdCodeCountdown: 0,
-      pwdCodeTimer: null,
       activeTab: 'basic',
       profileViewportWidth: 1280,
       profile: {
@@ -710,6 +727,7 @@ export default {
         feature_costs: {}
       },
       rechargeTelegramUrl: 'https://t.me/your_support_bot',
+      accountCenterUrl: 'https://accounts.trazoom.com',
       // Notification settings
       notificationSettings: {
         default_channels: [...DEFAULT_NOTIFICATION_CHANNELS],
@@ -723,23 +741,7 @@ export default {
         webhook_signing_secret: ''
       },
       savingNotifications: false,
-      testingNotification: false,
-      mfaStatus: {
-        system_enabled: false,
-        enabled: false,
-        confirmed_at: null,
-        risk_login_only: true
-      },
-      mfaLoading: false,
-      mfaConfirming: false,
-      mfaDisabling: false,
-      showMfaSetupModal: false,
-      showMfaRecoveryModal: false,
-      showDisableMfaModal: false,
-      mfaSetup: {},
-      mfaSetupCode: '',
-      mfaDisableCode: '',
-      mfaRecoveryCodes: []
+      testingNotification: false
     }
   },
   computed: {
@@ -748,10 +750,6 @@ export default {
     },
     isDarkTheme () {
       return this.navTheme === 'dark' || this.navTheme === 'realdark'
-    },
-    mfaModalWrapClass () {
-      const base = 'profile-mfa-modal'
-      return this.isDarkTheme ? `${base} ${base}--dark` : base
     },
     isVip () {
       if (!this.billing.vip_expires_at) return false
@@ -978,7 +976,6 @@ export default {
   },
   beforeCreate () {
     this.profileForm = this.$form.createForm(this, { name: 'profile' })
-    this.passwordForm = this.$form.createForm(this, { name: 'password' })
     this.notificationForm = this.$form.createForm(this, { name: 'notification' })
   },
   mounted () {
@@ -988,14 +985,12 @@ export default {
     // jump straight to a specific tab.
     this.applyTabFromQuery(this.$route.query.tab)
     this.loadProfile()
+    this.loadAccountCenterUrl()
     this.loadReferrals()
     this.loadReferralRewards()
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.syncProfileViewport)
-    if (this.pwdCodeTimer) {
-      clearInterval(this.pwdCodeTimer)
-    }
   },
   methods: {
     syncProfileViewport () {
@@ -1033,8 +1028,6 @@ export default {
           }
           this.$nextTick(() => {
             this.profileForm.setFieldsValue({
-              nickname: this.profile.nickname,
-              email: this.profile.email,
               timezone: this.profile.timezone || ''
             })
           })
@@ -1064,6 +1057,24 @@ export default {
       this.$router.push('/billing')
     },
 
+    async loadAccountCenterUrl () {
+      try {
+        const res = await getPublicSettingsConfig()
+        const url = res && res.code === 1 && res.data && res.data.account_center_url
+        if (url) {
+          this.accountCenterUrl = String(url).trim().replace(/\/+$/, '') || this.accountCenterUrl
+        }
+      } catch (error) {
+        // Keep the default issuer when public-config is unavailable.
+      }
+    },
+
+    openAccountCenter () {
+      const url = String(this.accountCenterUrl || 'https://accounts.trazoom.com').trim()
+      if (!url) return
+      window.open(url, '_blank', 'noopener,noreferrer')
+    },
+
     formatCredits (credits) {
       if (!credits && credits !== 0) return '0'
       return Number(credits).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })
@@ -1082,7 +1093,6 @@ export default {
         this.saving = true
         try {
           const res = await updateProfile({
-            nickname: values.nickname,
             timezone: values.timezone != null ? values.timezone : ''
           })
           if (res.code === 1) {
@@ -1098,186 +1108,6 @@ export default {
           this.saving = false
         }
       })
-    },
-
-    validateConfirmPassword (rule, value, callback) {
-      const newPassword = this.passwordForm.getFieldValue('new_password')
-      if (value && value !== newPassword) {
-        callback(this.$t('profile.passwordMismatch') || 'Passwords do not match')
-      } else {
-        callback()
-      }
-    },
-
-    async handleSendPwdCode () {
-      if (!this.profile.email) {
-        this.$message.error(this.$t('profile.noEmailWarning') || 'Please set your email first')
-        return
-      }
-
-      this.sendingPwdCode = true
-      try {
-        const { sendVerificationCode } = await import('@/api/auth')
-        const res = await sendVerificationCode({
-          email: this.profile.email,
-          type: 'change_password'
-        })
-        if (res.code === 1) {
-          this.$message.success(this.$t('profile.codeSent') || 'Verification code sent')
-          this.startPwdCodeCountdown()
-        } else {
-          this.$message.error(res.msg || 'Failed to send code')
-        }
-      } catch (error) {
-        this.$message.error(error.response?.data?.msg || 'Failed to send code')
-      } finally {
-        this.sendingPwdCode = false
-      }
-    },
-
-    startPwdCodeCountdown () {
-      this.pwdCodeCountdown = 60
-      this.pwdCodeTimer = setInterval(() => {
-        this.pwdCodeCountdown--
-        if (this.pwdCodeCountdown <= 0) {
-          clearInterval(this.pwdCodeTimer)
-          this.pwdCodeTimer = null
-        }
-      }, 1000)
-    },
-
-    validateNewPassword (rule, value, callback) {
-      if (!value) {
-        callback()
-        return
-      }
-      if (value.length < 8) {
-        callback(new Error(this.$t('user.register.pwdMinLength') || 'At least 8 characters'))
-        return
-      }
-      if (!/[A-Z]/.test(value)) {
-        callback(new Error(this.$t('user.register.pwdUppercase') || 'At least one uppercase letter'))
-        return
-      }
-      if (!/[a-z]/.test(value)) {
-        callback(new Error(this.$t('user.register.pwdLowercase') || 'At least one lowercase letter'))
-        return
-      }
-      if (!/[0-9]/.test(value)) {
-        callback(new Error(this.$t('user.register.pwdNumber') || 'At least one number'))
-        return
-      }
-      callback()
-    },
-
-    handleChangePassword () {
-      this.passwordForm.validateFields(async (err, values) => {
-        if (err) return
-
-        this.changingPassword = true
-        try {
-          const { changePassword: changePasswordApi } = await import('@/api/auth')
-          const res = await changePasswordApi({
-            code: values.code,
-            new_password: values.new_password
-          })
-          if (res.code === 1) {
-            this.$message.success(res.msg || 'Password changed successfully')
-            this.passwordForm.resetFields()
-            this.$store.dispatch('FetchUserInfo').catch(() => {})
-          } else {
-            this.$message.error(res.msg || 'Change password failed')
-          }
-        } catch (error) {
-          this.$message.error(error.response?.data?.msg || 'Change password failed')
-        } finally {
-          this.changingPassword = false
-        }
-      })
-    },
-
-    async loadMfaStatus () {
-      try {
-        const res = await getMfaStatus()
-        if (res.code === 1 && res.data) {
-          this.mfaStatus = { ...this.mfaStatus, ...res.data }
-        }
-      } catch (error) {
-        this.$message.error(error.response?.data?.msg || this.$t('profile.mfa.loadStatusFailed'))
-      }
-    },
-
-    async handleStartMfaSetup () {
-      this.mfaLoading = true
-      try {
-        const res = await startMfaSetup()
-        if (res.code === 1 && res.data) {
-          this.mfaSetup = res.data
-          this.mfaSetupCode = ''
-          this.showMfaSetupModal = true
-        } else {
-          this.$message.error(res.msg || this.$t('profile.mfa.setupStartFailed'))
-        }
-      } catch (error) {
-        this.$message.error(error.response?.data?.msg || this.$t('profile.mfa.setupStartFailed'))
-      } finally {
-        this.mfaLoading = false
-      }
-    },
-
-    async handleConfirmMfaSetup () {
-      const code = (this.mfaSetupCode || '').trim()
-      if (!code) {
-        this.$message.error(this.$t('profile.mfa.codeRequired'))
-        return
-      }
-      this.mfaConfirming = true
-      try {
-        const res = await confirmMfaSetup({ code })
-        if (res.code === 1) {
-          this.$message.success(res.msg || this.$t('profile.mfa.enabledSuccess'))
-          this.mfaRecoveryCodes = (res.data && res.data.recovery_codes) || []
-          this.resetMfaSetup()
-          this.showMfaRecoveryModal = this.mfaRecoveryCodes.length > 0
-          this.loadMfaStatus()
-        } else {
-          this.$message.error(res.msg || this.$t('profile.mfa.verificationFailed'))
-        }
-      } catch (error) {
-        this.$message.error(error.response?.data?.msg || this.$t('profile.mfa.verificationFailed'))
-      } finally {
-        this.mfaConfirming = false
-      }
-    },
-
-    async handleDisableMfa () {
-      const code = (this.mfaDisableCode || '').trim()
-      if (!code) {
-        this.$message.error(this.$t('profile.mfa.codeRequired'))
-        return
-      }
-      this.mfaDisabling = true
-      try {
-        const res = await disableMfa({ code })
-        if (res.code === 1) {
-          this.$message.success(res.msg || this.$t('profile.mfa.disabledSuccess'))
-          this.showDisableMfaModal = false
-          this.mfaDisableCode = ''
-          this.loadMfaStatus()
-        } else {
-          this.$message.error(res.msg || this.$t('profile.mfa.disableFailed'))
-        }
-      } catch (error) {
-        this.$message.error(error.response?.data?.msg || this.$t('profile.mfa.disableFailed'))
-      } finally {
-        this.mfaDisabling = false
-      }
-    },
-
-    resetMfaSetup () {
-      this.showMfaSetupModal = false
-      this.mfaSetup = {}
-      this.mfaSetupCode = ''
     },
 
     getRoleColor (role) {
@@ -1984,8 +1814,7 @@ export default {
       background: var(--primary-color, @primary-color);
     }
 
-    .profile-form,
-    .password-form {
+    .profile-form {
       max-width: 500px;
 
       ::v-deep .ant-input,
@@ -2002,115 +1831,35 @@ export default {
           color: #faad14;
         }
       }
-    }
 
-    .security-section {
-      max-width: 920px;
-    }
-
-    .mfa-card {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 22px;
-      border: 1px solid #e6edf5;
-      border-radius: 8px;
-      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
-    }
-
-    .mfa-card-main {
-      display: flex;
-      gap: 16px;
-      min-width: 0;
-      flex: 1 1 auto;
-    }
-
-    .mfa-icon {
-      width: 44px;
-      height: 44px;
-      flex: 0 0 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      color: #2454ff;
-      background: rgba(36, 84, 255, 0.1);
-      font-size: 22px;
-    }
-
-    .mfa-title {
-      color: rgba(0, 0, 0, 0.85);
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 28px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .mfa-status-tag {
-      margin-left: 0;
-      padding: 1px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 20px;
-
-      &.is-enabled {
-        border-color: color-mix(in srgb, var(--primary-color, @primary-color) 34%, #d9d9d9);
-        background: color-mix(in srgb, var(--primary-color, @primary-color) 10%, #fff);
-        color: var(--primary-color, @primary-color);
-      }
-
-      &.is-disabled {
-        border-color: #d9e0e8;
-        background: #f3f6f9;
-        color: #64748b;
-      }
-    }
-
-    .mfa-desc,
-    .mfa-meta {
-      color: rgba(0, 0, 0, 0.55);
-      line-height: 1.7;
-    }
-
-    .mfa-meta {
-      margin-top: 6px;
-      font-size: 12px;
-
-      .anticon {
-        margin-right: 4px;
-      }
-    }
-
-    .mfa-feature-list {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-
-      span {
-        display: inline-flex;
+      .account-center-hint {
+        display: flex;
         align-items: center;
-        gap: 5px;
-        min-height: 24px;
-        padding: 2px 9px;
-        border: 1px solid #dbeafe;
-        border-radius: 6px;
-        background: #eff6ff;
-        color: #2463eb;
-        font-size: 12px;
-        line-height: 18px;
+        justify-content: space-between;
+        gap: 16px;
+        margin: 0 0 20px;
+        padding: 12px 14px;
+        border: 1px solid var(--qd-border, #e4e9ef);
+        background: var(--qd-surface-subtle, #f6f8fa);
       }
-    }
 
-    .mfa-actions {
-      flex: 0 0 auto;
+      .account-center-hint-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+
+        strong {
+          color: var(--qd-text, #1c2430);
+          font-size: 13px;
+        }
+
+        span {
+          color: var(--qd-text-secondary, #5d6b7a);
+          font-size: 12px;
+          line-height: 1.5;
+        }
+      }
     }
 
     // Credits log amount colors
@@ -2189,22 +1938,6 @@ export default {
         background: color-mix(in srgb, var(--primary-color, #1890ff) 10%, #fff);
         box-shadow: 0 8px 20px color-mix(in srgb, var(--primary-color, #1890ff) 12%, transparent);
       }
-    }
-  }
-
-  .mfa-recovery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-
-    code {
-      display: block;
-      padding: 8px 10px;
-      border-radius: 6px;
-      background: #f5f7fb;
-      color: #1f2a44;
-      font-family: Consolas, Monaco, monospace;
-      text-align: center;
     }
   }
 
@@ -2533,48 +2266,6 @@ export default {
         color: #c9d1d9;
       }
 
-      .mfa-card {
-        background: linear-gradient(180deg, #161b22 0%, #111820 100%);
-        border-color: #30363d;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-      }
-
-      .mfa-icon {
-        color: var(--primary-color-hover, var(--primary-color, #1890ff));
-        background: color-mix(in srgb, var(--primary-color, #1890ff) 12%, transparent);
-      }
-
-      .mfa-title {
-        color: #e6edf3;
-      }
-
-      .mfa-status-tag {
-        &.is-enabled {
-          border-color: color-mix(in srgb, var(--primary-color, @primary-color) 36%, #30363d);
-          background: color-mix(in srgb, var(--primary-color, @primary-color) 14%, #161b22);
-          color: var(--primary-color-hover, var(--primary-color, @primary-color));
-        }
-
-        &.is-disabled {
-          border-color: #3a424c;
-          background: #252b33;
-          color: #a8b3c1;
-        }
-      }
-
-      .mfa-desc,
-      .mfa-meta {
-        color: #8b949e;
-      }
-
-      .mfa-feature-list {
-        span {
-          background: color-mix(in srgb, var(--primary-color, #1890ff) 12%, transparent);
-          border-color: color-mix(in srgb, var(--primary-color, #1890ff) 24%, transparent);
-          color: var(--primary-color-hover, var(--primary-color, #1890ff));
-        }
-      }
-
       ::v-deep .ant-input,
       ::v-deep .ant-input-password {
         background: #141414;
@@ -2672,7 +2363,6 @@ export default {
     }
 
     .profile-form,
-    .password-form,
     .notification-settings-form {
       ::v-deep .ant-form-item-label > label {
         color: #c9d1d9;
@@ -2910,6 +2600,10 @@ export default {
 
     .profile-identity-copy {
       min-width: 0;
+    }
+
+    .account-center-btn {
+      margin-top: 10px;
     }
 
     .username {
@@ -3221,8 +2915,7 @@ export default {
       text-align: center;
     }
 
-    .profile-form,
-    .password-form {
+    .profile-form {
       width: 100%;
       max-width: 640px;
     }
@@ -3552,8 +3245,7 @@ export default {
         }
       }
 
-      .profile-form,
-      .password-form {
+      .profile-form {
         max-width: 100%;
 
         ::v-deep .ant-form-item-label {
@@ -3571,43 +3263,6 @@ export default {
 
         .email-hint {
           font-size: 11px;
-        }
-      }
-
-      // Password form - verification code section
-      .password-form {
-        ::v-deep .ant-alert {
-          font-size: 12px;
-          padding: 8px 12px;
-        }
-      }
-
-      .security-section {
-        max-width: 100%;
-      }
-
-      .mfa-card {
-        flex-direction: column;
-        padding: 16px;
-      }
-
-      .mfa-card-main {
-        gap: 12px;
-      }
-
-      .mfa-actions {
-        width: 100%;
-
-        .ant-btn {
-          width: 100%;
-        }
-      }
-
-      .mfa-feature-list {
-        gap: 6px;
-
-        span {
-          max-width: 100%;
         }
       }
 
@@ -3773,257 +3428,6 @@ export default {
 </style>
 
 <style lang="less">
-.profile-mfa-modal {
-  .ant-modal {
-    max-width: calc(100vw - 24px);
-  }
-
-  .ant-modal-content {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 18px 56px rgba(15, 23, 42, 0.22);
-  }
-
-  .ant-modal-header {
-    padding: 18px 24px 14px;
-    border-bottom-color: #edf0f5;
-  }
-
-  .ant-modal-title {
-    color: #172033;
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  .ant-modal-body {
-    padding: 18px 24px 22px;
-  }
-
-  .mfa-setup-modal {
-    .mfa-setup-head {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .mfa-setup-badge {
-      width: 34px;
-      height: 34px;
-      flex: 0 0 34px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      color: var(--primary-color, #1890ff);
-      background: color-mix(in srgb, var(--primary-color, #1890ff) 12%, #fff);
-      border: 1px solid color-mix(in srgb, var(--primary-color, #1890ff) 22%, #fff);
-    }
-
-    .mfa-setup-heading {
-      color: #172033;
-      font-size: 15px;
-      font-weight: 700;
-      line-height: 22px;
-    }
-
-    .mfa-setup-subtitle {
-      max-width: 390px;
-      margin-top: 2px;
-      color: #65758b;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .mfa-qr-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-      padding: 18px;
-      border: 1px solid #e7edf5;
-      border-radius: 8px;
-      background: linear-gradient(180deg, #fbfdff 0%, #f6f9fd 100%);
-    }
-
-    .mfa-qr {
-      display: block;
-      width: 264px;
-      max-width: 100%;
-      height: auto;
-      aspect-ratio: 1;
-      object-fit: contain;
-      padding: 10px;
-      border: 1px solid #dbe4ef;
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
-    }
-
-    .mfa-field {
-      margin-bottom: 14px;
-
-      label {
-        display: block;
-        margin-bottom: 7px;
-        color: #536274;
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 18px;
-      }
-    }
-
-    .ant-input-affix-wrapper,
-    .ant-input {
-      border-radius: 6px;
-    }
-
-    .mfa-secret-input .ant-input {
-      font-family: Consolas, Monaco, monospace;
-      font-size: 13px;
-      letter-spacing: 0;
-    }
-
-    .anticon-copy {
-      cursor: pointer;
-      color: #7b8794;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: var(--primary-color, #1890ff);
-      }
-    }
-
-    .mfa-modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid #edf0f5;
-
-      .ant-btn {
-        min-width: 96px;
-        height: 36px;
-        border-radius: 6px;
-      }
-    }
-  }
-
-  .mfa-recovery-grid {
-    code {
-      border: 1px solid #e8edf5;
-    }
-  }
-}
-
-.profile-mfa-modal--dark {
-  .ant-modal-content,
-  .ant-modal-header,
-  .ant-modal-body,
-  .ant-modal-footer {
-    background: #1c1f26 !important;
-  }
-
-  .ant-modal-header,
-  .ant-modal-footer {
-    border-color: #2f3642 !important;
-  }
-
-  .ant-modal-title,
-  .ant-modal-close-x {
-    color: #e6edf3 !important;
-  }
-
-  .mfa-setup-modal {
-    color: #c9d1d9;
-
-    .mfa-setup-badge {
-      color: var(--primary-color, #1890ff);
-      background: color-mix(in srgb, var(--primary-color, #1890ff) 16%, #1c1f26);
-      border-color: color-mix(in srgb, var(--primary-color, #1890ff) 28%, #303845);
-    }
-
-    .mfa-setup-heading {
-      color: #e6edf3;
-    }
-
-    .mfa-setup-subtitle {
-      color: #9aa4b2;
-    }
-
-    .mfa-qr-card {
-      background: #151a22;
-      border-color: #303845;
-    }
-
-    .mfa-qr {
-      border-color: #3a4352;
-      background: #ffffff;
-    }
-
-    .mfa-field label {
-      color: #9aa4b2;
-    }
-
-    .ant-input {
-      background: #11161d !important;
-      border-color: #303845 !important;
-      color: #dbe4ef !important;
-    }
-
-    .anticon-copy {
-      color: #8995a3;
-
-      &:hover {
-        color: var(--primary-color, #1890ff);
-      }
-    }
-
-    .mfa-modal-actions {
-      border-top-color: #303845;
-    }
-  }
-
-  .mfa-recovery-grid {
-    code {
-      background: #11161d;
-      border-color: #303845;
-      color: #dbe4ef;
-    }
-  }
-}
-
-@media screen and (max-width: 560px) {
-  .profile-mfa-modal {
-    .ant-modal {
-      top: 24px;
-    }
-
-    .ant-modal-body {
-      padding: 16px;
-    }
-
-    .mfa-setup-modal {
-      .mfa-qr {
-        width: 220px;
-      }
-
-      .mfa-modal-actions {
-        flex-direction: column-reverse;
-
-        .ant-btn {
-          width: 100%;
-        }
-      }
-    }
-
-    .mfa-recovery-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-}
-
 .referral-balance-strip {
   display: grid;
   grid-template-columns: minmax(145px, 1fr) minmax(112px, auto) auto;

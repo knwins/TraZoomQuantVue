@@ -21,6 +21,7 @@ import { timeFix } from '@/utils/util'
 import {
   APP_HOME,
   appReturnPath,
+  clearDevLoginTries,
   readAuthParam,
   startAccountLogin,
   stripWindowAuthParams
@@ -75,6 +76,7 @@ router.beforeEach((to, from, next) => {
     if (store.getters.roles.length === 0) {
       store.dispatch('GetInfo')
         .then(res => {
+          clearDevLoginTries()
           // const roles = res && res.role
           promptChangeInitialPassword()
           store.dispatch('GenerateRoutes', { token }).then(() => {

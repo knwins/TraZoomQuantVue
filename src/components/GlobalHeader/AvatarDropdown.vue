@@ -32,6 +32,7 @@
 <script>
 import { Modal } from 'ant-design-vue'
 import { getMembershipPlans } from '@/api/billing'
+import { startAccountLogin } from '@/utils/accountLogin'
 
 export default {
   name: 'AvatarDropdown',
@@ -131,11 +132,15 @@ export default {
         content: this.$t('layouts.usermenu.dialog.content'),
         onOk: () => {
           return this.$store.dispatch('Logout').then((logoutUrl) => {
+            if (import.meta.env.DEV) {
+              startAccountLogin('/ai-asset-analysis')
+              return
+            }
             if (logoutUrl) {
               window.location.assign(logoutUrl)
               return
             }
-            this.$router.push({ name: 'login' })
+            startAccountLogin('/ai-asset-analysis')
           })
         },
         onCancel () {}

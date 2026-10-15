@@ -4,6 +4,7 @@ import vue2Jsx from '@vitejs/plugin-vue2-jsx'
 import svgLoader from 'vite-svg-loader'
 import { viteMockServe } from 'vite-plugin-mock'
 import { fileURLToPath, URL } from 'node:url'
+import { devLoginPlugin } from './dev/devLoginPlugin.mjs'
 import { execSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
 
@@ -155,6 +156,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       fixAntDesignVueLess(),
       fixProLayoutLess(),
+      devLoginPlugin({ python: env.DEV_LOGIN_PYTHON || '' }),
       vue2(),
       vue2Jsx(),
       svgLoader({ defaultImport: 'url' }),

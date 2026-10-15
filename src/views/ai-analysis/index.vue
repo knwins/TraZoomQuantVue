@@ -36,7 +36,7 @@ export default {
   height: calc(100vh - 88px);
   min-height: 560px;
   overflow: hidden;
-  background: #eef3f8;
+  background: #f3f5f7;
 }
 
 .professional-analysis-page.embedded {
@@ -45,7 +45,7 @@ export default {
 }
 
 .professional-analysis-page.theme-dark {
-  background: #0a0a0a;
+  background: #070b10;
 }
 
 @media (max-width: 768px) {

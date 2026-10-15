@@ -19,9 +19,7 @@ const canonicalLabels = {
   'settings.field.TWELVE_DATA_API_KEY': 'Twelve Data API Key',
   'settings.field.COINGLASS_API_KEY': 'CoinGlass API Key',
   'settings.field.CRYPTOQUANT_API_KEY': 'CryptoQuant API Key',
-  'settings.field.TRADING_ECONOMICS_KEY': 'Trading Economics API Key',
-  'settings.field.GOOGLE_CLIENT_ID': 'Google OAuth Client ID',
-  'settings.field.TURNSTILE_SITE_KEY': 'Cloudflare Turnstile Site Key'
+  'settings.field.TRADING_ECONOMICS_KEY': 'Trading Economics API Key'
 }
 
 test('provider and API brands keep canonical names in every locale', () => {

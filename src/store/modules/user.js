@@ -1,6 +1,6 @@
 import storage from 'store'
 import expirePlugin from 'store/plugins/expire'
-import { login, logout, getUserInfo } from '@/api/login'
+import { logout, getUserInfo } from '@/api/login'
 import { ACCESS_TOKEN, USER_INFO, USER_ROLES } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
@@ -69,92 +69,6 @@ const user = {
   },
 
   actions: {
-    Login ({ commit, dispatch }, userInfo) {
-      return new Promise((resolve, reject) => {
-        login(userInfo).then(response => {
-          if (response && response.code === 1 && response.data) {
-            const result = response.data
-            if (result.mfa_required) {
-              resolve(response)
-              return
-            }
-            const token = result.token
-            const info = result.userinfo || {}
-
-            const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-            storage.set(ACCESS_TOKEN, token, expiresAt)
-            commit('SET_TOKEN', token)
-            commit('SET_INFO', info)
-            storage.set(USER_INFO, info, expiresAt)
-
-            const name = info.nickname || info.username || 'User'
-            commit('SET_NAME', { name: name, welcome: welcome() })
-            commit('SET_AVATAR', info.avatar || '/avatar.jpg')
-
-            let roles = [DEFAULT_ROLE]
-            if (info.role) {
-              // role: { id: 'admin', permissions: [...] }
-              const roleId = info.role.id || info.role
-              const permissions = info.role.permissions || []
-              roles = [{
-                id: roleId,
-                permissionList: permissions.length > 0 ? permissions : ['dashboard']
-              }]
-            }
-            commit('SET_ROLES', roles)
-            storage.set(USER_ROLES, roles, expiresAt)
-
-            dispatch('ResetRoutes')
-
-            resolve(response)
-          } else {
-            reject(new Error((response && response.msg) || 'Login failed'))
-          }
-        }).catch(error => {
-          reject(error)
-        })
-      })
-    },
-
-    Web3LoginFinalize ({ commit }, payload) {
-      return new Promise((resolve, reject) => {
-        try {
-          const { token, userInfo } = payload
-          if (!token || !userInfo) {
-            reject(new Error('登录数据异常'))
-            return
-          }
-          const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-          storage.set(ACCESS_TOKEN, token, expiresAt)
-          commit('SET_TOKEN', token)
-          commit('SET_INFO', userInfo)
-          storage.set(USER_INFO, userInfo, expiresAt)
-
-          if (userInfo.nickname) {
-            commit('SET_NAME', { name: userInfo.nickname, welcome: welcome() })
-          } else if (userInfo.username) {
-            commit('SET_NAME', { name: userInfo.username, welcome: welcome() })
-          }
-
-          if (userInfo.avatar) {
-            commit('SET_AVATAR', userInfo.avatar)
-          }
-
-          if (userInfo.role) {
-            commit('SET_ROLES', userInfo.role)
-          } else if (userInfo.roles) {
-            commit('SET_ROLES', userInfo.roles)
-          } else {
-            commit('SET_ROLES', [{ id: 'default', permissionList: [] }])
-          }
-
-          resolve()
-        } catch (e) {
-          reject(e)
-        }
-      })
-    },
-
     FetchUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         getUserInfo().then(res => {

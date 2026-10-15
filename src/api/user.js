@@ -57,7 +57,7 @@ export function createUser (data) {
 /**
  * Update user (admin only)
  * @param {Number} id - User ID
- * @param {Object} data - { email, nickname, role, status }
+ * @param {Object} data - { role, status }
  */
 export function updateUser (id, data) {
   return request({
@@ -116,55 +116,12 @@ export function getProfile () {
 
 /**
  * Update current user profile
- * @param {Object} data - { nickname, avatar, timezone }
+ * @param {Object} data - { avatar, timezone }
  */
 export function updateProfile (data) {
   return request({
     url: '/api/users/profile/update',
     method: 'put',
-    data
-  })
-}
-
-/**
- * Change current user password
- * @param {Object} data - { old_password, new_password }
- */
-export function changePassword (data) {
-  return request({
-    url: '/api/users/change-password',
-    method: 'post',
-    data
-  })
-}
-
-export function getMfaStatus () {
-  return request({
-    url: '/api/users/mfa/status',
-    method: 'get'
-  })
-}
-
-export function startMfaSetup () {
-  return request({
-    url: '/api/users/mfa/setup/start',
-    method: 'post',
-    data: {}
-  })
-}
-
-export function confirmMfaSetup (data) {
-  return request({
-    url: '/api/users/mfa/setup/confirm',
-    method: 'post',
-    data
-  })
-}
-
-export function disableMfa (data) {
-  return request({
-    url: '/api/users/mfa/disable',
-    method: 'post',
     data
   })
 }
