@@ -484,17 +484,17 @@ export default {
 
 <style lang="less" scoped>
 .agent-tokens-page {
-  padding: 16px;
+  padding: 24px 28px 36px !important;
 
   .page-header {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     max-width: 720px;
 
     .page-title {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin: 0 0 8px 0;
+      margin: 0 0 10px 0;
       font-size: 24px;
       font-weight: 700;
       color: #1e3a5f;
@@ -517,13 +517,13 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
 
     .toolbar-left,
     .toolbar-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .entries-label {

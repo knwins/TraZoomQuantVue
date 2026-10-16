@@ -1018,7 +1018,7 @@ export default {
     searchPlaceholder () {
       const k = 'settings.search.placeholder'
       const t = this.$t(k)
-      return (t && t !== k) ? t : 'Search settings…'
+      return (t && t !== k) ? t : 'Search settings'
     },
     searchResultsTitle () {
       const k = 'settings.search.results'
@@ -1289,7 +1289,7 @@ export default {
     },
     limitReferralRewardRates (event) {
       const value = event && event.target ? event.target.value : event
-      const tokens = String(value || '').split(/[,，;；\s]+/)
+      const tokens = String(value || '').split(/[,，；\s]+/)
       if (tokens.filter(Boolean).length <= 3) return
       this.$nextTick(() => {
         this.form.setFieldsValue({
@@ -1299,7 +1299,7 @@ export default {
     },
     validateReferralRewardRates (rule, value, callback) {
       const tokens = String(value || '')
-        .split(/[,，;；\s]+/)
+        .split(/[,，；\s]+/)
         .map(item => item.trim())
         .filter(Boolean)
       if (!tokens.length) {
@@ -2140,36 +2140,35 @@ export default {
 @card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
 .settings-page {
-  padding: 16px !important;
-  padding-bottom: 104px;
+  padding: 24px 28px 104px !important;
   min-height: calc(100vh - 120px);
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--qd-bg, #f3f5f7);
 
   .restart-alert {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     border-radius: 8px;
   }
 
   .settings-header {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 
     .page-title {
       font-size: 24px;
       font-weight: 700;
-      margin: 0 0 8px 0;
-      color: #1e3a5f;
+      margin: 0 0 10px 0;
+      color: var(--qd-text, #1c2430);
       display: flex;
       align-items: center;
       gap: 12px;
 
       .anticon {
         font-size: 28px;
-        color: var(--primary-color, #1890ff);
+        color: var(--primary-color, #0f9ea8);
       }
     }
 
     .page-desc {
-      color: #64748b;
+      color: var(--qd-text-secondary, #5d6b7a);
       font-size: 14px;
       margin: 0;
     }
@@ -2177,8 +2176,8 @@ export default {
 
   .settings-layout {
     display: flex;
-    gap: 20px;
-    margin-bottom: 24px;
+    gap: 24px;
+    margin-bottom: 28px;
     align-items: flex-start;
   }
 
@@ -2275,7 +2274,7 @@ export default {
     background: #fff;
     border-radius: @border-radius;
     box-shadow: @card-shadow;
-    padding: 24px;
+    padding: 28px 28px 32px;
 
     .settings-detail-inner {
       width: 100%;
@@ -2285,8 +2284,8 @@ export default {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 20px;
-      padding-bottom: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
       border-bottom: 1px solid #f0f0f0;
 
       .detail-icon {
@@ -2298,7 +2297,7 @@ export default {
         margin: 0;
         font-size: 18px;
         font-weight: 600;
-        color: #1e3a5f;
+        color: var(--qd-text, #1c2430);
       }
     }
 
@@ -2326,8 +2325,8 @@ export default {
     }
 
     .settings-subsection-heading {
-      margin: 8px 0 16px;
-      padding-top: 20px;
+      margin: 16px 0 20px;
+      padding-top: 24px;
       border-top: 1px solid #e6ebf0;
 
       .settings-subsection-title-row {
@@ -2339,7 +2338,7 @@ export default {
 
       span {
         display: block;
-        color: #1e3a5f;
+        color: var(--qd-text, #1c2430);
         font-size: 14px;
         font-weight: 700;
       }
@@ -2347,7 +2346,7 @@ export default {
       small {
         display: block;
         margin-top: 4px;
-        color: #64748b;
+        color: var(--qd-text-secondary, #5d6b7a);
         font-size: 12px;
         line-height: 1.6;
       }
@@ -2366,7 +2365,7 @@ export default {
       padding: 10px 12px;
       border: 1px dashed #cbd5e1;
       border-radius: 8px;
-      background: #f8fafc;
+      background: var(--qd-surface-subtle, #f6f8fa);
 
       .ant-btn-link {
         height: auto;
@@ -2375,7 +2374,7 @@ export default {
       }
 
       small {
-        color: #64748b;
+        color: var(--qd-text-secondary, #5d6b7a);
         line-height: 1.5;
       }
     }
@@ -2435,8 +2434,8 @@ export default {
     }
 
     .ai-settings-section {
-      margin-bottom: 22px;
-      padding: 18px 18px 4px;
+      margin-bottom: 28px;
+      padding: 20px 20px 8px;
       border: 1px solid #e5e7eb;
       border-radius: 10px;
       background: #ffffff;
@@ -2451,20 +2450,20 @@ export default {
       justify-content: space-between;
       align-items: flex-start;
       gap: 16px;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
       border-bottom: 1px solid #f1f5f9;
 
       h4 {
         margin: 0 0 4px;
-        color: #1e3a5f;
+        color: var(--qd-text, #1c2430);
         font-size: 15px;
         font-weight: 700;
       }
 
       p {
         margin: 0;
-        color: #64748b;
+        color: var(--qd-text-secondary, #5d6b7a);
         font-size: 12px;
         line-height: 1.6;
       }
@@ -2565,15 +2564,15 @@ export default {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 16px;
     }
 
     .market-module-row {
       min-height: 132px;
-      padding: 14px;
+      padding: 16px;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
-      background: #f8fafc;
+      background: var(--qd-surface-subtle, #f6f8fa);
       transition: border-color 0.2s, background 0.2s;
 
       &:hover {
@@ -2586,18 +2585,18 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
     .market-module-label {
-      color: #1e3a5f;
+      color: var(--qd-text, #1c2430);
       font-weight: 700;
     }
 
     .market-module-desc {
       min-height: 34px;
-      color: #64748b;
+      color: var(--qd-text-secondary, #5d6b7a);
       font-size: 12px;
       line-height: 1.45;
     }
@@ -2606,7 +2605,7 @@ export default {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 8px;
+      margin-top: 12px;
       color: #475569;
       font-size: 12px;
     }
@@ -2630,7 +2629,7 @@ export default {
       font-size: 11px;
 
       small {
-        color: #64748b;
+        color: var(--qd-text-secondary, #5d6b7a);
       }
 
       &.configured {
@@ -2991,7 +2990,7 @@ export default {
     ::v-deep .ant-statistic {
       min-height: 96px;
       padding: 14px 16px;
-      background: #f8fafc;
+      background: var(--qd-surface-subtle, #f6f8fa);
       border: 1px solid #e5e7eb;
       border-radius: 8px;
     }

@@ -58,7 +58,7 @@
           <div class="info-item">
             <a-icon type="user" />
             <span class="label">{{ $t('profile.username') || 'Username' }}</span>
-            <span class="value">{{ profile.username || profile.email || '-' }}</span>
+            <span class="value">{{ profileAccountUsername }}</span>
           </div>
           <div class="info-item">
             <a-icon type="calendar" />
@@ -205,7 +205,7 @@
             <a-form :form="profileForm" layout="vertical" class="profile-form">
               <a-form-item :label="$t('profile.username') || 'Username'">
                 <a-input
-                  :value="profile.username || profile.email || '-'"
+                  :value="profileAccountUsername"
                   disabled
                 >
                   <a-icon slot="prefix" type="user" />
@@ -758,8 +758,14 @@ export default {
     },
     profileDisplayName () {
       // Display name is owned by the account center (synced into nickname on login).
-      // Username itself is the account email.
-      return this.profile.nickname || this.profile.username || this.profile.email || '-'
+      return this.profile.nickname || this.profileAccountUsername || '-'
+    },
+    profileAccountUsername () {
+      // Account-center identity: always prefer email over legacy local usernames
+      // like "admin" that predate account-center linking.
+      const email = String(this.profile.email || '').trim()
+      if (email) return email
+      return this.profile.username || '-'
     },
     isVip () {
       if (!this.billing.vip_expires_at) return false
@@ -1629,18 +1635,18 @@ export default {
 @primary-color: var(--primary-color, #1890ff);
 
 .profile-page {
-  padding: 24px;
+  padding: 24px 28px 36px !important;
   min-height: calc(100vh - 120px);
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--qd-bg, #f3f5f7);
 
   .page-header {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 
     .page-title {
       font-size: 24px;
       font-weight: 700;
-      margin: 0 0 8px 0;
-      color: #1e3a5f;
+      margin: 0 0 10px 0;
+      color: var(--qd-text, #1c2430);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -1652,7 +1658,7 @@ export default {
     }
 
     .page-desc {
-      color: #64748b;
+      color: var(--qd-text-secondary, #5d6b7a);
       font-size: 14px;
       margin: 0;
     }
@@ -1817,7 +1823,7 @@ export default {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
     ::v-deep .ant-tabs-bar {
-      margin-bottom: 18px;
+      margin-bottom: 22px;
       border-bottom-color: #edf2f7;
     }
 
@@ -1990,7 +1996,7 @@ export default {
   .credits-card {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--primary-color, #0f9ea8) 88%, #0a6b72) 0%, color-mix(in srgb, var(--primary-color, #0f9ea8) 55%, #1a3a3c) 100%);
     color: #fff;
 
     ::v-deep .ant-card-body {
@@ -2689,8 +2695,8 @@ export default {
   .profile-overview-grid {
     display: grid;
     grid-template-columns: minmax(320px, 1fr) minmax(280px, 0.82fr) minmax(360px, 1.12fr);
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 20px;
+    margin-bottom: 24px;
 
     > .ant-card {
       min-width: 0;
@@ -2703,7 +2709,7 @@ export default {
 
       ::v-deep .ant-card-body {
         height: 100%;
-        padding: 16px;
+        padding: 20px;
         background: transparent;
       }
     }

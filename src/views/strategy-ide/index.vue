@@ -2767,9 +2767,9 @@ export default {
 .strategy-ide-shell {
   box-sizing: border-box;
   height: calc(100vh - 80px);
-  padding: 10px;
+  padding: 14px 14px 16px;
   color: #252a34;
-  background: #f4f5f7;
+  background: var(--qd-bg, #f3f5f7);
   overflow: hidden;
 }
 

@@ -1332,9 +1332,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.backtest-page { min-height: 100%; padding: 0 14px 22px; background: #f1f3f5; color: #182230; }
+.backtest-page { min-height: 100%; padding: 16px 16px 28px; background: #f1f3f5; color: #182230; }
 .workspace-toolbar, .panel { border: 1px solid #e2e6eb; border-radius: 10px; background: #fff; box-shadow: 0 6px 20px rgba(15, 35, 60, 0.045); }
-.workspace-toolbar { position: sticky; z-index: 20; top: 0; display: flex; width: calc(100% + 28px); align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; margin-right: -14px; margin-bottom: 10px; margin-left: -14px; padding: 7px 24px; border-radius: 0; }
+.workspace-toolbar { position: sticky; z-index: 20; top: 0; display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; margin: 0 0 16px; padding: 10px 18px; border-radius: 10px; }
 .workspace-toolbar__primary { display: flex; min-width: 0; align-items: center; gap: 12px; }
 .workspace-mode-tabs { display: inline-flex; overflow: hidden; border-radius: 6px; }
 .workspace-mode-tabs /deep/ .ant-radio-button-wrapper { border-radius: 0; }
@@ -1350,7 +1350,7 @@ export default {
 .source-category-switch /deep/ .ant-radio-button-wrapper:last-child { border-radius: 0 6px 6px 0; }
 .source-empty-alert { margin-top: 10px; }
 .hero-stat strong { color: #25364f; font-size: 16px; }
-.workspace-grid { display: grid; grid-template-columns: 332px minmax(620px, 1fr); gap: 10px; align-items: start; }
+.workspace-grid { display: grid; grid-template-columns: 332px minmax(620px, 1fr); gap: 16px; align-items: start; }
 .panel { padding: 14px; }
 .config-panel { position: sticky; top: 60px; display: flex; overflow: hidden; height: calc(100vh - 150px); min-height: 610px; flex-direction: column; padding: 0; }
 .config-scroll { min-height: 0; overflow-y: auto; padding: 10px 10px 4px; scrollbar-gutter: stable; }
@@ -1531,7 +1531,7 @@ export default {
 .theme-dark /deep/ .ant-table-thead > tr > th { border-color: rgba(255, 255, 255, 0.1); background: #0d0d0d; color: rgba(255, 255, 255, 0.68); }
 .theme-dark /deep/ .ant-table-tbody > tr > td { border-color: rgba(255, 255, 255, 0.08); background: #111; color: rgba(255, 255, 255, 0.72); }
 @media (max-width: 1100px) { .workspace-grid { grid-template-columns: 1fr; } .config-panel { position: static; overflow: visible; height: auto; min-height: 0; max-height: none; } .config-scroll { overflow: visible; } .result-panel { min-height: 560px; } .result-empty { min-height: 480px; } }
-@media (max-width: 720px) { .backtest-page { padding: 0 10px 10px; } .workspace-toolbar { top: 0; width: calc(100% + 20px); align-items: flex-start; flex-direction: column; margin-right: -10px; margin-left: -10px; padding-right: 20px; padding-left: 20px; } .workspace-toolbar__primary { width: 100%; align-items: flex-start; flex-direction: column; }.hero-actions { justify-content: flex-start; } .result-empty { padding: 34px 12px; }.empty-hero-card { padding: 30px 18px 26px; }.form-grid, .manifest-grid, .metrics-grid, .assumption-strip, .empty-preview-grid { grid-template-columns: 1fr; }.range-presets__buttons { width: 100%; }.range-preset-wrap /deep/ .ant-btn { width: 100%; } }
+@media (max-width: 720px) { .backtest-page { padding: 12px 10px 16px; } .workspace-toolbar { top: 0; width: 100%; align-items: flex-start; flex-direction: column; margin: 0 0 14px; padding: 10px 14px; } .workspace-toolbar__primary { width: 100%; align-items: flex-start; flex-direction: column; }.hero-actions { justify-content: flex-start; } .result-empty { padding: 34px 12px; }.empty-hero-card { padding: 30px 18px 26px; }.form-grid, .manifest-grid, .metrics-grid, .assumption-strip, .empty-preview-grid { grid-template-columns: 1fr; }.range-presets__buttons { width: 100%; }.range-preset-wrap /deep/ .ant-btn { width: 100%; } }
 </style>
 
 <style lang="less">

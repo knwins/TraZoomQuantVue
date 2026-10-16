@@ -13,10 +13,10 @@
   z-index: 9;
   height: 36px;
   margin: 0;
-  border-top: 1px solid #edf1f6;
-  border-bottom: 1px solid #dfe7f0;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.035);
+  border-top: 1px solid var(--qd-border, #e4e9ef);
+  border-bottom: 1px solid var(--qd-border-strong, #d5dde5);
+  background: var(--qd-chrome, #ffffff);
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -51,15 +51,15 @@
   border: 0;
   border-radius: 6px;
   background: transparent;
-  color: #64748b;
+  color: var(--qd-text-secondary, #5d6b7a);
   line-height: 30px;
   padding: 0 12px;
   transition: background 0.18s, color 0.18s;
 }
 
 .@{multi-tab-prefix-cls} .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
-  background: color-mix(in srgb, var(--primary-color, #1890ff) 10%, #ffffff);
-  color: var(--primary-color, #1890ff);
+  background: color-mix(in srgb, var(--primary-color, #0f9ea8) 10%, var(--qd-chrome, #ffffff));
+  color: var(--primary-color, #0f9ea8);
   font-weight: 600;
 }
 

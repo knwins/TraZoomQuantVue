@@ -32,20 +32,23 @@ export default {
 
 <style scoped>
 .professional-analysis-page {
+  box-sizing: border-box;
   width: 100%;
   height: calc(100vh - 88px);
   min-height: 560px;
+  padding: 12px 12px 14px;
   overflow: hidden;
-  background: #f3f5f7;
+  background: transparent;
 }
 
 .professional-analysis-page.embedded {
   height: calc(100vh - 92px);
+  padding: 0;
   background: transparent;
 }
 
 .professional-analysis-page.theme-dark {
-  background: #070b10;
+  background: transparent;
 }
 
 @media (max-width: 768px) {

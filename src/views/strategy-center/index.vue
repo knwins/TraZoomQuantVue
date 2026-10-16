@@ -334,7 +334,7 @@ export default {
   justify-content: space-between;
   gap: 16px;
   min-height: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
   > div:first-child { display: flex; align-items: center; gap: 16px; min-width: 0; }
   h1 { margin: 0; font-size: 20px; font-weight: 700; line-height: 1.2; letter-spacing: -.015em; color: #111827; white-space: nowrap; }
   p { min-width: 0; margin: 0; overflow: hidden; color: #667085; font-size: 12px; line-height: 1.45; text-overflow: ellipsis; white-space: nowrap; }

@@ -4,16 +4,33 @@
 
 body {
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  background: #f3f5f7;
+  background: var(--qd-bg, #f3f5f7);
+}
+
+/* Default / light token stack — white chrome + soft canvas (mirrors menu). */
+body.light,
+.basic-layout-wrapper.light {
+  --qd-bg: #f3f5f7;
+  --qd-chrome: #ffffff;
+  --qd-surface: #ffffff;
+  --qd-surface-subtle: #f6f8fa;
+  --qd-surface-hover: #eef2f5;
+  --qd-input: #ffffff;
+  --qd-border: #e4e9ef;
+  --qd-border-strong: #d5dde5;
+  --qd-text: #1c2430;
+  --qd-text-secondary: #5d6b7a;
+  --qd-text-muted: #8b97a6;
+  --qd-text-menu: #3c4856;
 }
 
 body.light .basic-layout-wrapper {
-  background: #f3f5f7;
+  background: var(--qd-bg, #f3f5f7);
 }
 
 body.light .ant-layout,
 body.light .ant-pro-basicLayout {
-  background: #f3f5f7 !important;
+  background: var(--qd-bg, #f3f5f7) !important;
 }
 
 body.light .ant-layout-header,
@@ -21,8 +38,8 @@ body.light .ant-pro-global-header,
 body.light .ant-pro-top-nav-header,
 body.light .ant-pro-top-nav-header-main,
 body.light .ant-pro-fixed-header {
-  background: #ffffff !important;
-  border-bottom: 1px solid #e6ebf0 !important;
+  background: var(--qd-chrome, #ffffff) !important;
+  border-bottom: 1px solid var(--qd-border, #e4e9ef) !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
 }
@@ -35,14 +52,14 @@ body.light .ant-pro-top-nav-header-logo,
 body.light .ant-pro-top-nav-header-menu,
 body.light .layout-top-actions,
 body.light .ant-pro-global-header-index-right {
-  background: #ffffff !important;
+  background: var(--qd-chrome, #ffffff) !important;
   box-shadow: none !important;
 }
 
 body.light .ant-layout-content,
 body.light .ant-pro-basicLayout-content,
 body.light .ant-pro-grid-content {
-  background: #f3f5f7 !important;
+  background: var(--qd-bg, #f3f5f7) !important;
 }
 
 /* Canonical dark palette for menu chrome + workspace surfaces.
@@ -173,11 +190,13 @@ body.realdark .basic-layout-wrapper .ant-pro-top-nav-header .ant-menu-horizontal
   padding: 0 !important;
   line-height: @layout-header-height !important;
   font-size: 14px !important;
+  /* Keep weight stable so selection does not widen text and jump layout */
+  font-weight: 400 !important;
 }
 
 body.light .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item > a,
 body.light .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title {
-  color: #3c4856 !important;
+  color: var(--qd-text-menu, #3c4856) !important;
 }
 
 body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item > a,
@@ -185,7 +204,7 @@ body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item > a,
 body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title,
 body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu .ant-menu-submenu-title {
   color: var(--qd-text-menu) !important;
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 
 body.light .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-selected,
@@ -202,7 +221,7 @@ body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-sel
 body.light .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-selected > a,
 body.light .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
   color: var(--primary-accent, var(--primary-color, #0f9ea8)) !important;
-  font-weight: 600;
+  font-weight: 400 !important;
 }
 
 body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-selected > a,
@@ -210,7 +229,7 @@ body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item-select
 body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title,
 body.realdark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
   color: var(--primary-color, #2ecfcf) !important;
-  font-weight: 600;
+  font-weight: 400 !important;
 }
 
 body.dark .basic-layout-wrapper .ant-menu-horizontal > .ant-menu-item:hover > a,
@@ -250,7 +269,7 @@ body.realdark .layout-top-actions {
 
 body.light .basic-layout-wrapper .top-admin-shortcut {
   background: transparent !important;
-  color: #3c4856 !important;
+  color: var(--qd-text-menu, #3c4856) !important;
 }
 
 body.dark .basic-layout-wrapper .top-admin-shortcut,
@@ -593,8 +612,14 @@ body .ant-tag {
   border-radius: 4px !important;
 }
 
+/* Keep page frames responsible for padding; avoid layout chrome squeeze */
+.basic-layout-wrapper .ant-pro-page-header-wrap-children-content,
+.basic-layout-wrapper .ant-pro-grid-content-children {
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .qd-workspace-page.qd-page-frame {
-    padding: 12px !important;
+    padding: 16px 14px 24px !important;
   }
 }

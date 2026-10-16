@@ -29,6 +29,16 @@ function getStoredToken () {
   return typeof token === 'string' ? token : (token && token.token) ? token.token : token
 }
 
+function displayNameFromInfo (info) {
+  if (!info || typeof info !== 'object') return ''
+  const nickname = String(info.nickname || '').trim()
+  if (nickname) return nickname
+  // Account-center identity: prefer email over legacy local usernames.
+  const email = String(info.email || '').trim()
+  if (email) return email
+  return String(info.username || '').trim()
+}
+
 const initialInfo = getStoredInfo()
 // If is_demo is missing (legacy cache), force roles to empty to trigger GetInfo in permission.js
 let initialRoles = getStoredRoles()
@@ -36,7 +46,7 @@ if (initialInfo && typeof initialInfo.is_demo === 'undefined') {
   initialRoles = []
 }
 const initialToken = getStoredToken() || ''
-const initialName = initialInfo.nickname || initialInfo.username || ''
+const initialName = displayNameFromInfo(initialInfo)
 const initialAvatar = initialInfo.avatar || ''
 const initialWelcome = initialName ? welcome() : ''
 const user = {
@@ -77,10 +87,9 @@ const user = {
             commit('SET_INFO', info)
             const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
             storage.set(USER_INFO, info, expiresAt)
-            if (info.nickname) {
-              commit('SET_NAME', { name: info.nickname, welcome: welcome() })
-            } else if (info.username) {
-              commit('SET_NAME', { name: info.username, welcome: welcome() })
+            const name = displayNameFromInfo(info)
+            if (name) {
+              commit('SET_NAME', { name, welcome: welcome() })
             }
             if (info.avatar) {
               commit('SET_AVATAR', info.avatar)
@@ -121,10 +130,9 @@ const user = {
               const info = res.data
               commit('SET_INFO', info)
               storage.set(USER_INFO, info, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-              if (info.nickname) {
-                commit('SET_NAME', { name: info.nickname, welcome: welcome() })
-              } else if (info.username) {
-                commit('SET_NAME', { name: info.username, welcome: welcome() })
+              const name = displayNameFromInfo(info)
+              if (name) {
+                commit('SET_NAME', { name, welcome: welcome() })
               }
               if (info.avatar) {
                 commit('SET_AVATAR', info.avatar)

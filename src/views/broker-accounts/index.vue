@@ -446,7 +446,7 @@ export default {
   justify-content: space-between;
   gap: 16px;
   min-height: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .ba-header-text {
@@ -554,17 +554,17 @@ export default {
 }
 
 .ba-rail-group {
-  padding: 18px 10px 10px;
+  padding: 20px 12px 14px;
 }
 
 .ba-rail-group--crypto {
-  margin-top: 6px;
-  padding-top: 16px;
+  margin-top: 8px;
+  padding-top: 20px;
   border-top: 1px solid #e9edf3;
 }
 
 .ba-rail-label {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   padding: 0 8px;
   display: flex;
   align-items: center;
@@ -672,7 +672,7 @@ export default {
 .ba-detail {
   min-width: 0;
   min-height: 0;
-  padding: 20px 22px 24px;
+  padding: 24px 26px 28px;
   overflow-y: auto;
   background: #fff;
   scrollbar-width: thin;

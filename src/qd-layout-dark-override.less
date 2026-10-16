@@ -134,11 +134,11 @@ body.realdark .basic-layout-wrapper .custom-menu-footer {
 
 /* ========== 浅色主题 footer（显式覆盖，避免残留暗色�?========= */
 .basic-layout-wrapper.light .custom-menu-footer {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  border-top-color: #e8e8e8 !important;
+  background: var(--qd-chrome, #ffffff) !important;
+  background-color: var(--qd-chrome, #ffffff) !important;
+  border-top-color: var(--qd-border, #e4e9ef) !important;
   box-shadow: none !important;
-  color: rgba(0, 0, 0, 0.85) !important;
+  color: var(--qd-text, #1c2430) !important;
 }
 
 .basic-layout-wrapper.light .custom-menu-footer .footer-section .section-links {

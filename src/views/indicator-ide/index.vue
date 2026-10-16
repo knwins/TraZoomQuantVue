@@ -4134,9 +4134,10 @@ export default {
   min-height: 0;
   max-height: var(--ide-shell-height, calc(100vh - 80px));
   width: 100%;
-  padding: 0;
+  padding: 12px 12px 14px;
+  gap: 0;
   overflow: hidden;
-  background: #fff;
+  background: var(--qd-bg, #f3f5f7);
   box-sizing: border-box;
 }
 
@@ -4764,7 +4765,16 @@ body.dark .ide-signal-alert-modal-wrap {
 }
 
 // ===== Main =====
-.ide-main { display: flex; flex: 1 1 auto; overflow: hidden; min-height: 0; align-items: stretch; }
+.ide-main {
+  display: flex;
+  flex: 1 1 auto;
+  overflow: hidden;
+  min-height: 0;
+  align-items: stretch;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
 
 .ide-code-rail {
   flex: 0 0 34px;
@@ -7164,6 +7174,12 @@ body.dark .ide-signal-alert-modal-wrap {
   --ide-text-primary: rgba(255, 255, 255, 0.9);
   --ide-text-secondary: rgba(255, 255, 255, 0.66);
   --ide-text-muted: rgba(255, 255, 255, 0.48);
+  background: var(--qd-bg, #0f0f10);
+
+  .ide-main {
+    border: 0;
+    background: transparent;
+  }
 
   .panel-title,
   .chart-panel-toolbar-title,

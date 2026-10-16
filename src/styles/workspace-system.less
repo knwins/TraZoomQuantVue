@@ -4,12 +4,19 @@
   --qd-space-3: 12px;
   --qd-space-4: 16px;
   --qd-space-5: 24px;
+  --qd-space-6: 32px;
+  /* Module / section rhythm — keep blocks from stacking flush */
+  --qd-module-gap: 20px;
+  --qd-section-gap: 28px;
   --qd-control-height: 32px;
   --qd-radius: 0;
   --qd-control-radius: 6px;
   --qd-border: #e4e9ef;
-  --qd-surface: #fff;
+  --qd-border-strong: #d5dde5;
+  --qd-surface: #ffffff;
   --qd-surface-subtle: #f6f8fa;
+  --qd-surface-hover: #eef2f5;
+  --qd-input: #ffffff;
   --qd-text: #1c2430;
   --qd-text-secondary: #5d6b7a;
   --qd-text-muted: #8b97a6;
@@ -28,7 +35,26 @@
 
   &.qd-page-frame {
     min-height: 100%;
-    padding: 20px 24px 28px !important;
+    padding: 24px 28px 36px !important;
+  }
+
+  /* Vertical rhythm between top-level page modules (cards, rows, alerts).
+     Scoped to direct children so horizontal card grids are unaffected. */
+  &.qd-page-frame > .ant-card + .ant-card,
+  &.qd-page-frame > .ant-card + .ant-row,
+  &.qd-page-frame > .ant-card + .ant-alert,
+  &.qd-page-frame > .ant-row + .ant-card,
+  &.qd-page-frame > .ant-row + .ant-row,
+  &.qd-page-frame > .ant-row + .ant-alert,
+  &.qd-page-frame > .ant-alert + .ant-card,
+  &.qd-page-frame > .ant-alert + .ant-row,
+  &.qd-page-frame > .ant-alert + .ant-alert,
+  &.qd-page-frame > .ant-spin + .ant-card,
+  &.qd-page-frame > .ant-spin + .ant-row,
+  &.qd-page-frame > .ant-card + .ant-spin,
+  &.qd-page-frame > .ant-tabs + .ant-card,
+  &.qd-page-frame > .ant-card + .ant-tabs {
+    margin-top: var(--qd-module-gap) !important;
   }
 
   h1,
@@ -40,7 +66,7 @@
     margin: 0;
     font-size: 20px !important;
     font-weight: 700;
-    line-height: 1.3;
+    line-height: 1.35;
     letter-spacing: 0;
     color: var(--qd-text);
     text-transform: none;
@@ -53,20 +79,21 @@
   .panel-title {
     font-size: 13px;
     font-weight: 650;
-    line-height: 1.4;
+    line-height: 1.45;
     letter-spacing: 0;
     color: var(--qd-text);
   }
 
   .page-subtitle,
   .page-description,
+  .page-desc,
   .ba-subtitle,
   .sc-subtitle,
   .settings-subtitle,
   .section-description,
   .card-description {
     font-size: 12px !important;
-    line-height: 1.55;
+    line-height: 1.6;
     color: var(--qd-text-secondary);
   }
 
@@ -76,7 +103,14 @@
   .settings-header,
   .executor-header {
     gap: var(--qd-space-3);
-    margin-bottom: var(--qd-space-4) !important;
+    margin-bottom: var(--qd-section-gap) !important;
+  }
+
+  .page-header .page-title + .page-desc,
+  .page-header .page-title + .page-description,
+  .settings-header .page-title + .page-desc,
+  .ba-header .ba-title + .ba-subtitle {
+    margin-top: 6px;
   }
 
   .ant-btn,
@@ -149,26 +183,34 @@
   }
 
   .ant-card-head {
-    min-height: 42px;
-    padding: 0 16px;
+    min-height: 46px;
+    padding: 0 18px;
 
     .ant-card-head-title {
-      padding: 11px 0;
+      padding: 13px 0;
       font-size: 13px;
       font-weight: 650;
     }
   }
 
   .ant-card-body {
-    padding: 16px;
+    padding: 18px 20px;
+  }
+
+  /* Nested section blocks — only between siblings, never force top margin on first */
+  .section-block + .section-block,
+  .panel-section + .panel-section,
+  .ai-settings-section + .ai-settings-section,
+  .settings-subsection-heading + .settings-subsection-heading {
+    margin-top: var(--qd-space-5);
   }
 
   .ant-tabs-bar {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
 
   .ant-tabs-tab {
-    padding: 9px 2px;
+    padding: 10px 2px;
     font-size: 12px;
     font-weight: 600;
   }
@@ -187,7 +229,7 @@
 
     th,
     td {
-      padding: 10px 12px !important;
+      padding: 12px 14px !important;
     }
   }
 
@@ -202,14 +244,28 @@
   }
 
   .skill-hero {
-    padding: 14px 16px !important;
-    margin-bottom: 16px !important;
+    padding: 16px 18px !important;
+    margin-bottom: var(--qd-module-gap) !important;
     border-radius: var(--qd-radius) !important;
     box-shadow: none !important;
 
     h1 {
       font-size: 20px !important;
     }
+  }
+
+  /* Common stacked grids / toolbars */
+  .stat-grid,
+  .tool-grid,
+  .profile-overview-grid,
+  .card-grid {
+    gap: var(--qd-module-gap) !important;
+  }
+
+  .toolbar,
+  .filter-bar,
+  .action-bar {
+    margin-bottom: var(--qd-space-4) !important;
   }
 }
 
@@ -229,10 +285,13 @@
 
 @media (max-width: 768px) {
   .qd-workspace-page.qd-page-frame {
-    padding: 12px !important;
+    padding: 16px 14px 24px !important;
   }
 
   .qd-workspace-page {
+    --qd-module-gap: 16px;
+    --qd-section-gap: 20px;
+
     h1,
     .page-title,
     .ba-title,
@@ -243,7 +302,7 @@
     }
 
     .ant-card-body {
-      padding: 12px;
+      padding: 14px 16px;
     }
   }
 }

@@ -616,13 +616,13 @@ export default {
 .crypto-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
 .crypto-item {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 14px 16px;
+  padding: 16px 18px;
   border: 1px solid #eef0f3;
   border-radius: 10px;
   background: linear-gradient(135deg, #ffffff 0%, #fafbfd 100%);

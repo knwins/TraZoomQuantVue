@@ -1439,7 +1439,7 @@ export default {
   justify-content: space-between;
   gap: 18px;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
 }
 
 .executor-kicker {

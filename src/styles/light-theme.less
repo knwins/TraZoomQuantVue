@@ -1,0 +1,348 @@
+/**
+ * Canonical light UI — aligned with light chrome/menu (white header + soft canvas).
+ * Cool neutral stack + brand primary; imported after dark-theme so both coexist.
+ */
+
+/* ---------- Token stack ---------- */
+body.light,
+.basic-layout-wrapper.light,
+.qd-workspace-page:not(.theme-dark) {
+  --qd-bg: #f3f5f7;
+  --qd-chrome: #ffffff;
+  --qd-surface: #ffffff;
+  --qd-surface-subtle: #f6f8fa;
+  --qd-surface-hover: #eef2f5;
+  --qd-input: #ffffff;
+  --qd-border: #e4e9ef;
+  --qd-border-strong: #d5dde5;
+  --qd-text: #1c2430;
+  --qd-text-secondary: #5d6b7a;
+  --qd-text-muted: #8b97a6;
+  --qd-text-menu: #3c4856;
+  --qd-control-off: #c5ccd4;
+  --qd-shadow: 0 8px 24px rgba(28, 36, 48, 0.07);
+}
+
+/* ---------- Canvas / chrome ---------- */
+body.light {
+  background: var(--qd-bg) !important;
+  color: var(--qd-text);
+}
+
+body.light .ant-layout,
+body.light .ant-layout-content,
+body.light .ant-pro-basicLayout-content,
+body.light .ant-pro-page-header-wrap,
+body.light .ant-pro-grid-content,
+.basic-layout-wrapper.light .ant-layout,
+.basic-layout-wrapper.light .ant-pro-basicLayout-content {
+  background: var(--qd-bg) !important;
+  color: var(--qd-text);
+}
+
+body.light .ant-layout-header,
+body.light .ant-pro-global-header,
+body.light .ant-pro-top-nav-header,
+body.light .ant-pro-top-nav-header-main,
+body.light .ant-pro-fixed-header,
+body.light .ant-menu-horizontal,
+body.light .ant-menu-dark.ant-menu-horizontal,
+.basic-layout-wrapper.light .ant-layout-header {
+  background: var(--qd-chrome) !important;
+  border-bottom-color: var(--qd-border) !important;
+  box-shadow: none !important;
+}
+
+body.light .ant-layout-sider,
+body.light .ant-layout-sider-light,
+body.light .ant-menu-light,
+body.light .ant-menu:not(.ant-menu-dark):not(.ant-menu-horizontal) {
+  background: var(--qd-chrome) !important;
+}
+
+/* ---------- Surfaces ---------- */
+body.light .ant-card,
+body.light .ant-modal-content,
+body.light .ant-drawer-content,
+body.light .ant-popover-inner {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+  box-shadow: var(--qd-shadow);
+}
+
+body.light .ant-card {
+  box-shadow: none;
+}
+
+body.light .ant-card-head,
+body.light .ant-modal-header,
+body.light .ant-drawer-header,
+body.light .ant-modal-footer {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+}
+
+body.light .ant-modal-title,
+body.light .ant-drawer-title,
+body.light .ant-card-head-title {
+  color: var(--qd-text) !important;
+}
+
+body.light .ant-modal-close,
+body.light .ant-drawer-close {
+  color: var(--qd-text-secondary) !important;
+}
+
+/* ---------- Tables ---------- */
+body.light .ant-table,
+body.light .ant-table-content,
+body.light .ant-table-body,
+body.light .ant-table-placeholder,
+.basic-layout-wrapper.light .ant-table {
+  background: var(--qd-surface) !important;
+  color: var(--qd-text) !important;
+  border-color: var(--qd-border) !important;
+}
+
+body.light .ant-table-thead > tr > th,
+.basic-layout-wrapper.light .ant-table-thead > tr > th {
+  background: var(--qd-surface-subtle) !important;
+  color: var(--qd-text-secondary) !important;
+  border-bottom-color: var(--qd-border) !important;
+  font-weight: 600;
+}
+
+body.light .ant-table-tbody > tr > td {
+  border-bottom-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+}
+
+body.light .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+  background: var(--qd-surface-hover) !important;
+}
+
+/* ---------- Inputs / selects ---------- */
+body.light .ant-input,
+body.light .ant-input-affix-wrapper,
+body.light .ant-input-number,
+body.light .ant-select-selection,
+body.light .ant-mentions,
+body.light .ant-cascader-picker,
+body.light .ant-calendar-picker-input,
+.qd-workspace-page:not(.theme-dark) .ant-input,
+.qd-workspace-page:not(.theme-dark) .ant-input-affix-wrapper,
+.qd-workspace-page:not(.theme-dark) .ant-input-number,
+.qd-workspace-page:not(.theme-dark) .ant-select-selection {
+  background: var(--qd-input) !important;
+  border-color: var(--qd-border-strong) !important;
+  color: var(--qd-text) !important;
+  box-shadow: none;
+}
+
+body.light .ant-input:hover,
+body.light .ant-input-affix-wrapper:hover,
+body.light .ant-input-number:hover,
+body.light .ant-select-selection:hover,
+.qd-workspace-page:not(.theme-dark) .ant-input:hover,
+.qd-workspace-page:not(.theme-dark) .ant-input-number:hover,
+.qd-workspace-page:not(.theme-dark) .ant-select-selection:hover {
+  border-color: color-mix(in srgb, var(--primary-color, #0f9ea8) 45%, var(--qd-border-strong)) !important;
+}
+
+body.light .ant-input:focus,
+body.light .ant-input-affix-wrapper-focused,
+body.light .ant-input-number-focused,
+body.light .ant-select-focused .ant-select-selection,
+.qd-workspace-page:not(.theme-dark) .ant-input:focus,
+.qd-workspace-page:not(.theme-dark) .ant-input-number-focused {
+  border-color: var(--primary-color, #0f9ea8) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color, #0f9ea8) 18%, transparent);
+}
+
+body.light .ant-input::placeholder,
+.qd-workspace-page:not(.theme-dark) .ant-input::placeholder {
+  color: var(--qd-text-muted) !important;
+}
+
+body.light .ant-form-item-label > label,
+.qd-workspace-page:not(.theme-dark) .ant-form-item-label > label {
+  color: var(--qd-text-secondary) !important;
+}
+
+body.light .ant-input-suffix .anticon,
+body.light .ant-input-clear-icon,
+body.light .ant-select-arrow,
+body.light .ant-select-clear {
+  color: var(--qd-text-muted) !important;
+}
+
+/* ---------- Switch / radio / checkbox ---------- */
+body.light .ant-switch:not(.ant-switch-checked),
+.qd-workspace-page:not(.theme-dark) .ant-switch:not(.ant-switch-checked) {
+  background: var(--qd-control-off) !important;
+}
+
+body.light .ant-switch-checked,
+.qd-workspace-page:not(.theme-dark) .ant-switch-checked {
+  background: var(--primary-color, #0f9ea8) !important;
+}
+
+body.light .ant-radio-inner,
+body.light .ant-checkbox-inner,
+.qd-workspace-page:not(.theme-dark) .ant-radio-inner,
+.qd-workspace-page:not(.theme-dark) .ant-checkbox-inner {
+  background: var(--qd-input) !important;
+  border-color: var(--qd-border-strong) !important;
+}
+
+body.light .ant-radio-wrapper:hover .ant-radio-inner,
+body.light .ant-checkbox-wrapper:hover .ant-checkbox-inner {
+  border-color: var(--primary-color, #0f9ea8) !important;
+}
+
+body.light .ant-radio-checked .ant-radio-inner {
+  border-color: var(--primary-color, #0f9ea8) !important;
+}
+
+body.light .ant-radio-checked .ant-radio-inner::after {
+  background: var(--primary-color, #0f9ea8) !important;
+}
+
+body.light .ant-checkbox-checked .ant-checkbox-inner {
+  background: var(--primary-color, #0f9ea8) !important;
+  border-color: var(--primary-color, #0f9ea8) !important;
+}
+
+/* ---------- Buttons ---------- */
+body.light .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous),
+.qd-workspace-page:not(.theme-dark) .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous) {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border-strong) !important;
+  color: var(--qd-text) !important;
+}
+
+body.light .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous):hover,
+.qd-workspace-page:not(.theme-dark) .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous):hover {
+  border-color: var(--primary-color, #0f9ea8) !important;
+  color: var(--primary-color, #0f9ea8) !important;
+}
+
+/* ---------- Dropdowns ---------- */
+body.light .ant-dropdown-menu,
+body.light .ant-select-dropdown {
+  background: var(--qd-surface) !important;
+  border: 1px solid var(--qd-border) !important;
+  box-shadow: var(--qd-shadow) !important;
+}
+
+body.light .ant-dropdown-menu-item,
+body.light .ant-select-dropdown-menu-item {
+  color: var(--qd-text) !important;
+}
+
+body.light .ant-dropdown-menu-item:hover,
+body.light .ant-select-dropdown-menu-item:hover,
+body.light .ant-select-dropdown-menu-item-active {
+  background: var(--qd-surface-hover) !important;
+}
+
+body.light .ant-select-dropdown-menu-item-selected {
+  background: color-mix(in srgb, var(--primary-color, #0f9ea8) 12%, transparent) !important;
+  color: var(--primary-color, #0f9ea8) !important;
+}
+
+/* ---------- Tabs / pagination / alerts ---------- */
+body.light .ant-tabs-tab {
+  color: var(--qd-text-secondary) !important;
+}
+
+body.light .ant-tabs-tab:hover {
+  color: var(--qd-text) !important;
+}
+
+body.light .ant-tabs-tab-active {
+  color: var(--primary-color, #0f9ea8) !important;
+}
+
+body.light .ant-tabs-bar {
+  border-bottom-color: var(--qd-border) !important;
+}
+
+body.light .ant-pagination-item,
+body.light .ant-pagination-prev .ant-pagination-item-link,
+body.light .ant-pagination-next .ant-pagination-item-link {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+}
+
+body.light .ant-pagination-item a {
+  color: var(--qd-text-secondary) !important;
+}
+
+body.light .ant-pagination-item-active {
+  border-color: var(--primary-color, #0f9ea8) !important;
+}
+
+body.light .ant-pagination-item-active a {
+  color: var(--primary-color, #0f9ea8) !important;
+}
+
+body.light .ant-alert {
+  border-color: var(--qd-border) !important;
+}
+
+body.light .ant-alert-info {
+  background: color-mix(in srgb, var(--primary-color, #0f9ea8) 6%, var(--qd-surface-subtle)) !important;
+  border-color: color-mix(in srgb, var(--primary-color, #0f9ea8) 22%, var(--qd-border)) !important;
+}
+
+/* ---------- Collapse / list / empty ---------- */
+body.light .ant-collapse,
+body.light .ant-collapse-content,
+body.light .ant-list {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+}
+
+body.light .ant-collapse-header,
+body.light .ant-list-item {
+  color: var(--qd-text) !important;
+  border-color: var(--qd-border) !important;
+}
+
+body.light .ant-empty-description {
+  color: var(--qd-text-muted) !important;
+}
+
+/* ---------- Workspace pages / module rhythm ---------- */
+.qd-workspace-page:not(.theme-dark) {
+  background: transparent;
+  color: var(--qd-text);
+}
+
+body.light .qd-workspace-page .ant-form-item {
+  margin-bottom: 18px;
+}
+
+body.light .qd-workspace-page .ant-card + .ant-card {
+  margin-top: 0; /* grids handle gap; page-frame direct siblings use workspace-system */
+}
+
+.qd-workspace-page:not(.theme-dark) .ant-card,
+body.light .settings-nav,
+body.light .settings-detail,
+body.light .settings-footer {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text);
+}
+
+/* Soften Multitab strip to match chrome */
+body.light .ant-pro-multi-tab,
+body.light [class*='multi-tab'] {
+  background: var(--qd-chrome);
+  border-color: var(--qd-border);
+}

@@ -70,7 +70,6 @@
         </button>
         <div class="hero-main">
           <div class="hero-copy">
-            <span class="eyebrow">{{ text.title }}</span>
             <p>{{ text.subtitle }}</p>
           </div>
         </div>
@@ -4992,14 +4991,14 @@ export default {
 
   display: grid;
   grid-template-columns: minmax(240px, 280px) minmax(560px, 1fr) minmax(270px, 320px);
-  gap: 12px;
+  gap: 14px;
   height: 100%;
   min-height: 0;
   overflow: hidden;
   padding: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(238, 243, 248, 0.88)),
-    var(--qd-bg);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--qd-text);
 }
 
@@ -5290,7 +5289,10 @@ export default {
 }
 
 .chat-hero {
-  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 16px;
   border-bottom: 1px solid var(--qd-border-soft);
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--qd-accent) 7%, transparent), rgba(255, 255, 255, 0.08)),
@@ -5298,10 +5300,15 @@ export default {
 }
 
 .hero-main {
-  display: block;
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .hero-copy {
+  display: flex;
+  align-items: center;
   min-width: 0;
 }
 
@@ -5329,11 +5336,11 @@ export default {
 }
 
 .chat-hero p {
-  max-width: 680px;
+  max-width: 720px;
   margin: 0;
   color: var(--qd-text-muted);
-  font-size: 12px;
-  line-height: 1.35;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .context-bar {
@@ -7025,25 +7032,13 @@ export default {
   gap: 12px;
   padding: 12px;
   isolation: isolate;
-  background:
-    radial-gradient(circle at 49% 26%, color-mix(in srgb, var(--qd-accent) 18%, transparent), transparent 29%),
-    radial-gradient(circle at 76% 12%, rgba(20, 184, 166, 0.16), transparent 27%),
-    linear-gradient(180deg, #f7fbff 0%, #edf3fa 42%, #f8fafc 100%);
+  background: transparent;
+  border: 0;
 }
 
 .copilot-workbench::before {
-  content: "";
-  position: absolute;
-  inset: 12px 324px 12px 304px;
-  z-index: -1;
-  border: 1px solid rgba(255, 255, 255, 0.56);
-  border-radius: 12px;
-  background:
-    linear-gradient(rgba(22, 119, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(22, 119, 255, 0.035) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 72%);
-  pointer-events: none;
+  content: none;
+  display: none;
 }
 
 .rail-panel,
@@ -7135,8 +7130,10 @@ export default {
 }
 
 .chat-hero {
-  min-height: 72px;
-  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 18px;
   border-bottom-color: var(--qd-border-soft);
   background: transparent;
 }
@@ -7162,8 +7159,9 @@ export default {
 }
 
 .chat-hero p {
-  max-width: 700px;
+  max-width: 720px;
   font-size: 13px;
+  line-height: 1.45;
 }
 
 .context-status {
@@ -7333,9 +7331,8 @@ export default {
 /* Final AI workbench tune-up for the conversation-first redesign. */
 .copilot-workbench {
   padding: 8px;
-  background:
-    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--qd-accent) 12%, transparent), transparent 28%),
-    linear-gradient(180deg, #f5f9fd 0%, #eef4fa 100%);
+  background: transparent;
+  border: 0;
 }
 
 .copilot-workbench .chat-panel,
@@ -7348,16 +7345,20 @@ export default {
 }
 
 .copilot-workbench .chat-hero {
-  min-height: 56px !important;
-  padding: 8px 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 44px !important;
+  padding: 10px 16px !important;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(247, 251, 255, 0.62)),
     rgba(255, 255, 255, 0.56) !important;
 }
 
 .copilot-workbench .hero-main {
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 390px);
-  gap: 14px;
+  display: flex !important;
+  align-items: center !important;
+  grid-template-columns: none;
+  gap: 0;
 }
 
 .copilot-workbench .eyebrow {
@@ -7374,8 +7375,8 @@ export default {
 }
 
 .copilot-workbench .chat-hero p {
-  font-size: 12px;
-  line-height: 1.28;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .copilot-workbench .context-status {
@@ -7474,7 +7475,8 @@ body.realdark .copilot-workbench,
   --qd-text-subtle: #73808a;
   --qd-border: rgba(255, 255, 255, 0.08);
   --qd-border-soft: rgba(255, 255, 255, 0.06);
-  background: #101416 !important;
+  background: transparent !important;
+  border: 0 !important;
 }
 
 body.dark .copilot-workbench .chat-panel,

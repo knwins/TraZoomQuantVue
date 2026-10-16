@@ -98,7 +98,7 @@ export default {
 <style lang="less" scoped>
 .public-report-page {
   min-height: 100vh;
-  padding: 0 20px 30px;
+  padding: 16px 20px 30px;
   color: #172033;
   background: radial-gradient(circle at 75% 0%, rgba(82, 196, 26, 0.12), transparent 28%), #f3f6f8;
 }
@@ -125,7 +125,7 @@ export default {
 .public-report-page--dark .brand small, .public-report-page--dark .share-meta span, .public-report-page--dark .public-report-shell__footer { color: #9ca3af; }
 .public-report-page--dark .readonly-badge { border-color: #315523; color: #86ef6e; background: #14230f; }
 @media (max-width: 600px) {
-  .public-report-page { padding: 0 8px 20px; }
+  .public-report-page { padding: 12px 8px 20px; }
   .public-report-shell__header { min-height: 62px; }
   .brand small { display: none; }
   .readonly-badge { padding: 6px 9px; }

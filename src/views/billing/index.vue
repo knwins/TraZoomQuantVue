@@ -47,7 +47,7 @@
       :message="$t('billing.lifetimeTopupHint') || '你已是永久会员，购买月度/年度套餐相当于补充积分包，不影响永久会员状态。'"
     />
 
-    <a-row :gutter="16" style="margin-top: 16px;">
+    <a-row :gutter="[20, 20]" style="margin-top: 20px;">
       <a-col v-for="plan in planItems" :key="plan.code" :xs="24" :sm="12" :lg="planColumnSpan">
         <a-card :bordered="false" class="plan-card" :class="{ highlight: plan.is_popular }">
           <a-tag v-if="plan.is_popular" color="gold" class="popular-badge">{{ tr('billing.popular', 'Popular') }}</a-tag>
@@ -404,9 +404,9 @@ export default {
       const note = this.usdtOrder && this.usdtOrder.wallet_compat_note
       if (!note) return ''
       const map = {
-        evm_eip681: this.$t('billing.usdt.compat.evm') || 'MetaMask, TrustWallet, TokenPocket, imToken, OKX and Coinbase will auto-fill both the address and the amount when they scan this QR.',
-        solana_pay: this.$t('billing.usdt.compat.solana') || 'Phantom, Solflare, TokenPocket and OKX will auto-fill both the address and the amount when they scan this QR.',
-        tron_partial: this.$t('billing.usdt.compat.tron') || 'TokenPocket and imToken auto-fill both fields. Older TronLink builds only pick up the address — copy the amount from the highlighted field on the right.'
+        evm_eip681: this.$t('billing.usdt.compat.evm') || 'This QR encodes the receiving address. Paste the exact highlighted amount from the right so your order can be matched.',
+        solana_pay: this.$t('billing.usdt.compat.solana') || 'This QR encodes the receiving address. Paste the exact highlighted amount from the right so your order can be matched.',
+        tron_partial: this.$t('billing.usdt.compat.tron') || 'This QR encodes the receiving address. Paste the exact highlighted amount from the right so your order can be matched.'
       }
       return map[note] || ''
     },
@@ -632,12 +632,13 @@ export default {
     },
 
     getUsdtQrText () {
-      // v3.0.6+: prefer the backend-built deep link URI (EIP-681 /
-      // Solana Pay / tron:) so EVM and Solana wallets can pre-fill both
-      // the recipient and the amount. Fall back to the raw receiving
-      // address so the QR is still scannable even on legacy wallets.
+      // Encode the receiving wallet address only. EIP-681 / Solana Pay
+      // deep links put the token contract first (ethereum:<contract>/...),
+      // so a plain QR scan looks like the wrong "收款地址" even though the
+      // recipient is in a query param. The amount stays on-screen with a
+      // copy button; wallet_compat_note still explains deep-link behaviour.
       if (!this.usdtOrder) return ''
-      return this.usdtOrder.payment_uri || this.usdtOrder.address || ''
+      return this.usdtOrder.address || ''
     },
 
     /**
@@ -757,10 +758,10 @@ export default {
 <style lang="less" scoped>
 /* ===== Page Styles ===== */
 .billing-page {
-  padding: 18px;
+  padding: 24px 28px 36px !important;
 
   .page-header {
-    margin-bottom: 14px;
+    margin-bottom: 28px;
     .page-title {
       margin: 0;
       font-size: 18px;
@@ -771,7 +772,7 @@ export default {
       color: rgba(0, 0, 0, 0.85);
     }
     .page-desc {
-      margin: 6px 0 0;
+      margin: 8px 0 0;
       color: rgba(0, 0, 0, 0.45);
     }
   }
@@ -794,7 +795,8 @@ export default {
     position: relative;
     border-radius: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    margin-top: 12px;
+    margin-top: 0;
+    height: 100%;
     &.highlight { border: 1px solid rgba(24, 144, 255, 0.35); }
     .popular-badge { position: absolute; top: 12px; right: 12px; }
     .plan-title {
@@ -803,7 +805,7 @@ export default {
       color: rgba(0, 0, 0, 0.85);
     }
     .plan-price {
-      margin-top: 10px;
+      margin-top: 12px;
       font-size: 28px;
       font-weight: 800;
       color: rgba(0, 0, 0, 0.85);
@@ -815,7 +817,7 @@ export default {
       }
     }
     .plan-benefit {
-      margin: 10px 0 16px;
+      margin: 12px 0 18px;
       color: rgba(0, 0, 0, 0.65);
       font-weight: 600;
     }
@@ -823,7 +825,7 @@ export default {
 
   .payment-methods {
     display: grid;
-    gap: 12px;
+    gap: 14px;
   }
 
   &.theme-dark {
