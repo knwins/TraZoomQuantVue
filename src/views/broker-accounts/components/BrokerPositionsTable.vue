@@ -116,7 +116,7 @@ export default {
 
   ::v-deep .ant-table {
     color: rgba(255, 255, 255, 0.82);
-    background: #181818;
+    background: var(--qd-surface, #18181a);
   }
 
   ::v-deep .ant-table-thead > tr > th {
@@ -126,7 +126,7 @@ export default {
   }
 
   ::v-deep .ant-table-tbody > tr > td {
-    background: #181818;
+    background: var(--qd-surface, #18181a);
     color: rgba(255, 255, 255, 0.82);
     border-bottom-color: #2a2a2a;
   }
@@ -137,7 +137,7 @@ export default {
 
   ::v-deep .ant-table-placeholder {
     color: rgba(255, 255, 255, 0.45);
-    background: #181818;
+    background: var(--qd-surface, #18181a);
     border-color: #303030;
   }
 }

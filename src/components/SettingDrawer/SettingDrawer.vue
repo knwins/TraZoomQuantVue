@@ -12,7 +12,7 @@
     >
       <div class="setting-drawer-index-content">
 
-        <div :style="{ marginBottom: '24px' }">
+        <div class="setting-drawer-section">
           <h3 class="setting-drawer-index-title">{{ $t('app.setting.pagestyle') }}</h3>
 
           <div class="setting-drawer-index-blockChecbox">
@@ -43,7 +43,7 @@
         </div>
 
         <!-- Theme color selector controls app-level accent styles. -->
-        <div :style="{ marginBottom: '24px' }">
+        <div class="setting-drawer-section">
           <h3 class="setting-drawer-index-title">{{ $t('app.setting.themecolor') }}</h3>
 
           <div class="setting-drawer-theme-color-list">
@@ -63,8 +63,8 @@
             </a-tooltip>
           </div>
 
-          <!-- Multi-tab sits under theme colour: still a shell preference, but
-               kept out of the page-style swatch row so that row can breathe. -->
+          <!-- Multi-tab sits under theme colour with a single top rule (no
+               extra a-divider below) so the row is not sandwiched. -->
           <a-list :split="false" class="setting-drawer-inline-switch">
             <a-list-item>
               <a-switch slot="actions" size="small" :checked="currentMultiTab" @change="onMultiTab" />
@@ -77,7 +77,6 @@
             </a-list-item>
           </a-list>
         </div>
-        <a-divider />
 
         <!-- Navigation Mode and Content Width are hidden -->
         <div :style="{ marginBottom: '24px', display: 'none' }">
@@ -150,7 +149,7 @@
         </div>
         <!-- The "Other settings" block (colour-weak mode, multi-tab mode) was
              removed: neither toggle had a supported value worth exposing, and
-             multi-tab is now always on. Multi-tab itself stays â€” RouteView.vue
+             multi-tab is now always on. Multi-tab itself stays â€?RouteView.vue
              and views/indicator-ide import MultiTab/cacheControl.mjs for
              keep-alive cache eviction, so deleting the component would break
              route caching, not just the tab bar.
@@ -260,7 +259,7 @@ export default {
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }`
       // Native clipboard with execCommand fallback (vue-clipboard2 was
-      // removed from the bundle â€” see package.json change history).
+      // removed from the bundle â€?see package.json change history).
       const okMsg = this.$t('app.setting.copy.success')
       const failMsg = this.$t('app.setting.copy.fail')
       const fallback = () => {
@@ -363,15 +362,23 @@ export default {
     flex-direction: column;
     flex: 1;
     min-height: 0;
+    gap: 22px;
+
+    .setting-drawer-section {
+      margin: 0;
+    }
 
     .setting-drawer-index-title {
+      margin: 0 0 12px;
       color: rgba(15, 23, 42, 0.9);
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
     }
 
     .setting-drawer-index-blockChecbox {
       display: flex;
-      gap: 16px;
+      gap: 14px;
 
       .setting-drawer-index-item {
         position: relative;
@@ -382,7 +389,7 @@ export default {
 
         img {
           display: block;
-          width: 72px;
+          width: 64px;
           height: auto;
         }
 
@@ -395,30 +402,46 @@ export default {
           display: flex;
           align-items: flex-start;
           justify-content: flex-end;
-          padding: 8px 8px 0 0;
+          padding: 6px 6px 0 0;
           color: var(--primary-color, #1890ff);
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 700;
         }
       }
     }
 
     .setting-drawer-theme-color-list + .setting-drawer-inline-switch {
-      margin-top: 16px;
-      padding-top: 14px;
+      /* Equal space above/below the rule so it sits vertically centered. */
+      margin-top: 28px;
+      padding-top: 28px;
       border-top: 1px solid rgba(15, 23, 42, 0.08);
     }
+
+    .setting-drawer-inline-switch {
+      :deep(.ant-list-item) {
+        padding: 4px 0 2px;
+        min-height: 36px;
+      }
+
+      :deep(.ant-list-item-meta-title) {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.45;
+      }
+    }
+
     // Track the palette width rather than a hard-coded column count. This used
     // to be `repeat(8, 24px)` with a 10px gap, needing 262px inside a drawer
-    // that only offers 252px of usable width â€” the eighth swatch was clipped
+    // that only offers 252px of usable width â€?the eighth swatch was clipped
     // and left a phantom empty cell. auto-fit keeps the row correct as
     // colours are added (teal / night cyan / green).
     .setting-drawer-theme-color-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, 24px);
-      gap: 8px;
+      grid-template-columns: repeat(auto-fit, 26px);
+      gap: 10px;
       justify-content: start;
-      min-height: 28px;
+      min-height: 26px;
       align-items: center;
     }
 
@@ -427,8 +450,8 @@ export default {
     }
 
     .setting-drawer-theme-color-swatch {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 6px;
       border: 1px solid rgba(0, 0, 0, 0.08);
       cursor: pointer;
@@ -451,7 +474,7 @@ export default {
       }
 
       i {
-        font-size: 14px;
+        font-size: 13px;
         line-height: 1;
       }
     }
@@ -527,13 +550,13 @@ export default {
 body.dark .setting-drawer,
 body.realdark .setting-drawer,
 .setting-drawer.setting-drawer--dark {
-  --setting-drawer-bg: var(--qd-bg, #0e151c);
-  --setting-drawer-panel: var(--qd-surface, #141b22);
-  --setting-drawer-panel-soft: var(--qd-surface-subtle, #182029);
-  --setting-drawer-border: var(--qd-border-strong, rgba(148, 163, 184, 0.2));
-  --setting-drawer-text: var(--qd-text, #e6edf5);
-  --setting-drawer-muted: var(--qd-text-secondary, #94a3b4);
-  --setting-drawer-subtle: var(--qd-text-muted, #6b7c8f);
+  --setting-drawer-bg: var(--qd-bg, #0f0f10);
+  --setting-drawer-panel: var(--qd-surface, #18181a);
+  --setting-drawer-panel-soft: var(--qd-surface-subtle, #222226);
+  --setting-drawer-border: var(--qd-border-strong, rgba(255, 255, 255, 0.26));
+  --setting-drawer-text: var(--qd-text, #f0f3f6);
+  --setting-drawer-muted: var(--qd-text-secondary, #c9d1d9);
+  --setting-drawer-subtle: var(--qd-text-muted, #8b949e);
 }
 
 body.dark .setting-drawer .ant-drawer-content,
@@ -579,10 +602,29 @@ body.realdark .setting-drawer .ant-divider,
   background: var(--setting-drawer-border) !important;
 }
 
+/* Multitask row: same canvas as drawer, keep the top separator line. */
+body.dark .setting-drawer .setting-drawer-inline-switch,
+body.dark .setting-drawer .setting-drawer-inline-switch.ant-list,
+body.realdark .setting-drawer .setting-drawer-inline-switch,
+body.realdark .setting-drawer .setting-drawer-inline-switch.ant-list,
+.setting-drawer.setting-drawer--dark .setting-drawer-inline-switch,
+.setting-drawer.setting-drawer--dark .setting-drawer-inline-switch.ant-list {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 body.dark .setting-drawer .setting-drawer-theme-color-list + .setting-drawer-inline-switch,
 body.realdark .setting-drawer .setting-drawer-theme-color-list + .setting-drawer-inline-switch,
 .setting-drawer.setting-drawer--dark .setting-drawer-theme-color-list + .setting-drawer-inline-switch {
-  border-top-color: var(--setting-drawer-border) !important;
+  border-top: 1px solid var(--setting-drawer-border) !important;
+}
+
+body.dark .setting-drawer .setting-drawer-inline-switch .ant-list-item,
+body.realdark .setting-drawer .setting-drawer-inline-switch .ant-list-item,
+.setting-drawer.setting-drawer--dark .setting-drawer-inline-switch .ant-list-item {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 body.dark .setting-drawer .ant-list-item,

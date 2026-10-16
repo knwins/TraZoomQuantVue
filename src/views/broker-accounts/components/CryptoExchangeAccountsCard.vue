@@ -384,7 +384,7 @@ export default {
       if (raw === null || raw === undefined || raw === '') return ''
       const ts = Number(raw)
       if (Number.isFinite(ts) && ts > 0) {
-        // Backend fetched_at is Unix seconds; moment(number) treats numbers as ms â†’ 1970 bug.
+        // Backend fetched_at is Unix seconds; moment(number) treats numbers as ms â†?1970 bug.
         const m = ts < 1e12 ? moment.unix(Math.floor(ts)) : moment(Math.floor(ts))
         return m.isValid() ? m.format('YYYY-MM-DD HH:mm:ss') : ''
       }
@@ -554,7 +554,7 @@ export default {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
 
   ::v-deep .ant-btn:not(.ant-btn-primary):not(.ant-btn-danger):not(.ant-btn-link) {
-    background: #181818;
+    background: var(--qd-surface, #18181a);
     border-color: #3a3a3a;
     color: rgba(255, 255, 255, 0.76);
   }
@@ -563,7 +563,7 @@ export default {
   ::v-deep .ant-btn:not(.ant-btn-primary):not(.ant-btn-danger):not(.ant-btn-link):focus {
     border-color: var(--primary-color, #1890ff);
     color: var(--primary-color, #1890ff);
-    background: color-mix(in srgb, var(--primary-color, #1890ff) 10%, #181818);
+    background: color-mix(in srgb, var(--primary-color, #1890ff) 10%, var(--qd-surface, #18181a));
   }
 }
 .crypto-card-header {
@@ -634,7 +634,7 @@ export default {
   box-shadow: 0 4px 12px rgba(24, 144, 255, 0.08);
 }
 .crypto-card.theme-dark .crypto-item {
-  background: #181818;
+  background: var(--qd-surface, #18181a);
   border-color: #303030;
 }
 .crypto-item-top {

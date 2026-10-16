@@ -46,20 +46,21 @@ body.light .ant-pro-grid-content {
 }
 
 /* Canonical dark palette for menu chrome + workspace surfaces.
-   Keep shell / header / card / text on one cool stack for clarity. */
+   Neutral charcoal stack (not blue-navy); inputs use a recessed well. */
 body.dark,
 body.realdark {
-  --qd-bg: #0e151c;
-  --qd-chrome: #121a22;
-  --qd-surface: #141b22;
-  --qd-surface-subtle: #182029;
-  --qd-surface-hover: #1c2630;
-  --qd-border: rgba(148, 163, 184, 0.12);
-  --qd-border-strong: rgba(148, 163, 184, 0.2);
-  --qd-text: #e6edf5;
-  --qd-text-secondary: #94a3b4;
-  --qd-text-muted: #6b7c8f;
-  --qd-text-menu: #b6c2ce;
+  --qd-bg: #0f0f10;
+  --qd-chrome: #141416;
+  --qd-surface: #18181a;
+  --qd-surface-subtle: #222226;
+  --qd-surface-hover: #2a2a2e;
+  --qd-input: #0c0c0e;
+  --qd-border: rgba(255, 255, 255, 0.16);
+  --qd-border-strong: rgba(255, 255, 255, 0.28);
+  --qd-text: #f0f3f6;
+  --qd-text-secondary: #c9d1d9;
+  --qd-text-muted: #8b949e;
+  --qd-text-menu: #c9d1d9;
 
   background: var(--qd-bg);
   color: var(--qd-text);
@@ -404,31 +405,31 @@ body.dark .ant-modal-content,
 body.realdark .ant-modal-content,
 body.dark .ant-drawer-content,
 body.realdark .ant-drawer-content {
-  background: #151c24;
-  color: #e8eef4;
+  background: var(--qd-surface, #18181a);
+  color: var(--qd-text, #f0f3f6);
 }
 
 body.dark .ant-modal-header,
 body.realdark .ant-modal-header,
 body.dark .ant-drawer-header,
 body.realdark .ant-drawer-header {
-  background: #151c24;
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-  color: #e8eef4;
+  background: var(--qd-surface, #18181a);
+  border-bottom-color: var(--qd-border, rgba(255, 255, 255, 0.14));
+  color: var(--qd-text, #f0f3f6);
 }
 
 body.dark .ant-modal-title,
 body.realdark .ant-modal-title,
 body.dark .ant-drawer-title,
 body.realdark .ant-drawer-title {
-  color: #e8eef4;
+  color: var(--qd-text, #f0f3f6);
 }
 
 body.dark .ant-modal-close,
 body.realdark .ant-modal-close,
 body.dark .ant-drawer-close,
 body.realdark .ant-drawer-close {
-  color: #9aabba;
+  color: var(--qd-text-secondary, #c9d1d9);
 }
 
 body.dark .ant-table,
@@ -436,20 +437,20 @@ body.realdark .ant-table,
 body.dark .ant-table-tbody > tr > td,
 body.realdark .ant-table-tbody > tr > td {
   background: transparent;
-  color: #e8eef4;
+  color: var(--qd-text, #f0f3f6);
 }
 
 body.dark .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
 body.realdark .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
-  background: rgba(255, 255, 255, 0.04) !important;
+  background: var(--qd-surface-hover, #2a2a2e) !important;
 }
 
 body.dark .ant-dropdown-menu,
 body.realdark .ant-dropdown-menu,
 body.dark .ant-select-dropdown,
 body.realdark .ant-select-dropdown {
-  background: #151c24;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--qd-surface-subtle, #222226);
+  border: 1px solid var(--qd-border, rgba(255, 255, 255, 0.14));
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
 }
 
@@ -457,35 +458,35 @@ body.dark .ant-dropdown-menu-item,
 body.realdark .ant-dropdown-menu-item,
 body.dark .ant-select-dropdown-menu-item,
 body.realdark .ant-select-dropdown-menu-item {
-  color: #e8eef4;
+  color: var(--qd-text, #f0f3f6);
 }
 
 body.dark .ant-tabs-tab,
 body.realdark .ant-tabs-tab {
-  color: #9aabba;
+  color: var(--qd-text-secondary, #c9d1d9);
 }
 
 body.dark .ant-tabs-tab-active,
 body.realdark .ant-tabs-tab-active {
-  color: var(--primary-color, #e8eef4);
+  color: var(--primary-color, #2ecfcf);
 }
 
 body.dark .ant-alert,
 body.realdark .ant-alert {
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--qd-border, rgba(255, 255, 255, 0.14));
 }
 
 body.dark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link),
 body.realdark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link) {
-  background: #1a222c;
-  border-color: rgba(255, 255, 255, 0.14);
-  color: #e8eef4;
+  background: var(--qd-surface-subtle, #222226);
+  border-color: var(--qd-border, rgba(255, 255, 255, 0.14));
+  color: var(--qd-text, #f0f3f6);
 }
 
 body.dark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):hover,
 body.realdark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):hover {
-  border-color: var(--primary-color, #ffffff);
-  color: var(--primary-color, #ffffff);
+  border-color: var(--primary-color, #2ecfcf);
+  color: var(--primary-color, #2ecfcf);
 }
 
 .basic-layout-wrapper .ant-btn {
@@ -502,13 +503,23 @@ body.realdark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):hover {
 
 body.dark .ant-input,
 body.realdark .ant-input,
+body.dark .ant-input-affix-wrapper,
+body.realdark .ant-input-affix-wrapper,
 body.dark .ant-select-selection,
 body.realdark .ant-select-selection,
 body.dark .ant-input-number,
 body.realdark .ant-input-number {
-  background: var(--qd-surface-subtle, #182029) !important;
-  border-color: var(--qd-border, rgba(148, 163, 184, 0.12)) !important;
-  color: var(--qd-text, #e6edf5);
+  background: var(--qd-input, #0c0c0e) !important;
+  border-color: var(--qd-border-strong, rgba(255, 255, 255, 0.28)) !important;
+  color: var(--qd-text, #f0f3f6) !important;
+}
+
+body.dark .ant-input-affix-wrapper .ant-input,
+body.realdark .ant-input-affix-wrapper .ant-input,
+body.dark .ant-input-number-input,
+body.realdark .ant-input-number-input {
+  background: transparent !important;
+  color: var(--qd-text, #f0f3f6) !important;
 }
 
 /* Interactive controls get a soft radius; large framed surfaces stay square. */

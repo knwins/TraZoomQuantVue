@@ -839,7 +839,7 @@ body.dark .ai-skill-center .ant-table-tbody > tr > td,
 
 body.dark .ai-skill-center .ant-table-tbody > tr:hover > td,
 .basic-layout-wrapper.dark .ai-skill-center .ant-table-tbody > tr:hover > td {
-  background: #181818 !important;
+  background: var(--qd-surface, #18181a) !important;
 }
 
 body.dark .ai-skill-center .ant-table-placeholder,

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div :class="['basic-layout-wrapper', settings.theme, { 'basic-layout-wrapper--multi-tab': multiTabEnabled }]">
     <pro-layout
       :menus="menus"
@@ -227,10 +227,10 @@ const DEFAULT_TELEGRAM_URL = 'https://t.me/trazoom'
 
 // The multi-tab bar is hidden by default: navigating away from a page
 // discards its state, which is the expected behaviour for a top-menu
-// layout. The settings drawer's "鏁翠綋椋庢牸璁剧疆" block exposes a switch
+// layout. The settings drawer's "整体风格设置" block exposes a switch
 // that flips this via the store (TOGGLE_MULTI_TAB).
 //
-// Note the class binding in the template must follow this flag 鈥?the
+// Note the class binding in the template must follow this flag �?the
 // `basic-layout-wrapper--multi-tab` rules in BasicLayout.less reserve
 // vertical space for the tab bar, so leaving the class on while the bar
 // is hidden opens a blank strip above the content.
@@ -911,7 +911,7 @@ export default {
       this.$nextTick(() => {
         setTimeout(() => {
           this.updateMenuFooterPosition()
-        }, 300) // 绛夊緟 drawer 鍔ㄧ敾瀹屾垚
+        }, 300) // 等待 drawer 动画完成
       })
     },
     handleSettingChange ({ type, value }) {
@@ -1045,7 +1045,7 @@ export default {
     bottom: 0;
     left: 0;
     z-index: 100;
-    width: 256px; /* 缁熶竴鍥哄畾瀹藉害 256px */
+    width: 256px; /* 统一固定宽度 256px */
     background: #111111;
     border-top: 1px solid #1c1c1c;
     transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
@@ -1053,16 +1053,16 @@ export default {
                 max-width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
                 opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
     max-width: 256px;
-    display: block; /* 榛樿鏄剧ず */
+    display: block; /* 默认显示 */
     opacity: 1;
 
     &.collapsed {
-      width: 80px; /* 鎶樺彔鏃惰彍鍗曞搴?*/
+      width: 80px; /* 折叠时菜单宽�?*/
       max-width: 80px;
     }
 
     @media (max-width: 768px) {
-      z-index: 1001; /* drawer 鐨?z-index 閫氬父鏄?1000 */
+      z-index: 1001; /* drawer �?z-index 通常�?1000 */
 
       &:not(.drawer-open) {
         display: none !important;
@@ -1079,7 +1079,7 @@ export default {
         transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
                     width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
                     max-width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
-                    opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86) 0.1s; /* 寤惰繜 0.1s 鏄剧ず锛岀‘淇?drawer 鍏堝嚭鐜?*/
+                    opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86) 0.1s; /* 延迟 0.1s 显示，确�?drawer 先出�?*/
       }
     }
 
@@ -1341,12 +1341,12 @@ export default {
   }
 
   .ant-layout-header {
-    background: var(--qd-bg, #0e151c) !important;
+    background: var(--qd-bg, #0f0f10) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     box-shadow: none !important;
   }
   .ant-pro-global-header {
-    background: var(--qd-bg, #0e151c) !important;
+    background: var(--qd-bg, #0f0f10) !important;
     border-bottom: none !important;
     box-shadow: none !important;
     color: rgba(255, 255, 255, 0.85) !important;

@@ -16,6 +16,7 @@ import './qd-layout-dark-override.less'
 import './mobile-responsive.less'
 import './styles/workspace-system.less'
 import './styles/studio-shell.less'
+import './styles/dark-theme.less' // canonical dark UI tokens + controls (load last)
 
 Vue.config.productionTip = false
 

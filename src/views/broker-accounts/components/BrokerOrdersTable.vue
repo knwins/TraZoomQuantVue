@@ -150,13 +150,13 @@ export default {
 .bp-table-wrapper.theme-dark {
   ::v-deep .ant-table-fixed-right,
   ::v-deep .ant-table-fixed-right .ant-table-header {
-    background: #181818;
+    background: var(--qd-surface, #18181a);
   }
   .bp-table-count { color: rgba(255, 255, 255, 0.48); }
 
   ::v-deep .ant-table {
     color: rgba(255, 255, 255, 0.82);
-    background: #181818;
+    background: var(--qd-surface, #18181a);
   }
 
   ::v-deep .ant-table-thead > tr > th {
@@ -166,7 +166,7 @@ export default {
   }
 
   ::v-deep .ant-table-tbody > tr > td {
-    background: #181818;
+    background: var(--qd-surface, #18181a);
     color: rgba(255, 255, 255, 0.82);
     border-bottom-color: #2a2a2a;
   }
@@ -177,7 +177,7 @@ export default {
 
   ::v-deep .ant-table-placeholder {
     color: rgba(255, 255, 255, 0.45);
-    background: #181818;
+    background: var(--qd-surface, #18181a);
     border-color: #303030;
   }
 

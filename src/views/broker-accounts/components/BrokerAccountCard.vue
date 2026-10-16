@@ -134,21 +134,21 @@ export default {
 .metric-sub { margin-top: 4px; font-size: 11px; color: #8c8c8c; }
 .account-grid.theme-dark {
   .metric-card {
-    background: #181818;
+    background: var(--qd-surface, #18181a);
     border-color: #303030;
 
     &.accent {
-      background: color-mix(in srgb, var(--primary-color, #1890ff) 10%, #181818);
+      background: color-mix(in srgb, var(--primary-color, #1890ff) 10%, var(--qd-surface, #18181a));
       border-color: color-mix(in srgb, var(--primary-color, #1890ff) 45%, transparent);
     }
 
     &.positive {
-      background: color-mix(in srgb, #52c41a 9%, #181818);
+      background: color-mix(in srgb, #52c41a 9%, var(--qd-surface, #18181a));
       border-color: rgba(82, 196, 26, 0.35);
     }
 
     &.negative {
-      background: color-mix(in srgb, #f5222d 9%, #181818);
+      background: color-mix(in srgb, #f5222d 9%, var(--qd-surface, #18181a));
       border-color: rgba(245, 34, 45, 0.35);
     }
   }

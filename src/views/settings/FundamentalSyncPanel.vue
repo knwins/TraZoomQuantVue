@@ -267,7 +267,7 @@ export default {
   p { margin: 8px 0 0; line-height: 1.7; color: var(--sync-muted); font-size: 13px; }
 }
 .fundamental-dark {
-  --sync-bg: #181818;
+  --sync-bg: var(--qd-surface, #18181a);
   --sync-surface: #141414;
   --sync-border: #303030;
   --sync-text: #e0e6ed;

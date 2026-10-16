@@ -2568,13 +2568,54 @@ export default {
       }
     }
 
-    ::v-deep .ant-tag {
+    // Preset Ant tags keep their hue; soften them for dark chrome instead of
+    // forcing muted grey on a washed light pink (admin looked broken).
+    ::v-deep .ant-tag:not([color]):not(.ant-tag-has-color) {
       color: var(--qd-text-secondary);
     }
 
     ::v-deep .ant-tag.ant-tag-has-color {
       color: #ffffff !important;
       border-color: transparent !important;
+    }
+
+    ::v-deep .ant-tag-red {
+      background: rgba(245, 34, 45, 0.16) !important;
+      border-color: rgba(255, 120, 117, 0.42) !important;
+      color: #ff9c9c !important;
+    }
+
+    ::v-deep .ant-tag-orange {
+      background: rgba(250, 173, 20, 0.16) !important;
+      border-color: rgba(255, 197, 61, 0.42) !important;
+      color: #ffc53d !important;
+    }
+
+    ::v-deep .ant-tag-blue {
+      background: color-mix(in srgb, var(--primary-color, #0f9ea8) 18%, transparent) !important;
+      border-color: color-mix(in srgb, var(--primary-color, #0f9ea8) 45%, transparent) !important;
+      color: var(--primary-color, #2ecfcf) !important;
+    }
+
+    ::v-deep .ant-tag-gold {
+      background: rgba(250, 173, 20, 0.16) !important;
+      border-color: rgba(255, 197, 61, 0.42) !important;
+      color: #ffc53d !important;
+    }
+
+    ::v-deep .ant-tag-default {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border-color: var(--qd-border) !important;
+      color: var(--qd-text-secondary) !important;
+    }
+
+    .user-role ::v-deep .ant-tag {
+      margin: 0;
+      padding: 0 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 20px;
     }
 
     ::v-deep .ant-input-prefix .anticon,

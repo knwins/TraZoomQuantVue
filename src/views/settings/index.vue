@@ -2669,58 +2669,58 @@ export default {
   }
 
   &.theme-dark {
-    background: #0f0f10;
+    background: var(--qd-bg, #0f0f10);
 
     .restart-alert {
-      background: #1c1c1c;
+      background: var(--qd-surface, #18181a);
       border-color: #b08800;
     }
 
     .settings-header {
       .page-title {
-        color: #e0e6ed;
+        color: var(--qd-text, #f0f3f6);
       }
 
       .page-desc {
-        color: #8b949e;
+        color: var(--qd-text-muted, #8b949e);
       }
     }
 
     .settings-nav {
-      background: #181818;
+      background: var(--qd-surface, #18181a);
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 
       ::v-deep .ant-menu-item {
-        color: #c9d1d9;
-        .anticon { color: #8b949e; }
+        color: var(--qd-text-menu, #c9d1d9);
+        .anticon { color: var(--qd-text-muted, #8b949e); }
 
         &:hover {
-          background: color-mix(in srgb, var(--primary-color, #1890ff) 12%, transparent);
-          color: var(--primary-color, #1890ff);
-          .anticon { color: var(--primary-color, #1890ff); }
+          background: color-mix(in srgb, var(--primary-color, #2ecfcf) 12%, transparent);
+          color: var(--primary-color, #2ecfcf);
+          .anticon { color: var(--primary-color, #2ecfcf); }
         }
 
         &.ant-menu-item-selected {
-          background: linear-gradient(135deg, color-mix(in srgb, var(--primary-color, #1890ff) 18%, transparent), rgba(19, 194, 194, 0.10));
-          color: var(--primary-color, #1890ff);
-          .anticon { color: var(--primary-color, #1890ff); }
+          background: color-mix(in srgb, var(--primary-color, #2ecfcf) 16%, transparent);
+          color: var(--primary-color, #2ecfcf);
+          .anticon { color: var(--primary-color, #2ecfcf); }
         }
       }
 
       ::v-deep .ant-menu-item-group-title {
-        color: #6e7681;
+        color: var(--qd-text-muted, #8b949e);
       }
     }
 
     .settings-detail {
-      background: #181818;
+      background: var(--qd-surface, #18181a);
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 
       .detail-header {
-        border-bottom-color: rgba(255, 255, 255, 0.08);
+        border-bottom-color: var(--qd-border, rgba(255, 255, 255, 0.14));
 
-        .detail-icon { color: var(--primary-color, #1890ff); }
-        .detail-title { color: #e0e6ed; }
+        .detail-icon { color: var(--primary-color, #2ecfcf); }
+        .detail-title { color: var(--qd-text, #f0f3f6); }
       }
 
       .search-result-group-tag {
@@ -2765,43 +2765,43 @@ export default {
       }
 
       .advanced-settings-toggle {
-        border-color: rgba(255, 255, 255, 0.14);
-        background: #141414;
+        border-color: var(--qd-border, rgba(255, 255, 255, 0.14));
+        background: var(--qd-chrome, #141416);
 
         small {
-          color: #8b949e;
+          color: var(--qd-text-muted, #8b949e);
         }
       }
     }
 
     .ai-settings-panel {
       .ai-settings-section {
-        background: #141414;
-        border-color: #2a2a2a;
+        background: var(--qd-chrome, #141416);
+        border-color: var(--qd-border, rgba(255, 255, 255, 0.14));
       }
 
       .ai-section-header {
-        border-bottom-color: rgba(255, 255, 255, 0.08);
+        border-bottom-color: var(--qd-border, rgba(255, 255, 255, 0.14));
 
         h4 {
-          color: #e0e6ed;
+          color: var(--qd-text, #f0f3f6);
         }
 
         p {
-          color: #8b949e;
+          color: var(--qd-text-muted, #8b949e);
         }
       }
     }
 
     ::v-deep .ant-alert-info {
-      background: #141414 !important;
-      border-color: #2a2a2a !important;
-      color: rgba(255, 255, 255, 0.82) !important;
+      background: var(--qd-surface-subtle, #222226) !important;
+      border-color: var(--qd-border, rgba(255, 255, 255, 0.14)) !important;
+      color: var(--qd-text, #f0f3f6) !important;
     }
 
     ::v-deep .ant-alert-info .ant-alert-message,
     ::v-deep .ant-alert-info .ant-alert-description {
-      color: rgba(255, 255, 255, 0.82) !important;
+      color: var(--qd-text-secondary, #c9d1d9) !important;
     }
 
     ::v-deep .research-data-intro.ant-alert-success {
@@ -2821,28 +2821,28 @@ export default {
     .settings-form {
       ::v-deep .ant-form-item-label {
         label {
-          color: #c9d1d9;
+          color: var(--qd-text-secondary, #d0d7de);
         }
 
         .form-label-with-tooltip {
           .label-text {
-            color: #c9d1d9;
+            color: var(--qd-text-secondary, #d0d7de);
           }
 
           .help-icon {
-            color: #6e7681;
+            color: #8b949e;
 
             &:hover {
-              color: var(--primary-color, #1890ff);
+              color: var(--primary-color, #2ecfcf);
             }
           }
 
           .api-link {
-            background: color-mix(in srgb, var(--primary-color, #1890ff) 15%, transparent);
-            color: var(--primary-color, #1890ff);
+            background: color-mix(in srgb, var(--primary-color, #2ecfcf) 15%, transparent);
+            color: var(--primary-color, #2ecfcf);
 
             &:hover {
-              background: color-mix(in srgb, var(--primary-color, #1890ff) 25%, transparent);
+              background: color-mix(in srgb, var(--primary-color, #2ecfcf) 25%, transparent);
             }
           }
         }
@@ -2850,25 +2850,28 @@ export default {
 
       ::v-deep .ant-input,
       ::v-deep .ant-input-password,
+      ::v-deep .ant-input-affix-wrapper,
       ::v-deep .ant-input-number,
       ::v-deep .ant-select-selection {
-        background: #141414;
-        border-color: #2a2a2a;
-        color: #c9d1d9;
+        background: var(--qd-input, #0c0c0e) !important;
+        border-color: var(--qd-border-strong, rgba(255, 255, 255, 0.26)) !important;
+        color: var(--qd-text, #f0f3f6) !important;
+      }
 
-        &:hover,
-        &:focus {
-          border-color: var(--primary-color, #1890ff);
-        }
+      ::v-deep .ant-input-affix-wrapper .ant-input {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: var(--qd-text, #f0f3f6) !important;
       }
 
       ::v-deep .ant-input-number-input {
-        background: transparent;
-        color: #c9d1d9;
+        background: transparent !important;
+        color: var(--qd-text, #f0f3f6) !important;
       }
 
       ::v-deep .ant-select-arrow {
-        color: #8b949e;
+        color: #9da7b3;
       }
 
       // Input trailing icons in dark mode (eye/clear/spinner) should stay readable
@@ -2876,27 +2879,27 @@ export default {
       ::v-deep .ant-input-clear-icon,
       ::v-deep .ant-input-clear-icon .anticon,
       ::v-deep .ant-input-number-handler-wrap {
-        color: #8b949e;
+        color: #9da7b3 !important;
       }
 
       ::v-deep .ant-input-suffix .anticon:hover,
       ::v-deep .ant-input-clear-icon:hover,
       ::v-deep .ant-input-number-handler:hover .ant-input-number-handler-up-inner,
       ::v-deep .ant-input-number-handler:hover .ant-input-number-handler-down-inner {
-        color: var(--primary-color, #1890ff);
+        color: var(--primary-color, #2ecfcf) !important;
       }
 
       .field-default {
-        color: #6e7681;
+        color: #8b949e;
       }
 
       .market-module-row {
-        background: #161b22;
-        border-color: rgba(255, 255, 255, 0.08);
+        background: var(--qd-surface-subtle, #222226);
+        border-color: var(--qd-border, rgba(255, 255, 255, 0.16));
 
         &:hover {
-          border-color: color-mix(in srgb, var(--primary-color, #1890ff) 45%, transparent);
-          background: #1f2630;
+          border-color: color-mix(in srgb, var(--primary-color, #2ecfcf) 45%, transparent);
+          background: var(--qd-surface-hover, #2a2a2e);
         }
       }
 
@@ -2933,8 +2936,8 @@ export default {
     }
 
     .settings-footer {
-      background: #1c1c1c;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: var(--qd-chrome, #141416);
+      border-top: 1px solid var(--qd-border, rgba(255, 255, 255, 0.14));
       box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.25);
     }
   }

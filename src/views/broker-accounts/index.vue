@@ -257,9 +257,9 @@ export default {
       }
     },
     /**
-     * Venues the operator disabled in Settings â€º Exchanges are hidden from the
+     * Venues the operator disabled in Settings â€?Exchanges are hidden from the
      * sidebar. A failed request leaves the map empty, which the computed
-     * filters read as "everything enabled" â€” an unreachable endpoint should
+     * filters read as "everything enabled" â€?an unreachable endpoint should
      * not empty the page.
      */
     async loadExchangeAvailability () {
@@ -737,7 +737,7 @@ export default {
     color: rgba(255, 255, 255, 0.72);
 
     &:hover {
-      background: #181818;
+      background: var(--qd-surface, #18181a);
     }
 
     &.active {
@@ -747,7 +747,7 @@ export default {
   }
 
   .ba-provider-icon {
-    background: #181818;
+    background: var(--qd-surface, #18181a);
     border-color: rgba(255, 255, 255, 0.12);
   }
 

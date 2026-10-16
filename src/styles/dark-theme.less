@@ -1,0 +1,457 @@
+/**
+ * Canonical dark UI — aligned with dark chrome/menu charcoal stack.
+ * Imported last so token-based surfaces and controls stay consistent app-wide.
+ */
+
+/* ---------- Token stack ---------- */
+body.dark,
+body.realdark,
+.basic-layout-wrapper.dark,
+.basic-layout-wrapper.realdark,
+.theme-dark {
+  --qd-bg: #0f0f10;
+  --qd-chrome: #141416;
+  --qd-surface: #18181a;
+  --qd-surface-subtle: #222226;
+  --qd-surface-hover: #2a2a2e;
+  --qd-input: #0c0c0e;
+  --qd-border: rgba(255, 255, 255, 0.14);
+  --qd-border-strong: rgba(255, 255, 255, 0.26);
+  --qd-text: #f0f3f6;
+  --qd-text-secondary: #c9d1d9;
+  --qd-text-muted: #8b949e;
+  --qd-text-menu: #c9d1d9;
+  --qd-control-off: #5a6570;
+  --qd-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- Canvas / chrome ---------- */
+body.dark,
+body.realdark {
+  background: var(--qd-bg) !important;
+  color: var(--qd-text);
+}
+
+body.dark .ant-layout,
+body.realdark .ant-layout,
+body.dark .ant-layout-content,
+body.realdark .ant-layout-content,
+body.dark .ant-pro-basicLayout-content,
+body.realdark .ant-pro-basicLayout-content,
+body.dark .ant-pro-page-header-wrap,
+body.realdark .ant-pro-page-header-wrap,
+.basic-layout-wrapper.dark .ant-layout,
+.basic-layout-wrapper.realdark .ant-layout,
+.basic-layout-wrapper.dark .ant-pro-basicLayout-content,
+.basic-layout-wrapper.realdark .ant-pro-basicLayout-content {
+  background: var(--qd-bg) !important;
+  color: var(--qd-text);
+}
+
+body.dark .ant-layout-header,
+body.realdark .ant-layout-header,
+body.dark .ant-pro-global-header,
+body.realdark .ant-pro-global-header,
+body.dark .ant-pro-top-nav-header,
+body.realdark .ant-pro-top-nav-header,
+body.dark .ant-menu-dark.ant-menu-horizontal,
+body.realdark .ant-menu-dark.ant-menu-horizontal,
+.basic-layout-wrapper.dark .ant-layout-header,
+.basic-layout-wrapper.realdark .ant-layout-header {
+  background: var(--qd-chrome) !important;
+  border-bottom-color: var(--qd-border) !important;
+}
+
+body.dark .ant-layout-sider-dark,
+body.realdark .ant-layout-sider-dark,
+body.dark .ant-menu-dark:not(.ant-menu-horizontal),
+body.realdark .ant-menu-dark:not(.ant-menu-horizontal) {
+  background: var(--qd-bg) !important;
+}
+
+/* ---------- Surfaces ---------- */
+body.dark .ant-card,
+body.realdark .ant-card,
+body.dark .ant-modal-content,
+body.realdark .ant-modal-content,
+body.dark .ant-drawer-content,
+body.realdark .ant-drawer-content,
+body.dark .ant-popover-inner,
+body.realdark .ant-popover-inner {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+  box-shadow: none;
+}
+
+body.dark .ant-card-head,
+body.realdark .ant-card-head,
+body.dark .ant-modal-header,
+body.realdark .ant-modal-header,
+body.dark .ant-drawer-header,
+body.realdark .ant-drawer-header,
+body.dark .ant-modal-footer,
+body.realdark .ant-modal-footer {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-modal-title,
+body.realdark .ant-modal-title,
+body.dark .ant-drawer-title,
+body.realdark .ant-drawer-title,
+body.dark .ant-card-head-title,
+body.realdark .ant-card-head-title {
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-modal-close,
+body.realdark .ant-modal-close,
+body.dark .ant-drawer-close,
+body.realdark .ant-drawer-close {
+  color: var(--qd-text-secondary) !important;
+}
+
+/* ---------- Tables ---------- */
+body.dark .ant-table,
+body.realdark .ant-table,
+body.dark .ant-table-content,
+body.realdark .ant-table-content,
+body.dark .ant-table-body,
+body.realdark .ant-table-body,
+body.dark .ant-table-placeholder,
+body.realdark .ant-table-placeholder,
+.basic-layout-wrapper.dark .ant-table,
+.basic-layout-wrapper.realdark .ant-table {
+  background: var(--qd-surface) !important;
+  color: var(--qd-text) !important;
+  border-color: var(--qd-border) !important;
+}
+
+body.dark .ant-table-thead > tr > th,
+body.realdark .ant-table-thead > tr > th,
+.basic-layout-wrapper.dark .ant-table-thead > tr > th,
+.basic-layout-wrapper.realdark .ant-table-thead > tr > th {
+  background: var(--qd-surface-subtle) !important;
+  color: var(--qd-text-secondary) !important;
+  border-bottom-color: var(--qd-border) !important;
+}
+
+body.dark .ant-table-tbody > tr > td,
+body.realdark .ant-table-tbody > tr > td {
+  border-bottom-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
+body.realdark .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+  background: var(--qd-surface-hover) !important;
+}
+
+/* ---------- Inputs / selects ---------- */
+body.dark .ant-input,
+body.realdark .ant-input,
+body.dark .ant-input-affix-wrapper,
+body.realdark .ant-input-affix-wrapper,
+body.dark .ant-input-number,
+body.realdark .ant-input-number,
+body.dark .ant-select-selection,
+body.realdark .ant-select-selection,
+body.dark .ant-mentions,
+body.realdark .ant-mentions,
+body.dark .ant-cascader-picker,
+body.realdark .ant-cascader-picker,
+body.dark .ant-calendar-picker-input,
+body.realdark .ant-calendar-picker-input,
+.theme-dark .ant-input,
+.theme-dark .ant-input-affix-wrapper,
+.theme-dark .ant-input-number,
+.theme-dark .ant-select-selection {
+  background: var(--qd-input) !important;
+  border-color: var(--qd-border-strong) !important;
+  color: var(--qd-text) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+body.dark .ant-input:hover,
+body.realdark .ant-input:hover,
+body.dark .ant-input-affix-wrapper:hover,
+body.realdark .ant-input-affix-wrapper:hover,
+body.dark .ant-input-number:hover,
+body.realdark .ant-input-number:hover,
+body.dark .ant-select-selection:hover,
+body.realdark .ant-select-selection:hover,
+.theme-dark .ant-input:hover,
+.theme-dark .ant-input-number:hover,
+.theme-dark .ant-select-selection:hover {
+  border-color: #7a8694 !important;
+}
+
+body.dark .ant-input:focus,
+body.realdark .ant-input:focus,
+body.dark .ant-input-affix-wrapper-focused,
+body.realdark .ant-input-affix-wrapper-focused,
+body.dark .ant-input-number-focused,
+body.realdark .ant-input-number-focused,
+body.dark .ant-select-focused .ant-select-selection,
+body.realdark .ant-select-focused .ant-select-selection,
+.theme-dark .ant-input:focus,
+.theme-dark .ant-input-number-focused {
+  border-color: var(--primary-color, #2ecfcf) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3),
+    0 0 0 2px color-mix(in srgb, var(--primary-color, #2ecfcf) 24%, transparent);
+}
+
+body.dark .ant-input-affix-wrapper .ant-input,
+body.realdark .ant-input-affix-wrapper .ant-input,
+body.dark .ant-input-number-input,
+body.realdark .ant-input-number-input,
+.theme-dark .ant-input-affix-wrapper .ant-input,
+.theme-dark .ant-input-number-input {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-input::placeholder,
+body.realdark .ant-input::placeholder,
+.theme-dark .ant-input::placeholder {
+  color: var(--qd-text-muted) !important;
+}
+
+body.dark .ant-form-item-label > label,
+body.realdark .ant-form-item-label > label,
+.theme-dark .ant-form-item-label > label {
+  color: var(--qd-text-secondary) !important;
+}
+
+body.dark .ant-input-suffix .anticon,
+body.realdark .ant-input-suffix .anticon,
+body.dark .ant-input-clear-icon,
+body.realdark .ant-input-clear-icon,
+body.dark .ant-select-arrow,
+body.realdark .ant-select-arrow,
+body.dark .ant-select-clear,
+body.realdark .ant-select-clear {
+  color: var(--qd-text-muted) !important;
+}
+
+/* ---------- Switch / radio / checkbox ---------- */
+body.dark .ant-switch:not(.ant-switch-checked),
+body.realdark .ant-switch:not(.ant-switch-checked),
+.theme-dark .ant-switch:not(.ant-switch-checked) {
+  background: var(--qd-control-off) !important;
+  border: 1px solid var(--qd-border-strong);
+}
+
+body.dark .ant-switch-checked,
+body.realdark .ant-switch-checked,
+.theme-dark .ant-switch-checked {
+  background: var(--primary-color, #2ecfcf) !important;
+  border-color: transparent;
+}
+
+body.dark .ant-radio-inner,
+body.realdark .ant-radio-inner,
+body.dark .ant-checkbox-inner,
+body.realdark .ant-checkbox-inner,
+.theme-dark .ant-radio-inner,
+.theme-dark .ant-checkbox-inner {
+  background: var(--qd-surface-subtle) !important;
+  border-color: var(--qd-border-strong) !important;
+}
+
+body.dark .ant-radio-wrapper:hover .ant-radio-inner,
+body.realdark .ant-radio-wrapper:hover .ant-radio-inner,
+body.dark .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+body.realdark .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.theme-dark .ant-radio-wrapper:hover .ant-radio-inner,
+.theme-dark .ant-checkbox-wrapper:hover .ant-checkbox-inner {
+  border-color: var(--primary-color, #2ecfcf) !important;
+}
+
+body.dark .ant-radio-checked .ant-radio-inner,
+body.realdark .ant-radio-checked .ant-radio-inner,
+.theme-dark .ant-radio-checked .ant-radio-inner {
+  border-color: var(--primary-color, #2ecfcf) !important;
+  background: transparent !important;
+}
+
+body.dark .ant-radio-checked .ant-radio-inner::after,
+body.realdark .ant-radio-checked .ant-radio-inner::after,
+.theme-dark .ant-radio-checked .ant-radio-inner::after {
+  background: var(--primary-color, #2ecfcf) !important;
+}
+
+body.dark .ant-checkbox-checked .ant-checkbox-inner,
+body.realdark .ant-checkbox-checked .ant-checkbox-inner,
+.theme-dark .ant-checkbox-checked .ant-checkbox-inner {
+  background: var(--primary-color, #2ecfcf) !important;
+  border-color: var(--primary-color, #2ecfcf) !important;
+}
+
+/* ---------- Buttons ---------- */
+body.dark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous),
+body.realdark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous),
+.theme-dark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous) {
+  background: var(--qd-surface-subtle) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous):hover,
+body.realdark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous):hover,
+.theme-dark .ant-btn:not(.ant-btn-primary):not(.ant-btn-link):not(.ant-btn-dangerous):hover {
+  border-color: var(--primary-color, #2ecfcf) !important;
+  color: var(--primary-color, #2ecfcf) !important;
+}
+
+/* ---------- Dropdowns / menus (portals) ---------- */
+body.dark .ant-dropdown-menu,
+body.realdark .ant-dropdown-menu,
+body.dark .ant-select-dropdown,
+body.realdark .ant-select-dropdown,
+body.dark .ant-cascader-menus,
+body.realdark .ant-cascader-menus {
+  background: var(--qd-surface-subtle) !important;
+  border: 1px solid var(--qd-border) !important;
+  box-shadow: var(--qd-shadow) !important;
+}
+
+body.dark .ant-dropdown-menu-item,
+body.realdark .ant-dropdown-menu-item,
+body.dark .ant-select-dropdown-menu-item,
+body.realdark .ant-select-dropdown-menu-item {
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-dropdown-menu-item:hover,
+body.realdark .ant-dropdown-menu-item:hover,
+body.dark .ant-select-dropdown-menu-item:hover,
+body.realdark .ant-select-dropdown-menu-item:hover,
+body.dark .ant-select-dropdown-menu-item-active,
+body.realdark .ant-select-dropdown-menu-item-active {
+  background: var(--qd-surface-hover) !important;
+}
+
+body.dark .ant-select-dropdown-menu-item-selected,
+body.realdark .ant-select-dropdown-menu-item-selected {
+  background: color-mix(in srgb, var(--primary-color, #2ecfcf) 16%, transparent) !important;
+  color: var(--primary-color, #2ecfcf) !important;
+}
+
+/* ---------- Tabs / pagination / alerts ---------- */
+body.dark .ant-tabs-tab,
+body.realdark .ant-tabs-tab,
+.theme-dark .ant-tabs-tab {
+  color: var(--qd-text-secondary) !important;
+}
+
+body.dark .ant-tabs-tab:hover,
+body.realdark .ant-tabs-tab:hover,
+.theme-dark .ant-tabs-tab:hover {
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-tabs-tab-active,
+body.realdark .ant-tabs-tab-active,
+.theme-dark .ant-tabs-tab-active {
+  color: var(--primary-color, #2ecfcf) !important;
+}
+
+body.dark .ant-tabs-bar,
+body.realdark .ant-tabs-bar,
+.theme-dark .ant-tabs-bar {
+  border-bottom-color: var(--qd-border) !important;
+}
+
+body.dark .ant-pagination-item,
+body.realdark .ant-pagination-item,
+body.dark .ant-pagination-prev .ant-pagination-item-link,
+body.realdark .ant-pagination-prev .ant-pagination-item-link,
+body.dark .ant-pagination-next .ant-pagination-item-link,
+body.realdark .ant-pagination-next .ant-pagination-item-link {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text-secondary) !important;
+}
+
+body.dark .ant-pagination-item a,
+body.realdark .ant-pagination-item a {
+  color: var(--qd-text-secondary) !important;
+}
+
+body.dark .ant-pagination-item-active,
+body.realdark .ant-pagination-item-active {
+  border-color: var(--primary-color, #2ecfcf) !important;
+}
+
+body.dark .ant-pagination-item-active a,
+body.realdark .ant-pagination-item-active a {
+  color: var(--primary-color, #2ecfcf) !important;
+}
+
+body.dark .ant-alert,
+body.realdark .ant-alert,
+.theme-dark .ant-alert {
+  background: var(--qd-surface-subtle) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-alert-message,
+body.realdark .ant-alert-message,
+body.dark .ant-alert-description,
+body.realdark .ant-alert-description {
+  color: var(--qd-text-secondary) !important;
+}
+
+/* ---------- Collapse / list / tooltip / empty ---------- */
+body.dark .ant-collapse,
+body.realdark .ant-collapse,
+body.dark .ant-collapse-content,
+body.realdark .ant-collapse-content,
+body.dark .ant-list,
+body.realdark .ant-list {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-collapse-header,
+body.realdark .ant-collapse-header,
+body.dark .ant-list-item,
+body.realdark .ant-list-item {
+  color: var(--qd-text) !important;
+  border-color: var(--qd-border) !important;
+}
+
+body.dark .ant-tooltip-inner,
+body.realdark .ant-tooltip-inner {
+  background: var(--qd-surface-subtle) !important;
+  color: var(--qd-text) !important;
+}
+
+body.dark .ant-empty-description,
+body.realdark .ant-empty-description,
+.theme-dark .ant-empty-description {
+  color: var(--qd-text-muted) !important;
+}
+
+/* ---------- Workspace pages with .theme-dark ---------- */
+.theme-dark.qd-workspace-page,
+.qd-workspace-page.theme-dark {
+  background: var(--qd-bg) !important;
+  color: var(--qd-text);
+}
+
+.theme-dark .ant-card,
+.theme-dark .settings-nav,
+.theme-dark .settings-detail,
+.theme-dark .settings-footer {
+  background: var(--qd-surface) !important;
+  border-color: var(--qd-border) !important;
+  color: var(--qd-text);
+}
