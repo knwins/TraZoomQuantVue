@@ -4033,7 +4033,7 @@ const locale = {
   "profile.exchange.openAccountGo": "Jetzt registrieren",
   "profile.exchange.openAccountHint": "Wählen Sie einen unterstützten Empfehlungslink und gelangen Sie zur Registrierungsseite der Börse.",
   "profile.exchange.openAccountInviteCode": "Einladungscode",
-  "profile.exchange.openAccountPromo": "Exklusives TraZoom Quant-Anmeldeangebot – bis zu 20 % Provisionsrückerstattung",
+  "profile.exchange.openAccountPromo": "Bis zu 20 % Provisionsrückerstattung",
   "profile.exchange.openAccountTitle": "Wählen Sie Exchange, um sich anzumelden.",
   "profile.exchange.openAccountUnavailable": "Empfehlungslink ausstehend",
   "profile.exchange.passphrase": "Passphrase",

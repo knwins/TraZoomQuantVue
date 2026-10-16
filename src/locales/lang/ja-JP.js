@@ -4033,7 +4033,7 @@ const locale = {
   "profile.exchange.openAccountGo": "今すぐ登録",
   "profile.exchange.openAccountHint": "サポートされている紹介リンクを選択して、取引所の登録ページに移動してください。",
   "profile.exchange.openAccountInviteCode": "招待コード",
-  "profile.exchange.openAccountPromo": "TraZoom Quant限定登録特典 - 最大20%の手数料キャッシュバック",
+  "profile.exchange.openAccountPromo": "最大20%の手数料キャッシュバック",
   "profile.exchange.openAccountTitle": "Exchangeを選択してサインアップしてください",
   "profile.exchange.openAccountUnavailable": "紹介リンクは保留中です",
   "profile.exchange.passphrase": "パスフレーズ",

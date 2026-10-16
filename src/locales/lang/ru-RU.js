@@ -4033,7 +4033,7 @@ const locale = {
   "profile.exchange.openAccountGo": "Зарегистрируйтесь сейчас",
   "profile.exchange.openAccountHint": "Выберите поддерживаемую реферальную ссылку и перейдите на страницу регистрации на бирже.",
   "profile.exchange.openAccountInviteCode": "Код приглашения",
-  "profile.exchange.openAccountPromo": "Эксклюзивная регистрация в TraZoom Quant — возврат комиссионных до 20%",
+  "profile.exchange.openAccountPromo": "Возврат комиссионных до 20%",
   "profile.exchange.openAccountTitle": "Выберите биржу для регистрации.",
   "profile.exchange.openAccountUnavailable": "Реферальная ссылка в процессе оформления",
   "profile.exchange.passphrase": "Кодовая фраза",

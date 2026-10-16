@@ -4033,7 +4033,7 @@ const locale = {
   "profile.exchange.openAccountGo": "سجل الآن",
   "profile.exchange.openAccountHint": "اختر رابط إحالة مدعوم وانتقل إلى صفحة التسجيل في البورصة.",
   "profile.exchange.openAccountInviteCode": "رمز الدعوة",
-  "profile.exchange.openAccountPromo": "عرض حصري من TraZoom Quant - استرداد عمولة يصل إلى 20%",
+  "profile.exchange.openAccountPromo": "استرداد عمولة يصل إلى 20%",
   "profile.exchange.openAccountTitle": "اختر \"تبادل\" للتسجيل",
   "profile.exchange.openAccountUnavailable": "رابط الإحالة قيد الانتظار",
   "profile.exchange.passphrase": "عبارة المرور",

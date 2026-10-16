@@ -4,78 +4,79 @@
     :visible="visible"
     :wrap-class-name="modalWrapClass"
     :footer="null"
-    width="860px"
+    width="480px"
     @cancel="handleCancel"
   >
     <div class="exchange-signup-modal">
-      <div class="exchange-signup-promo">{{ $t('profile.exchange.openAccountPromo') }}</div>
+      <p class="exchange-signup-promo">{{ $t('profile.exchange.openAccountPromo') }}</p>
+      <p class="exchange-signup-hint">{{ $t('profile.exchange.signupSectionCryptoHint') }}</p>
 
-      <section class="signup-section signup-section--crypto">
-        <div class="signup-section-head">
-          <div class="signup-section-icon signup-section-icon--crypto">
-            <a-icon type="wallet" />
-          </div>
-          <div class="signup-section-text">
-            <div class="signup-section-title">
-              {{ $t('profile.exchange.signupSectionCrypto') }}
-              <a-tag color="blue" class="signup-section-tag">{{ $t('profile.exchange.signupTagApi') }}</a-tag>
-            </div>
-            <div class="signup-section-desc">{{ $t('profile.exchange.signupSectionCryptoHint') }}</div>
-          </div>
-        </div>
-        <div class="exchange-signup-grid">
-          <div
-            v-for="item in cryptoCards"
-            :key="item.id"
-            class="exchange-signup-card"
-          >
-            <div class="exchange-signup-card__header">
-              <div class="exchange-signup-logo" :style="{ background: item.brandBg, color: item.brandColor }">
-                {{ item.short }}
-              </div>
-              <div class="exchange-signup-meta">
-                <div class="exchange-signup-name">{{ item.name }}</div>
-              </div>
-            </div>
-            <div class="exchange-signup-actions">
-              <a-button
-                type="primary"
-                block
-                :disabled="!item.signupUrl"
-                @click="openSignupLink(item.signupUrl)"
-              >
-                {{ $t('profile.exchange.openAccountButton') }}
-              </a-button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div class="exchange-signup-list" role="list">
+        <button
+          v-for="item in cryptoCards"
+          :key="item.id"
+          type="button"
+          role="listitem"
+          class="exchange-signup-row"
+          :class="{ 'is-disabled': !item.signupUrl }"
+          :disabled="!item.signupUrl"
+          :title="item.signupUrl ? item.name : $t('profile.exchange.openAccountUnavailable')"
+          @click="openSignupLink(item.signupUrl)"
+        >
+          <span class="exchange-signup-logo">
+            <provider-logo :provider="item.id" :size="20" />
+            <span
+              v-if="!hasLogo(item.id)"
+              class="exchange-signup-logo__fallback"
+              :style="{ color: item.brandColor }"
+            >{{ item.short }}</span>
+          </span>
 
+          <span class="exchange-signup-meta">
+            <span class="exchange-signup-name">{{ item.name }}</span>
+            <span v-if="!item.signupUrl" class="exchange-signup-status">
+              {{ $t('profile.exchange.openAccountUnavailable') }}
+            </span>
+          </span>
+
+          <span v-if="item.signupUrl" class="exchange-signup-cta">
+            {{ $t('profile.exchange.openAccountButton') }}
+            <a-icon type="right" />
+          </span>
+          <span v-else class="exchange-signup-cta exchange-signup-cta--muted" aria-hidden="true">
+            <a-icon type="lock" />
+          </span>
+        </button>
+      </div>
     </div>
   </a-modal>
 </template>
 
 <script>
 import { CRYPTO_SIGNUP_CARDS } from '@/constants/exchangeSignupCards'
+import { getProviderLogo } from '@/constants/providerLogos'
+import ProviderLogo from '@/components/ProviderLogo/ProviderLogo.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'ExchangeSignupModal',
+  components: { ProviderLogo },
   props: {
     visible: { type: Boolean, default: false },
     isDarkTheme: { type: Boolean, default: false }
   },
   computed: {
-    ...mapState('brand', ['config']),
+    ...mapState({
+      brandConfig: state => state.brand.config
+    }),
     // Referral links come from deployment configuration (EXCHANGE_SIGNUP_* /
     // admin Settings page) via brand-config. A card without a configured URL
-    // renders a disabled button instead of silently routing users to a
-    // third-party referral link.
+    // renders disabled instead of silently routing users to a third-party link.
     cryptoCards () {
-      const urls = (this.config && this.config.exchange_signup_urls) || {}
+      const urls = (this.brandConfig && this.brandConfig.exchange_signup_urls) || {}
       return CRYPTO_SIGNUP_CARDS.map(card => ({
         ...card,
-        signupUrl: urls[card.id] || ''
+        signupUrl: String(urls[card.id] || '').trim()
       }))
     },
     modalWrapClass () {
@@ -86,339 +87,291 @@ export default {
   watch: {
     visible (val) {
       if (val) {
-        // Ensure the links reflect the latest deployment config; the store
-        // action is a no-op when the config is already loaded.
-        this.$store.dispatch('LoadBrandConfig')
+        // Force refresh so admin-updated EXCHANGE_SIGNUP_* links appear without
+        // requiring a full page reload (LoadBrandConfig no-ops once loaded).
+        this.$store.dispatch('LoadBrandConfig', { force: true })
       }
     }
   },
   methods: {
+    hasLogo (id) {
+      return Boolean(getProviderLogo(id))
+    },
     handleCancel () {
       this.$emit('update:visible', false)
     },
     openSignupLink (url) {
-      if (!url) return
-      window.open(url, '_blank')
+      const safe = String(url || '').trim()
+      if (!/^https?:\/\//i.test(safe)) return
+      window.open(safe, '_blank', 'noopener,noreferrer')
     }
   }
 }
 </script>
 
 <style lang="less">
-@exchange-dark-border: #2a2a2a;
-@exchange-dark-title: #e0e6ed;
-@exchange-dark-muted: rgba(255, 255, 255, 0.55);
+@exchange-dark-border: rgba(255, 255, 255, 0.12);
+@exchange-dark-title: #e8edf2;
+@exchange-dark-muted: rgba(255, 255, 255, 0.5);
 
-.exchange-signup-modal {
-  .exchange-signup-promo {
-    margin-bottom: 20px;
-    padding: 12px 14px;
-    border-radius: 12px;
-    background: linear-gradient(90deg, rgba(22, 119, 255, 0.12) 0%, rgba(99, 102, 241, 0.1) 100%);
-    border: 1px solid rgba(22, 119, 255, 0.2);
-    color: #1e40af;
+.profile-exchange-modal {
+  .ant-modal-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--qd-border, #e4e9ef);
+  }
+
+  .ant-modal-title {
     font-size: 15px;
     font-weight: 600;
-    line-height: 1.5;
-    text-align: center;
-  }
-
-  .signup-section {
-    margin-bottom: 4px;
-  }
-
-  .signup-section-head {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-
-  .signup-section-icon {
-    flex: 0 0 40px;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-  }
-
-  .signup-section-icon--crypto {
-    background: linear-gradient(135deg, rgba(24, 144, 255, 0.15) 0%, rgba(99, 102, 241, 0.12) 100%);
-    color: #1677ff;
-  }
-
-  .signup-section-icon--forex {
-    background: linear-gradient(135deg, rgba(82, 196, 26, 0.2) 0%, rgba(56, 158, 13, 0.12) 100%);
-    color: #389e0d;
-  }
-
-  .signup-section-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #1f2937;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
+    color: var(--qd-text, #1c2430);
     line-height: 1.4;
   }
 
-  .signup-section-tag {
-    margin: 0;
-    font-size: 11px;
-    line-height: 18px;
-    border-radius: 4px;
+  .ant-modal-body {
+    padding: 14px 20px 18px;
   }
 
-  .signup-section-desc {
-    margin-top: 4px;
-    font-size: 12px;
-    color: #6b7280;
-    line-height: 1.5;
+  .ant-modal-close-x {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
   }
+}
 
-  .signup-section-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 20px 0 18px;
-    &::before,
-    &::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #e5e7eb 20%, #e5e7eb 80%, transparent);
-    }
-  }
-
-  .signup-section-divider-label {
-    font-size: 11px;
+.exchange-signup-modal {
+  .exchange-signup-promo {
+    margin: 0 0 6px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--qd-text, #1c2430);
+    font-size: 14px;
     font-weight: 600;
-    color: #9ca3af;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    white-space: nowrap;
+    line-height: 1.45;
+    text-align: left;
   }
 
-  .exchange-signup-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+  .exchange-signup-hint {
+    margin: 0 0 14px;
+    color: var(--qd-text-secondary, #5d6b7a);
+    font-size: 12px;
+    line-height: 1.55;
   }
 
-  .exchange-signup-card {
-    border: 1px solid #eef1f5;
-    border-radius: 14px;
-    padding: 14px;
-    background: linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    &:hover {
-      border-color: rgba(24, 144, 255, 0.35);
-      box-shadow: 0 8px 20px rgba(24, 144, 255, 0.08);
-    }
-  }
-
-  .exchange-signup-card__header {
+  .exchange-signup-list {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  .exchange-signup-logo {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  .exchange-signup-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: #1f2937;
-  }
-
-  .exchange-signup-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .forex-signup-banner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 18px 18px 18px 20px;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 82, 155, 0.22);
-    background: linear-gradient(105deg, rgba(230, 244, 255, 1) 0%, #ffffff 42%, #f5f9ff 100%);
-    box-shadow: 0 8px 28px rgba(0, 82, 155, 0.08);
+    flex-direction: column;
+    border: 1px solid var(--qd-border, #e4e9ef);
+    border-radius: 10px;
+    background: var(--qd-surface, #ffffff);
     overflow: hidden;
   }
 
-  .forex-signup-banner__accent {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, var(--primary-color, #1890ff) 0%, #0052a3 100%);
-    border-radius: 16px 0 0 16px;
-  }
-
-  .forex-signup-logo {
-    flex: 0 0 52px;
-    width: 52px;
-    height: 52px;
-    margin-left: 4px;
-    border-radius: 14px;
+  .exchange-signup-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    gap: 12px;
+    width: 100%;
+    min-height: 52px;
+    margin: 0;
+    padding: 10px 14px;
+    border: 0;
+    border-bottom: 1px solid var(--qd-border, #e4e9ef);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease;
+    appearance: none;
+    -webkit-appearance: none;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &:hover:not(.is-disabled),
+    &:focus:not(.is-disabled) {
+      background: var(--qd-surface-hover, #eef2f5);
+      outline: none;
+    }
+
+    &:focus-visible:not(.is-disabled) {
+      background: var(--qd-surface-hover, #eef2f5);
+      box-shadow: inset 0 0 0 2px rgba(22, 119, 255, 0.28);
+    }
+
+    &.is-disabled {
+      cursor: default;
+      background: var(--qd-surface-subtle, #f6f8fa);
+    }
   }
 
-  .forex-signup-banner__body {
+  .exchange-signup-logo {
+    position: relative;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--qd-surface-subtle, #f6f8fa);
+    border: 1px solid var(--qd-border, #e4e9ef);
+    overflow: hidden;
+
+    .provider-logo {
+      display: block;
+    }
+  }
+
+  .exchange-signup-logo__fallback {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .exchange-signup-meta {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
     min-width: 0;
   }
 
-  .forex-signup-name {
-    font-size: 17px;
-    font-weight: 700;
-    color: #003a8c;
+  .exchange-signup-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--qd-text, #1c2430);
+    line-height: 1.35;
   }
 
-  .forex-signup-subtitle {
-    margin-top: 2px;
+  .exchange-signup-status {
+    font-size: 12px;
+    color: var(--qd-text-muted, #8b97a6);
+    line-height: 1.35;
+  }
+
+  .exchange-signup-cta {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--primary-color, #1677ff);
     font-size: 13px;
     font-weight: 500;
-    color: #6b7280;
-  }
+    line-height: 1.2;
+    white-space: nowrap;
 
-  .forex-signup-tags {
-    margin-top: 6px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    .ant-tag {
-      margin: 0;
-      font-size: 11px;
+    .anticon {
+      font-size: 10px;
+      opacity: 0.85;
     }
   }
 
-  .forex-signup-note {
-    margin-top: 8px;
-    font-size: 12px;
-    color: #6b7280;
-    line-height: 1.45;
-  }
+  .exchange-signup-cta--muted {
+    width: 28px;
+    height: 28px;
+    justify-content: center;
+    color: var(--qd-text-muted, #8b97a6);
 
-  .forex-signup-banner__action {
-    flex-shrink: 0;
-  }
-
-  .forex-signup-btn {
-    height: 40px;
-    padding: 0 20px;
-    background: linear-gradient(135deg, var(--primary-color, #1890ff) 0%, #0052a3 100%);
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 82, 155, 0.25);
-    &:hover,
-    &:focus {
-      background: linear-gradient(135deg, var(--primary-color-hover, #40a9ff) 0%, var(--primary-color, #1890ff) 100%);
+    .anticon {
+      font-size: 13px;
+      opacity: 1;
     }
+  }
+
+  .exchange-signup-row.is-disabled .exchange-signup-name {
+    color: var(--qd-text-secondary, #5d6b7a);
+    font-weight: 500;
+  }
+
+  .exchange-signup-row.is-disabled .exchange-signup-logo {
+    opacity: 0.72;
   }
 }
 
 @media (max-width: 640px) {
+  .profile-exchange-modal {
+    .ant-modal {
+      max-width: calc(100vw - 24px);
+      margin: 12px auto;
+    }
+
+    .ant-modal-body {
+      padding: 12px 14px 16px;
+    }
+  }
+
   .exchange-signup-modal {
-    .exchange-signup-grid {
-      grid-template-columns: 1fr;
+    .exchange-signup-row {
+      min-height: 50px;
+      padding: 10px 12px;
+      gap: 10px;
     }
-    .forex-signup-banner {
-      flex-direction: column;
-      align-items: stretch;
-      text-align: center;
-    }
-    .forex-signup-banner__action .forex-signup-btn {
-      width: 100%;
-    }
-    .forex-signup-logo {
-      margin: 0 auto;
-    }
-    .forex-signup-tags {
-      justify-content: center;
+
+    .exchange-signup-cta:not(.exchange-signup-cta--muted) {
+      font-size: 12px;
     }
   }
 }
 
 .profile-exchange-modal--dark {
+  .ant-modal-header {
+    border-bottom-color: @exchange-dark-border;
+  }
+
+  .ant-modal-title {
+    color: @exchange-dark-title;
+  }
+
   .exchange-signup-modal {
     .exchange-signup-promo {
-      color: #93c5fd;
-      background: linear-gradient(90deg, rgba(59, 130, 246, 0.18) 0%, rgba(99, 102, 241, 0.14) 100%);
-      border-color: rgba(96, 165, 250, 0.35);
-    }
-
-    .signup-section-title {
       color: @exchange-dark-title;
     }
 
-    .signup-section-desc,
-    .forex-signup-note {
+    .exchange-signup-hint {
       color: @exchange-dark-muted;
     }
 
-    .signup-section-divider::before,
-    .signup-section-divider::after {
-      background: linear-gradient(90deg, transparent, #303030 20%, #303030 80%, transparent);
-    }
-
-    .signup-section-divider-label {
-      color: rgba(255, 255, 255, 0.4);
-    }
-
-    .exchange-signup-card {
-      background: linear-gradient(180deg, #171717 0%, #1f1f1f 100%);
+    .exchange-signup-list {
+      background: #171717;
       border-color: @exchange-dark-border;
-      box-shadow: none;
-      &:hover {
-        border-color: rgba(88, 166, 255, 0.4);
+    }
+
+    .exchange-signup-row {
+      border-bottom-color: @exchange-dark-border;
+
+      &:hover:not(.is-disabled),
+      &:focus:not(.is-disabled) {
+        background: #1f1f1f;
       }
+
+      &.is-disabled {
+        background: #141414;
+      }
+    }
+
+    .exchange-signup-logo {
+      background: #1f1f1f;
+      border-color: @exchange-dark-border;
     }
 
     .exchange-signup-name {
       color: @exchange-dark-title;
     }
 
-    .forex-signup-banner {
-      background: linear-gradient(105deg, rgba(22, 40, 18, 0.95) 0%, #1a1a1a 50%, #171717 100%);
-      border-color: rgba(82, 196, 26, 0.35);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-    }
-
-    .forex-signup-name {
-      color: #69b1ff;
-    }
-
-    .forex-signup-subtitle {
+    .exchange-signup-status,
+    .exchange-signup-cta--muted {
       color: @exchange-dark-muted;
     }
 
-    .forex-signup-banner {
-      border-color: rgba(0, 82, 155, 0.4);
+    .exchange-signup-cta:not(.exchange-signup-cta--muted) {
+      color: #69b1ff;
+    }
+
+    .exchange-signup-row.is-disabled .exchange-signup-name {
+      color: @exchange-dark-muted;
     }
   }
 }

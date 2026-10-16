@@ -4036,7 +4036,7 @@ const locale = {
   "profile.exchange.openAccountGo": "前往註冊",
   "profile.exchange.openAccountHint": "選擇支持的交易所開戶鏈接，跳轉後即可按你的邀請關係完成註冊。",
   "profile.exchange.openAccountInviteCode": "邀請碼",
-  "profile.exchange.openAccountPromo": "TraZoom Quant 專屬開戶，享最高 20% 返傭",
+  "profile.exchange.openAccountPromo": "享最高 20% 返傭",
   "profile.exchange.openAccountTitle": "選擇交易所開戶",
   "profile.exchange.openAccountUnavailable": "待補充開戶鏈接",
   "profile.exchange.passphrase": "密碼短語",

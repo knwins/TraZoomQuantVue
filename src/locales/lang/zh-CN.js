@@ -4314,7 +4314,7 @@ const locale = {
   "profile.exchange.openAccountGo": "前往注册",
   "profile.exchange.openAccountHint": "选择支持的交易所开户链接，跳转后即可按你的邀请关系完成注册。",
   "profile.exchange.openAccountInviteCode": "邀请码",
-  "profile.exchange.openAccountPromo": "TraZoom Quant 专属开户，享最高 20% 返佣",
+  "profile.exchange.openAccountPromo": "享最高 20% 返佣",
   "profile.exchange.openAccountTitle": "选择交易所开户",
   "profile.exchange.openAccountUnavailable": "待补充开户链接",
   "profile.exchange.passphrase": "密码短语",

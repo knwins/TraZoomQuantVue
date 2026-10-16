@@ -5998,7 +5998,7 @@ const locale = {
   "profile.exchange.addTitle": "Add Exchange Account",
   "profile.exchange.openAccount": "Open Account",
   "profile.exchange.openAccountTitle": "Choose Exchange to Sign Up",
-  "profile.exchange.openAccountPromo": "TraZoom Quant exclusive signup — up to 20% commission rebate",
+  "profile.exchange.openAccountPromo": "Up to 20% commission rebate",
   "profile.exchange.openAccountButton": "Open Account",
   "profile.exchange.signupSectionCrypto": "Crypto Exchanges",
   "profile.exchange.signupSectionCryptoHint": "For API keys used in crypto spot & futures trading on this platform.",

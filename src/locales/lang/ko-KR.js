@@ -4033,7 +4033,7 @@ const locale = {
   "profile.exchange.openAccountGo": "지금 등록하세요",
   "profile.exchange.openAccountHint": "지원되는 추천 링크를 선택하고 거래소 등록 페이지로 이동하세요.",
   "profile.exchange.openAccountInviteCode": "초대 코드",
-  "profile.exchange.openAccountPromo": "TraZoom Quant 단독 가입 혜택 - 최대 20% 수수료 환급",
+  "profile.exchange.openAccountPromo": "최대 20% 수수료 환급",
   "profile.exchange.openAccountTitle": "Exchange를 선택하여 가입하세요",
   "profile.exchange.openAccountUnavailable": "추천 링크 준비 중",
   "profile.exchange.passphrase": "암호문",

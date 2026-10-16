@@ -4033,7 +4033,7 @@ const locale = {
   "profile.exchange.openAccountGo": "ลงทะเบียนเลยตอนนี้",
   "profile.exchange.openAccountHint": "เลือกที่ลิงก์แนะนำที่รองรับ แล้วไปยังหน้าลงทะเบียนใช้งานแพลตฟอร์มแลกเปลี่ยน",
   "profile.exchange.openAccountInviteCode": "รหัสเชิญ",
-  "profile.exchange.openAccountPromo": "สมัครสมาชิก TraZoom Quant แบบพิเศษ — รับส่วนลดค่าคอมมิชชั่นสูงสุด 20%",
+  "profile.exchange.openAccountPromo": "รับส่วนลดค่าคอมมิชชั่นสูงสุด 20%",
   "profile.exchange.openAccountTitle": "เลือก Exchange เพื่อลงทะเบียน",
   "profile.exchange.openAccountUnavailable": "กำลังดำเนินการสร้างลิงก์แนะนำ",
   "profile.exchange.passphrase": "รหัสผ่าน",

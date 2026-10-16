@@ -4033,7 +4033,7 @@ const locale = {
   "profile.exchange.openAccountGo": "Inscrivez-vous maintenant",
   "profile.exchange.openAccountHint": "Choisissez un lien de parrainage valide et accédez à la page d'inscription de la plateforme d'échange.",
   "profile.exchange.openAccountInviteCode": "Code d'invitation",
-  "profile.exchange.openAccountPromo": "Inscription exclusive TraZoom Quant : jusqu’à 20 % de remise sur votre commission",
+  "profile.exchange.openAccountPromo": "Jusqu’à 20 % de remise sur votre commission",
   "profile.exchange.openAccountTitle": "Choisissez Exchange pour vous inscrire",
   "profile.exchange.openAccountUnavailable": "Lien de parrainage en attente",
   "profile.exchange.passphrase": "phrase de passe",

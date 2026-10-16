@@ -4033,7 +4033,7 @@ const locale = {
   "profile.exchange.openAccountGo": "Đăng ký ngay",
   "profile.exchange.openAccountHint": "Chọn một liên kết giới thiệu được hỗ trợ và chuyển đến trang đăng ký trao đổi.",
   "profile.exchange.openAccountInviteCode": "Mã mời",
-  "profile.exchange.openAccountPromo": "Đăng ký độc quyền với TraZoom Quant — hoàn lại hoa hồng lên đến 20%",
+  "profile.exchange.openAccountPromo": "Hoàn lại hoa hồng lên đến 20%",
   "profile.exchange.openAccountTitle": "Chọn Exchange để đăng ký",
   "profile.exchange.openAccountUnavailable": "Liên kết giới thiệu đang chờ xử lý",
   "profile.exchange.passphrase": "Mật khẩu",
