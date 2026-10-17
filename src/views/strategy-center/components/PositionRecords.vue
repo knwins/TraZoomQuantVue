@@ -640,8 +640,26 @@ export default {
 
   .position-reconciliation-alert,
   .virtual-account-alert {
-    margin-bottom: 12px;
+    margin: 0 0 12px;
     border-radius: 6px;
+
+    ::v-deep .ant-alert-message {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.55;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .virtual-account-alert {
+      ::v-deep .ant-alert-icon {
+        display: none;
+      }
+    }
+
+    .virtual-account-alert.ant-alert-with-icon {
+      padding-left: 12px;
+    }
   }
 
   .ownership-toolbar {

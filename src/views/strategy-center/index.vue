@@ -358,11 +358,66 @@ export default {
   .sc-header p, .sc-refresh { color: #7f8793; }
   .system-health { color: #61c885; }
 }
-@media (max-width: 720px) {
-  .strategy-center { height: auto; min-height: calc(100vh - 80px); overflow: visible; padding: 12px !important; }
-  .sc-header { align-items: stretch; flex-direction: column; }
-  .sc-header > div:first-child { width: 100%; }
-  .sc-header p { display: none; }
-  .sc-refresh { width: 100%; justify-content: space-between; }
+@media (max-width: 768px) {
+  .strategy-center {
+    height: auto;
+    min-height: calc(100vh - 80px);
+    overflow: visible;
+    padding: 12px !important;
+  }
+
+  .sc-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .sc-header > div:first-child {
+    width: 100%;
+  }
+
+  .sc-header h1 {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  .sc-header p {
+    display: none;
+  }
+
+  .system-health {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .sc-refresh {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    width: 100%;
+    gap: 8px;
+
+    > span {
+      grid-column-start: 1;
+      grid-column-end: -1;
+      font-size: 12px;
+      line-height: 1.5;
+      white-space: normal;
+    }
+
+    ::v-deep .ant-btn {
+      width: 100%;
+      min-width: 0;
+      height: 34px !important;
+      min-height: 34px !important;
+      padding: 0 10px;
+      font-size: 13px !important;
+    }
+
+    ::v-deep .anticon {
+      font-size: 13px;
+    }
+  }
 }
 </style>

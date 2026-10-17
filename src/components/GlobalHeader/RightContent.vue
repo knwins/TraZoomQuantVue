@@ -3,9 +3,9 @@
     <avatar-dropdown :menu="true" :current-user="currentUser" :class="prefixCls" />
     <notice-icon :class="prefixCls" />
     <select-lang :class="prefixCls" />
-    <a-tooltip :title="$t('app.setting.tooltip')">
+    <a-tooltip :title="isMobile ? '' : $t('app.setting.tooltip')">
       <span :class="prefixCls" @click="handleSettingClick">
-        <a-icon type="setting" style="font-size: 16px;" />
+        <a-icon type="skin" style="font-size: 16px;" />
       </span>
     </a-tooltip>
   </div>

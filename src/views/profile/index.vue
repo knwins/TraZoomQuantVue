@@ -198,7 +198,12 @@
 
     <div class="profile-settings-shell">
       <a-card :bordered="false" class="edit-card">
-        <a-tabs v-model="activeTab" :tab-position="profileTabsPosition" class="profile-tabs">
+        <a-tabs
+          v-model="activeTab"
+          :tab-position="profileTabsPosition"
+          :animated="profileTabsAnimated"
+          class="profile-tabs"
+        >
           <!-- Basic Info Tab -->
           <a-tab-pane key="basic">
             <span slot="tab"><a-icon type="idcard" />{{ $t('profile.basicInfo') || 'Basic Info' }}</span>
@@ -309,35 +314,33 @@
                   <a-checkbox-group
                     v-decorator="['default_channels', { initialValue: notificationSettings.default_channels || ['browser', 'email'] }]"
                   >
-                    <a-row :gutter="16">
-                      <a-col :span="8">
+                    <a-row :gutter="[12, 12]" class="notification-channel-grid">
+                      <a-col :xs="12" :sm="8">
                         <a-checkbox value="browser">
                           <a-icon type="bell" /> {{ $t('profile.notifications.browser') || '站内通知' }}
                         </a-checkbox>
                       </a-col>
-                      <a-col :span="8">
+                      <a-col :xs="12" :sm="8">
                         <a-checkbox value="telegram">
                           <a-icon type="send" /> Telegram
                         </a-checkbox>
                       </a-col>
-                      <a-col :span="8">
+                      <a-col :xs="12" :sm="8">
                         <a-checkbox value="email">
                           <a-icon type="mail" /> {{ $t('profile.notifications.email') || '邮件' }}
                         </a-checkbox>
                       </a-col>
-                    </a-row>
-                    <a-row :gutter="16" style="margin-top: 8px">
-                      <a-col :span="8">
+                      <a-col :xs="12" :sm="8">
                         <a-checkbox value="phone">
                           <a-icon type="phone" /> {{ $t('profile.notifications.phone') || '短信' }}
                         </a-checkbox>
                       </a-col>
-                      <a-col :span="8">
+                      <a-col :xs="12" :sm="8">
                         <a-checkbox value="discord">
                           <a-icon type="message" /> Discord
                         </a-checkbox>
                       </a-col>
-                      <a-col :span="8">
+                      <a-col :xs="12" :sm="8">
                         <a-checkbox value="webhook">
                           <a-icon type="api" /> Webhook
                         </a-checkbox>
@@ -752,6 +755,9 @@ export default {
   computed: {
     profileTabsPosition () {
       return this.profileViewportWidth >= 960 ? 'left' : 'top'
+    },
+    profileTabsAnimated () {
+      return this.profileViewportWidth >= 960
     },
     isDarkTheme () {
       return this.navTheme === 'dark' || this.navTheme === 'realdark'
@@ -3478,8 +3484,31 @@ export default {
         }
       }
 
+      ::v-deep .profile-tabs {
+        .ant-tabs-content,
+        .ant-tabs-top-content {
+          width: 100% !important;
+          margin-left: 0 !important;
+          transform: none !important;
+        }
+
+        .ant-tabs-tabpane {
+          width: 100% !important;
+          float: none !important;
+        }
+
+        .ant-tabs-tabpane-inactive {
+          display: none !important;
+        }
+      }
+
       // Notification settings form
       .notification-settings-form {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+
         ::v-deep .ant-alert {
           font-size: 12px;
           padding: 8px 12px;
@@ -3491,19 +3520,26 @@ export default {
         }
 
         ::v-deep .ant-checkbox-group {
+          width: 100%;
+
           .ant-row {
             margin-left: 0 !important;
             margin-right: 0 !important;
+          }
 
-            .ant-col {
-              padding-left: 0 !important;
-              padding-right: 8px !important;
-            }
+          .ant-col {
+            min-width: 0;
           }
 
           .ant-checkbox-wrapper {
+            width: 100%;
+            min-height: 40px;
+            margin-right: 0;
+            margin-bottom: 0;
+            padding: 8px 10px;
             font-size: 13px;
-            margin-bottom: 6px;
+            white-space: normal;
+            line-height: 1.35;
           }
         }
 

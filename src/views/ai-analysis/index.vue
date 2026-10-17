@@ -39,6 +39,10 @@ export default {
   padding: 12px 12px 14px;
   overflow: hidden;
   background: transparent;
+  font-family: var(--qd-font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.55;
 }
 
 .professional-analysis-page.embedded {
@@ -54,7 +58,9 @@ export default {
 @media (max-width: 768px) {
   .professional-analysis-page,
   .professional-analysis-page.embedded {
+    height: calc(100dvh - 56px);
     min-height: 0;
+    padding: 8px;
   }
 }
 </style>

@@ -40,10 +40,16 @@
         </div>
       </div>
       <div class="bp-status-actions">
-        <a-button :disabled="loading" :loading="loading && refreshing" @click="onRefresh">
+        <a-button size="small" :disabled="loading" :loading="loading && refreshing" @click="onRefresh">
           <a-icon type="reload" /> {{ $t('brokerAccounts.refresh') }}
         </a-button>
-        <a-button v-if="status && status.connected" type="danger" :loading="loading" @click="$emit('disconnect')">
+        <a-button
+          v-if="status && status.connected"
+          size="small"
+          type="danger"
+          :loading="loading"
+          @click="$emit('disconnect')"
+        >
           <a-icon type="disconnect" /> {{ $t('brokerAccounts.disconnect') }}
         </a-button>
       </div>
@@ -294,6 +300,17 @@ export default {
   flex-direction: row;
   gap: 8px;
   flex-shrink: 0;
+
+  ::v-deep .ant-btn {
+    height: 28px;
+    padding: 0 10px;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  ::v-deep .anticon {
+    font-size: 12px;
+  }
 }
 .bp-inner-tabs {
   ::v-deep .ant-tabs-bar { border-bottom-color: #ececec; }
@@ -384,4 +401,92 @@ export default {
   }
 }
 .bp-cloud-alert { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .broker-panel {
+    gap: 12px;
+  }
+
+  .bp-account-selector {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+
+    > label {
+      line-height: 1.4;
+      font-size: 12px;
+    }
+
+    .ant-select {
+      min-width: 0;
+      max-width: none;
+      width: 100%;
+    }
+
+    ::v-deep .ant-btn {
+      width: 100%;
+      height: 32px;
+      font-size: 12px;
+    }
+  }
+
+  .bp-status-card {
+    align-items: flex-start;
+    gap: 8px;
+    padding-bottom: 14px;
+  }
+
+  .bp-status-left {
+    gap: 10px;
+  }
+
+  .bp-status-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+  }
+
+  .bp-status-name {
+    font-size: 16px;
+    font-weight: 650;
+  }
+
+  .bp-status-actions {
+    flex-shrink: 0;
+    gap: 6px;
+
+    ::v-deep .ant-btn {
+      height: 28px;
+      min-width: 0;
+      padding: 0 8px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    ::v-deep .anticon {
+      font-size: 12px;
+    }
+  }
+
+  .bp-badge-row {
+    margin-top: 8px;
+  }
+
+  .bp-inner-tabs {
+    ::v-deep .ant-tabs-tab {
+      margin: 0 12px 0 0;
+      padding: 10px 0;
+      font-size: 13px;
+    }
+  }
+
+  .bp-form-wrapper {
+    padding: 4px 0 8px;
+  }
+
+  .bp-form-helper {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+}
 </style>

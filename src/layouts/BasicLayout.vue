@@ -20,7 +20,7 @@
       <template #headerContentRender>
         <div>
           <a-tooltip :title="$t('menu.header.refreshPage')">
-            <a-icon type="reload" style="font-size: 18px;cursor: pointer;" @click="handleRefresh" />
+            <a-icon type="reload" class="header-reload-icon" @click="handleRefresh" />
           </a-tooltip>
         </div>
       </template>
@@ -230,7 +230,7 @@ const DEFAULT_TELEGRAM_URL = 'https://t.me/trazoom'
 // layout. The settings drawer's "整体风格设置" block exposes a switch
 // that flips this via the store (TOGGLE_MULTI_TAB).
 //
-// Note the class binding in the template must follow this flag �?the
+// Note the class binding in the template must follow this flag �?the
 // `basic-layout-wrapper--multi-tab` rules in BasicLayout.less reserve
 // vertical space for the tab bar, so leaving the class on while the bar
 // is hidden opens a blank strip above the content.
@@ -528,7 +528,7 @@ export default {
 
     const observer = new MutationObserver(() => {
       if (this.isMobile) {
-        const drawer = document.querySelector('.ant-drawer.ant-drawer-open')
+        const drawer = document.querySelector('.ant-drawer-left.ant-drawer-open')
         const wasOpen = this.isDrawerOpen
         const isOpen = !!drawer
 
@@ -561,7 +561,7 @@ export default {
 
     this._menuFooterInterval = setInterval(() => {
       if (this.isMobile) {
-        const drawer = document.querySelector('.ant-drawer.ant-drawer-open')
+        const drawer = document.querySelector('.ant-drawer-left.ant-drawer-open')
         const currentState = !!drawer
         if (this.isDrawerOpen !== currentState) {
           this.isDrawerOpen = currentState
@@ -796,7 +796,7 @@ export default {
           if (!menuFooter) return
 
           if (this.isMobile) {
-            const drawer = document.querySelector('.ant-drawer.ant-drawer-open')
+            const drawer = document.querySelector('.ant-drawer-left.ant-drawer-open')
             this.isDrawerOpen = !!drawer
 
             if (drawer && !this.isDrawerAnimating) {
@@ -1057,12 +1057,12 @@ export default {
     opacity: 1;
 
     &.collapsed {
-      width: 80px; /* 折叠时菜单宽�?*/
+      width: 80px; /* 折叠时菜单宽�?*/
       max-width: 80px;
     }
 
     @media (max-width: 768px) {
-      z-index: 1001; /* drawer �?z-index 通常�?1000 */
+      z-index: 1001; /* drawer �?z-index 通常�?1000 */
 
       &:not(.drawer-open) {
         display: none !important;
@@ -1079,7 +1079,7 @@ export default {
         transition: left 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
                     width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
                     max-width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
-                    opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86) 0.1s; /* 延迟 0.1s 显示，确�?drawer 先出�?*/
+                    opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86) 0.1s; /* 延迟 0.1s 显示，确�?drawer 先出�?*/
       }
     }
 

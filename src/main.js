@@ -13,11 +13,9 @@ import './permission' // permission control
 import './utils/filter' // global filter
 import './global.less' // global style
 import './qd-layout-dark-override.less'
-import './mobile-responsive.less'
-import './styles/workspace-system.less'
-import './styles/studio-shell.less'
 import './styles/dark-theme.less' // canonical dark UI tokens + controls
-import './styles/light-theme.less' // canonical light UI tokens + controls (load last)
+import './styles/light-theme.less' // canonical light UI tokens + controls
+import './mobile-responsive.less' // load last so narrow-screen rules win
 
 Vue.config.productionTip = false
 

@@ -1734,9 +1734,9 @@ export default {
 
   > span {
     color: #4b5565;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 1.3;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
   }
 
   .runtime-field__label {
@@ -1750,8 +1750,8 @@ export default {
       align-items: center;
       gap: 4px;
       color: var(--primary-color, #faad14);
-      font-size: 10px;
-      font-weight: 500;
+      font-size: 11px;
+      font-weight: 400;
       white-space: nowrap;
     }
   }
@@ -1762,16 +1762,28 @@ export default {
 
   ::v-deep .ant-select-selection,
   ::v-deep .ant-select-selection--single {
-    height: 34px;
+    display: flex;
+    align-items: center;
+    height: 32px;
     border-color: #dfe3e8;
     border-radius: 6px;
     background: #fff;
+    font-size: 12px;
+    line-height: 1.2;
   }
 
   ::v-deep .ant-select-selection__rendered {
+    display: flex;
+    align-items: center;
     margin-right: 28px;
     margin-left: 10px;
-    line-height: 32px;
+    line-height: 1.2;
+  }
+
+  ::v-deep .ant-select-selection-selected-value {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
   }
 
   ::v-deep .ant-radio-group {
@@ -1780,11 +1792,16 @@ export default {
   }
 
   ::v-deep .ant-radio-button-wrapper {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
     flex: 1;
-    height: 34px;
+    height: 32px;
     padding: 0 6px;
+    font-size: 12px;
+    font-weight: 400;
     text-align: center;
-    line-height: 32px;
+    line-height: 1.2 !important;
     white-space: nowrap;
   }
 }
@@ -1796,13 +1813,18 @@ export default {
   background: #f0f2f5;
 
   ::v-deep .ant-radio-button-wrapper {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
     height: 28px;
     border: 0;
     border-radius: 5px;
     color: #667085;
     background: transparent;
     box-shadow: none;
-    line-height: 28px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2 !important;
 
     &::before {
       display: none;
@@ -1814,6 +1836,7 @@ export default {
 
     &.ant-radio-button-wrapper-checked {
       color: #fff;
+      font-weight: 500;
       background: var(--primary-color, #faad14);
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.14);
     }

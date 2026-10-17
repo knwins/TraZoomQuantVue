@@ -16,10 +16,10 @@
 }
 
 /**
- * 必须�?main.js 中于 global.less 之后引入，确保覆�?Ant Design Vue / Pro Layout 默认 #001529 等�? * 选择器以 .basic-layout-wrapper.{dark|realdark|light} 为准（与 BasicLayout 根节�?settings.theme 同步），
- * 不依�?body.dark，避免不同步时顶栏、侧栏底�?footer 仍是浅灰/深蓝�? */
+ * 必须�?main.js 中于 global.less 之后引入，确保覆�?Ant Design Vue / Pro Layout 默认 #001529 等�? * 选择器以 .basic-layout-wrapper.{dark|realdark|light} 为准（与 BasicLayout 根节�?settings.theme 同步），
+ * 不依�?body.dark，避免不同步时顶栏、侧栏底�?footer 仍是浅灰/深蓝�? */
 
-/* ========== 顶栏：与 studio-shell 冷色 chrome 对齐，去掉顶缘高�?========== */
+/* ========== 顶栏：与 studio-shell 冷色 chrome 对齐，去掉顶缘高�?========== */
 .basic-layout-wrapper.dark .ant-layout-header,
 .basic-layout-wrapper.realdark .ant-layout-header,
 body.dark .basic-layout-wrapper .ant-layout-header,
@@ -132,7 +132,7 @@ body.realdark .basic-layout-wrapper .custom-menu-footer {
   border: 1px solid var(--qd-border, rgba(255, 255, 255, 0.14));
 }
 
-/* ========== 浅色主题 footer（显式覆盖，避免残留暗色�?========= */
+/* ========== 浅色主题 footer（显式覆盖，避免残留暗色�?========= */
 .basic-layout-wrapper.light .custom-menu-footer {
   background: var(--qd-chrome, #ffffff) !important;
   background-color: var(--qd-chrome, #ffffff) !important;
@@ -204,7 +204,7 @@ body.realdark .ant-empty-footer,
   color: rgba(255, 255, 255, 0.52) !important;
 }
 
-/* ========== USDT / 充值支付弹窗：暗黑下避免黑字顺�?========== */
+/* ========== USDT / 充值支付弹窗：暗黑下避免黑字顺�?========== */
 body.dark .ant-modal-wrap [class*='usdt'],
 body.realdark .ant-modal-wrap [class*='usdt'],
 body.dark .ant-modal-wrap [class*='billing'],

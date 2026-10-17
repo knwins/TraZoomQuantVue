@@ -2,9 +2,38 @@
 
 /* Shared product chrome. Page behavior stays in the existing views. */
 
-body {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+:root {
+  /* Latin UI + CJK fallbacks for Windows / macOS / iOS / Android / HarmonyOS */
+  --qd-font-ui: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei UI',
+    'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans SC', 'HarmonyOS Sans SC',
+    sans-serif;
+  --qd-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  --qd-type-body: 13px;
+  --qd-type-label: 12px;
+  --qd-lh-body: 1.55;
+  --qd-lh-label: 1.45;
+  --qd-lh-control: 1.35;
+  --qd-weight-body: 400;
+  --qd-weight-label: 400;
+  --qd-weight-title: 600;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body,
+#app {
+  font-family: var(--qd-font-ui);
+  font-size: var(--qd-type-body);
+  font-weight: var(--qd-weight-body);
+  line-height: var(--qd-lh-body);
   background: var(--qd-bg, #f3f5f7);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Default / light token stack — white chrome + soft canvas (mirrors menu). */

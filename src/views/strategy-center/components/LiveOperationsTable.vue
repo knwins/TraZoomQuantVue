@@ -173,7 +173,7 @@
               <strong>{{ formatLiveMoney(performanceSummary.capital) }}</strong>
               <small>{{ financialMetricSuffix }}</small>
             </div>
-            <div class="primary-financial-card">
+            <div>
               <span>{{ $t('strategyCenter.console.currentEquity') }}</span>
               <strong>{{ formatLiveMoney(performanceSummary.latestEquity) }}</strong>
               <small>{{ financialMetricSuffix }}</small>
@@ -607,7 +607,7 @@ export default {
 .master-tabs { display: grid; grid-template-columns: repeat(3, 1fr); padding: 14px 14px 0; border-bottom: 1px solid #e7eaf0; }
 .master-tabs button { position: relative; display: flex; justify-content: center; gap: 6px; padding: 11px 4px 13px; border: 0; background: transparent; color: #667085; font-size: 14px; font-weight: 500; cursor: pointer; }
 .master-tabs button::after { content: ''; position: absolute; left: 18%; right: 18%; bottom: -1px; height: 2px; background: transparent; }
-.master-tabs button.active { color: #b87600; font-weight: 700; }
+.master-tabs button.active { color: #b87600; font-weight: 500; }
 .master-tabs button.active::after { background: #e6a817; }
 .master-tabs b { min-width: 19px; padding: 0 5px; border-radius: 10px; background: #eef0f4; color: #596273; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .master-search { padding: 14px; }
@@ -645,9 +645,26 @@ export default {
 .runtime-status-bar strong { color: #202a37; font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; }
 .health-healthy { color: #25a25a !important; }.health-degraded,.health-stale { color: #d18425 !important; }.health-offline { color: #d95656 !important; }
 .metric-section { margin-bottom: 12px; }
-.metric-section-head { display: flex; align-items: center; justify-content: space-between; min-height: 28px; padding: 0 2px 6px; }
-.metric-section-head h3 { margin: 0; color: #353f4c; font-size: 13px; font-weight: 650; }
-.metric-section-head > span { color: #89929f; font-size: 11px; }
+.metric-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 28px;
+  padding: 0 2px 8px;
+}
+.metric-section-head h3 {
+  margin: 0;
+  color: #353f4c;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+.metric-section-head > span {
+  color: #89929f;
+  font-size: 11px;
+  line-height: 1.45;
+}
 .financial-strip,.performance-strip { display: grid; gap: 10px; }
 .financial-strip { grid-template-columns: 1.05fr 1.1fr 1.1fr 1fr .8fr; }
 .performance-strip { grid-template-columns: repeat(5, 1fr); }
@@ -657,14 +674,42 @@ export default {
 .financial-strip span,.performance-strip span { display: block; margin-bottom: 4px; overflow: hidden; color: #7e8896; font-size: 11px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
 .financial-strip strong,.performance-strip strong { display: block; overflow: hidden; color: #202a37; font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
 .financial-strip small,.performance-strip small { display: block; margin-top: 3px; color: #98a0ab; font-size: 10px; font-weight: 500; line-height: 1.3; }
-.financial-strip .primary-financial-card { border-color: color-mix(in srgb, var(--primary-color, #1890ff) 32%, #e2e7ee); background: color-mix(in srgb, var(--primary-color, #1890ff) 5%, #fff); }
-.financial-strip .primary-financial-card strong { font-size: 18px; }
 .performance-strip .drawdown-value { color: #c28818; }
-.panel-section { border: 1px solid #e4e8ed; background: #fff; }.section-head { display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 14px; border-bottom: 1px solid #e7eaf0; }.section-head h3 { margin: 0; color: #242e3b; font-size: 14px; font-weight: 650; }.section-head > span { color: #7e8895; font-size: 12px; }
+.panel-section { border: 1px solid #e4e8ed; background: #fff; }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 14px;
+  border-bottom: 1px solid #e7eaf0;
+}
+.section-head h3 {
+  margin: 0;
+  color: #242e3b;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+.section-head > span {
+  color: #7e8895;
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: nowrap;
+}
 .equity-chart { height: 310px; }
 .overview-equity-panel { margin-top: 12px; }
 .overview-positions-panel ::v-deep .position-records { min-height: 0; }
-.overview-positions-panel ::v-deep .positions-section { padding: 0 14px 14px; }
+.overview-positions-panel ::v-deep .positions-section {
+  padding: 12px 14px 14px;
+}
+.overview-positions-panel ::v-deep .virtual-account-alert,
+.overview-positions-panel ::v-deep .position-reconciliation-alert,
+.overview-positions-panel ::v-deep .ownership-toolbar {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
 .overview-positions-panel ::v-deep .strategy-tab-empty { min-height: 132px; border: 0; background: transparent; }
 .workspace-empty { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 620px; padding: 30px; text-align: center; }.workspace-empty > .anticon { margin-bottom: 18px; color: #d19a18; font-size: 42px; }.workspace-empty h2 { margin: 0 0 8px; }.workspace-empty p { max-width: 430px; margin-bottom: 20px; color: #7b8490; }.detail-empty { display: flex; align-items: center; justify-content: center; }
 .theme-dark { border-color: #262a30; background: #111315; color: #e5e7eb; .strategy-master { border-color: #292d33; background: #121416; }.master-tabs,.strategy-master footer { border-color: #292d33; }.master-tabs b { background: #25282d; color: #a5abb4; }.strategy-row { border-color: #272b31; }.strategy-row:hover { background: #191c20; }.strategy-row.selected { background: #211d13; }.row-main strong { color: #e7e9ed; }.row-main small,.row-status { color: #818995; }.row-status em { border-color: #383c43; color: #959ca6; }.strategy-detail { background: #101214; }.detail-header,.section-head { border-color: #292d33; }.detail-title-line h2 { color: #f0f1f3; }.status-pill.stopped { background: #262a2f; color: #9ba2ab; }.execution-pill { border-color: #3a3e45; }.runtime-status-bar strong { color: #e1e4e8; }.metric-section-head h3 { color: #d8dce2; }.panel-section { border-color: #292d33; background: #131517; }.section-head h3 { color: #e0e3e7; }.master-search ::v-deep .ant-input { border-color: #30343a; background: #181b1e; color: #e4e7eb; }.master-search ::v-deep .ant-input-search-icon,.master-search ::v-deep .ant-input-clear-icon { color: #8f9baa; }.master-search ::v-deep .ant-input-search-icon:hover,.master-search ::v-deep .ant-input-clear-icon:hover { color: #f1f5f9; }.workspace-empty h2 { color: #eceef1; }}
@@ -708,6 +753,7 @@ export default {
 .master-tabs button.active {
   background: #fff;
   color: var(--primary-color, #1890ff);
+  font-weight: 500;
   box-shadow: 0 1px 3px rgba(18, 26, 38, .1);
 }
 .master-tabs b {
@@ -829,10 +875,6 @@ export default {
   .financial-strip > div,
   .performance-strip > div,
   .panel-section { border-color: rgba(255, 255, 255, 0.1); background: #111; }
-  .financial-strip .primary-financial-card {
-    border-color: color-mix(in srgb, var(--primary-color, #52c41a) 38%, rgba(255, 255, 255, .1));
-    background: color-mix(in srgb, var(--primary-color, #52c41a) 7%, #111);
-  }
   .runtime-tabs ::v-deep .ant-tabs-bar,
   .runtime-tabs ::v-deep .strategy-tab-pane-inner { border-color: rgba(255, 255, 255, 0.1); background: #111; }
   .runtime-tabs ::v-deep .ant-tabs-nav .ant-tabs-tab { color: #89919c; }
@@ -855,5 +897,154 @@ export default {
   background: transparent;
 }
 @media (max-width: 1080px) { .operations-workspace { grid-template-columns: 290px minmax(0, 1fr); }.financial-strip,.performance-strip { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 760px) { .operations-workspace { display: block; height: auto; }.strategy-master { max-height: 430px; border-right: 0; border-bottom: 1px solid #e4e8ee; }.strategy-detail { overflow: visible; padding: 14px; }.detail-header { flex-direction: column; }.detail-actions { width: 100%; }.detail-actions .ant-btn { flex: 1; }.pause-actions { width: 100%; }.financial-strip,.performance-strip { grid-template-columns: repeat(2, 1fr); }.metric-section-head { align-items: flex-start; flex-direction: column; gap: 2px; }.equity-chart { height: 240px; } }
+@media (max-width: 768px) {
+  .operations-workspace {
+    display: block;
+    height: auto;
+    font-size: 13px;
+  }
+
+  .strategy-master {
+    max-height: none;
+    border-right: 0;
+    border-bottom: 1px solid #e4e8ee;
+    padding: 10px;
+  }
+
+  .master-tabs button {
+    padding: 7px 4px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .master-tabs b {
+    min-width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 11px;
+  }
+
+  .master-search {
+    padding: 10px 0;
+  }
+
+  .master-search ::v-deep .ant-input,
+  .master-search ::v-deep .ant-input::placeholder {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  .master-columns {
+    padding: 0 8px 8px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .strategy-row {
+    min-height: 68px;
+    padding: 10px 8px;
+  }
+
+  .row-main strong {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .row-main small,
+  .row-status {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .row-pnl {
+    font-size: 12px;
+  }
+
+  .list-empty {
+    min-height: 120px;
+    padding: 16px 12px;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .list-empty > .anticon {
+    font-size: 20px;
+  }
+
+  .list-empty ::v-deep .ant-btn-link {
+    height: auto;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .strategy-master footer {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .strategy-detail { overflow: visible; padding: 12px; }
+  .detail-header {
+    flex-direction: column;
+    padding: 12px;
+  }
+  .detail-title-line h2 { font-size: 16px; line-height: 1.3; }
+  .detail-header p {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .detail-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 8px;
+  }
+  .detail-actions ::v-deep .ant-btn {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 8px;
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+  }
+  .detail-actions ::v-deep .anticon {
+    font-size: 12px;
+  }
+  .pause-actions {
+    display: contents;
+  }
+  .financial-strip,.performance-strip { grid-template-columns: repeat(2, 1fr); }
+  .runtime-status-bar {
+    margin: 8px 2px 16px;
+  }
+  .metric-section {
+    margin-bottom: 22px;
+  }
+  .metric-section-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 10px;
+  }
+  .runtime-tabs {
+    margin-top: 4px;
+  }
+  .overview-equity-panel {
+    margin-top: 16px;
+  }
+  .section-head {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    min-height: 44px;
+    padding: 10px 14px;
+  }
+  .overview-positions-panel ::v-deep .positions-section {
+    padding: 10px 12px 12px;
+  }
+  .equity-chart { height: 240px; }
+}
 </style>

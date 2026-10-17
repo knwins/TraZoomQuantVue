@@ -1,6 +1,6 @@
 <template>
   <div class="indicator-community-container qd-workspace-page qd-page-frame" :class="{ 'theme-dark': isDarkTheme }">
-    <a-tabs v-model="activeTab" class="admin-tabs" @change="handleTabChange">
+    <a-tabs v-model="activeTab" class="admin-tabs" :animated="false" @change="handleTabChange">
       <a-tab-pane key="market" :tab="$t('community.title')">
       </a-tab-pane>
       <a-tab-pane key="author" :tab="$t('community.authorTab')">
@@ -14,7 +14,7 @@
       </a-tab-pane>
     </a-tabs>
 
-    <div v-show="activeTab === 'market'" class="market-header">
+    <div v-if="activeTab === 'market'" class="market-header">
       <div class="market-header__workspace">
         <div class="market-filter-bar">
           <div class="market-filter-bar__primary">
@@ -1345,8 +1345,56 @@ export default {
         width: 150px;
       }
 
+      .market-filter-select,
+      .market-sort-select {
+        ::v-deep .ant-select-selection {
+          display: flex;
+          align-items: center;
+          height: 32px;
+          font-size: 12px;
+          line-height: 1.2;
+        }
+
+        ::v-deep .ant-select-selection__rendered {
+          display: flex;
+          align-items: center;
+          margin-right: 24px;
+          line-height: 1.2;
+        }
+
+        ::v-deep .ant-select-selection-selected-value {
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 1.2;
+        }
+      }
+
       .market-purchases-btn {
         flex-shrink: 0;
+      }
+
+      .market-reset-btn,
+      .market-purchases-btn,
+      &__secondary > .ant-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+        padding: 0 12px;
+        font-size: 12px;
+        line-height: 1.2;
+
+        .anticon,
+        ::v-deep .anticon {
+          margin-right: 4px;
+          font-size: 12px !important;
+          line-height: 1 !important;
+
+          svg {
+            width: 12px !important;
+            height: 12px !important;
+          }
+        }
       }
 
       ::v-deep .ant-btn,
@@ -1361,11 +1409,12 @@ export default {
       ::v-deep .ant-select-selection--single,
       ::v-deep .ant-input,
       ::v-deep .ant-input-affix-wrapper {
+        height: 32px;
         min-height: 32px;
       }
 
       ::v-deep .ant-select-selection__rendered {
-        line-height: 30px;
+        line-height: 1.2;
       }
 
       ::v-deep .ant-radio-group {
@@ -1392,6 +1441,12 @@ export default {
         ::v-deep .ant-input-affix-wrapper,
         ::v-deep .ant-input-group > .ant-input:first-child {
           border-radius: 6px 0 0 6px;
+        }
+
+        ::v-deep .ant-input,
+        ::v-deep .ant-input::placeholder {
+          font-size: 13px !important;
+          line-height: 1.4 !important;
         }
 
         ::v-deep .ant-input-affix-wrapper .ant-input {
@@ -1589,22 +1644,69 @@ export default {
       &__filters {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: flex-start;
         gap: 10px;
         flex: 1;
-        min-width: 420px;
+        min-width: 0;
         flex-wrap: wrap;
 
         .review-search {
           width: 260px;
+          max-width: 100%;
+
+          ::v-deep .ant-input,
+          ::v-deep .ant-input::placeholder {
+            font-size: 13px !important;
+            line-height: 1.4 !important;
+          }
         }
 
         .review-select {
           width: 132px;
+
+          ::v-deep .ant-select-selection {
+            display: flex;
+            align-items: center;
+            height: 32px;
+            font-size: 12px;
+            line-height: 1.2;
+          }
+
+          ::v-deep .ant-select-selection__rendered {
+            display: flex;
+            align-items: center;
+            margin-right: 24px;
+            line-height: 1.2;
+          }
+
+          ::v-deep .ant-select-selection-selected-value {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.2;
+          }
         }
 
         .review-reset-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           flex-shrink: 0;
+          height: 32px;
+          padding: 0 12px;
+          font-size: 12px;
+          line-height: 1.2;
+
+          .anticon,
+          ::v-deep .anticon {
+            margin-right: 4px;
+            font-size: 12px;
+            line-height: 1;
+
+            svg {
+              width: 12px;
+              height: 12px;
+            }
+          }
         }
       }
     }
@@ -1665,6 +1767,8 @@ export default {
           color: #666;
           margin-bottom: 8px;
           line-height: 1.6;
+          overflow-wrap: anywhere;
+          word-break: break-word;
         }
 
         .item-code {
@@ -1673,13 +1777,26 @@ export default {
           .code-toolbar {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 4px 8px;
             flex-wrap: wrap;
             margin-bottom: 6px;
+
+            ::v-deep .ant-btn-link {
+              height: 24px;
+              padding: 0 4px;
+              font-size: 12px;
+              font-weight: 400;
+              line-height: 24px;
+            }
+
+            ::v-deep .ant-btn-link .anticon {
+              font-size: 12px;
+            }
 
             .code-meta {
               margin-left: auto;
               font-size: 12px;
+              line-height: 1.4;
               color: rgba(0, 0, 0, 0.4);
             }
           }
@@ -1746,9 +1863,28 @@ export default {
 
       .review-item-actions {
         display: flex;
-        gap: 12px;
+        align-items: center;
+        gap: 8px;
         padding-top: 12px;
         border-top: 1px solid #f0f0f0;
+
+        ::v-deep .ant-btn {
+          height: 28px;
+          padding: 0 10px;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 1.2;
+        }
+
+        ::v-deep .ant-btn .anticon {
+          font-size: 12px;
+        }
+
+        ::v-deep .ant-btn-link {
+          height: 28px;
+          padding: 0 4px;
+          line-height: 28px;
+        }
 
         .delete-btn {
           color: #ff4d4f;
@@ -2056,6 +2192,86 @@ export default {
     .indicator-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .review-panel .review-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+
+      &__status,
+      &__filters {
+        width: 100%;
+      }
+
+      &__filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        justify-content: stretch;
+        gap: 8px;
+
+        .review-search {
+          grid-column-start: 1;
+          grid-column-end: -1;
+          width: 100%;
+        }
+
+        .review-select,
+        .review-reset-btn {
+          width: 100%;
+        }
+      }
+
+      .review-status-tabs {
+        display: flex;
+        width: 100%;
+
+        ::v-deep .ant-radio-button-wrapper {
+          flex: 1 1 0;
+          min-width: 0;
+          height: 34px;
+          padding: 0 6px;
+          line-height: 32px;
+          text-align: center;
+          font-size: 13px;
+        }
+      }
+
+      .review-search {
+        ::v-deep .ant-input,
+        ::v-deep .ant-input::placeholder {
+          font-size: 13px !important;
+          line-height: 1.4 !important;
+        }
+      }
+
+      .review-select {
+        ::v-deep .ant-select-selection {
+          display: flex;
+          align-items: center;
+          height: 32px !important;
+          font-size: 12px !important;
+          line-height: 1.2 !important;
+        }
+
+        ::v-deep .ant-select-selection__rendered {
+          display: flex;
+          align-items: center;
+          line-height: 1.2 !important;
+        }
+
+        ::v-deep .ant-select-selection-selected-value {
+          font-size: 12px !important;
+          font-weight: 400;
+          line-height: 1.2 !important;
+        }
+      }
+
+      .review-reset-btn {
+        height: 32px;
+        font-size: 12px !important;
+        line-height: 1.2;
+      }
+    }
   }
 }
 
@@ -2068,6 +2284,32 @@ export default {
 @media (max-width: 768px) {
   .indicator-community-container {
     padding: 12px;
+
+    .admin-tabs {
+      ::v-deep .ant-tabs-bar {
+        margin-bottom: 12px;
+      }
+
+      ::v-deep .ant-tabs-nav-container,
+      ::v-deep .ant-tabs-nav-wrap,
+      ::v-deep .ant-tabs-nav-scroll {
+        overflow: hidden !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        scrollbar-width: none;
+      }
+
+      ::v-deep .ant-tabs-nav-container::-webkit-scrollbar {
+        display: none;
+        height: 0;
+      }
+
+      ::v-deep .ant-tabs-nav .ant-tabs-tab {
+        margin: 0 8px 0 0;
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+    }
 
     .market-header {
       padding: 16px;
@@ -2151,6 +2393,36 @@ export default {
           margin-left: 0;
         }
 
+        .market-filter-select,
+        .market-sort-select {
+          ::v-deep .ant-select-selection {
+            display: flex !important;
+            align-items: center;
+            height: 32px !important;
+            font-size: 12px !important;
+            line-height: 1.2 !important;
+          }
+
+          ::v-deep .ant-select-selection__rendered {
+            display: flex;
+            align-items: center;
+            line-height: 1.2 !important;
+          }
+
+          ::v-deep .ant-select-selection-selected-value {
+            font-size: 12px !important;
+            font-weight: 400;
+            line-height: 1.2 !important;
+          }
+        }
+
+        .market-reset-btn,
+        &__secondary > .ant-btn {
+          height: 32px;
+          font-size: 12px !important;
+          line-height: 1.2;
+        }
+
         .market-asset-tabs,
         .market-pricing-tabs {
           ::v-deep .ant-radio-button-wrapper {
@@ -2179,6 +2451,79 @@ export default {
     .market-section-heading {
       align-items: flex-start;
       gap: 10px;
+    }
+
+    .review-panel {
+      .review-header {
+        padding: 12px;
+
+        .review-status-tabs ::v-deep .ant-radio-button-wrapper {
+          font-size: 13px;
+        }
+
+        .review-search ::v-deep .ant-input,
+        .review-search ::v-deep .ant-input::placeholder {
+          font-size: 13px !important;
+        }
+
+        .review-select ::v-deep .ant-select-selection,
+        .review-select ::v-deep .ant-select-selection-selected-value,
+        .review-reset-btn {
+          font-size: 12px !important;
+        }
+
+        .review-select ::v-deep .ant-select-selection {
+          display: flex !important;
+          align-items: center;
+          height: 32px !important;
+        }
+      }
+
+      .review-item {
+        padding: 14px;
+
+        .review-item-header {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+
+          .item-name {
+            font-size: 15px;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+          }
+
+          .item-author {
+            flex-wrap: wrap;
+          }
+        }
+
+        .item-code .code-toolbar {
+          ::v-deep .ant-btn-link {
+            height: 24px;
+            font-size: 12px !important;
+            line-height: 24px;
+          }
+
+          .code-meta {
+            font-size: 11px;
+          }
+        }
+
+        .review-item-actions {
+          flex-wrap: wrap;
+          gap: 8px;
+
+          ::v-deep .ant-btn {
+            height: 28px;
+            font-size: 12px !important;
+          }
+
+          .delete-btn {
+            margin-left: 0;
+          }
+        }
+      }
     }
   }
 }

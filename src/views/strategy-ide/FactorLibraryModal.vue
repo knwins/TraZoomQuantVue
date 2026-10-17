@@ -241,7 +241,7 @@ export default {
       scopeFilter: 'current',
       parameterValues: {},
       listScrollTop: 0,
-      factorRowHeight: 133,
+      factorRowHeight: 128,
       factorWindowSize: 18,
       preloadHandle: null,
       preloadHandleType: ''
@@ -559,6 +559,12 @@ export default {
     padding-bottom: 32px;
   }
 
+  .ant-modal-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
   .ant-modal-body {
     padding: 20px 24px 24px;
     overflow: hidden;
@@ -569,6 +575,70 @@ export default {
   .ant-select,
   .ant-input-number {
     font-family: inherit;
+  }
+
+  .ant-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .ant-select-selection,
+  .ant-select-selection--single {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .ant-select-selection__rendered {
+    display: flex;
+    align-items: center;
+    line-height: 1.2;
+  }
+
+  .ant-select-selection-selected-value,
+  .ant-select-selection__placeholder {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .ant-radio-button-wrapper {
+    height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+
+  .ant-input,
+  .ant-input-affix-wrapper {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .ant-alert:not(.ant-alert-with-description) {
+    padding: 10px 12px 10px 40px;
+  }
+
+  .ant-alert-icon {
+    top: 12px;
+    left: 14px;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .ant-alert-message {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
   }
 }
 
@@ -583,8 +653,8 @@ export default {
 }
 
 .factor-library-intro {
-  margin-bottom: 14px;
-  padding: 14px 16px;
+  margin-bottom: 12px;
+  padding: 12px 14px;
   border: 1px solid #e6e9ef;
   border-radius: 10px;
   background: #fafbfc;
@@ -596,23 +666,30 @@ export default {
 }
 
 .factor-library-intro strong {
-  margin-bottom: 4px;
+  margin-bottom: 5px;
   color: #172033;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .factor-library-intro span {
   color: #6b7280;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 .factor-library-scope-alert {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .factor-library-tools {
-  margin-bottom: 14px;
+  align-items: center;
+  margin-bottom: 12px;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .factor-library-search {
@@ -649,11 +726,14 @@ export default {
 
 .factor-card {
   box-sizing: border-box;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   width: 100%;
-  height: 124px;
-  margin: 0 0 9px;
-  padding: 12px;
+  min-height: 112px;
+  height: auto;
+  margin: 0 0 8px;
+  padding: 10px 12px;
   overflow: hidden;
   border: 1px solid #e2e6ec;
   border-radius: 8px;
@@ -670,12 +750,24 @@ export default {
   box-shadow: 0 0 0 2px rgba(250, 173, 20, 0.1);
 }
 
-.factor-card__top,
-.factor-card__meta {
+.factor-card__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  min-height: 22px;
+}
+
+.factor-card__top .ant-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  height: 20px;
+  padding: 0 7px;
+  line-height: 1;
+  font-size: 11px;
+  font-weight: 400;
 }
 
 .factor-card__unsupported {
@@ -683,9 +775,14 @@ export default {
 }
 
 .factor-card__name {
+  min-width: 0;
+  overflow: hidden;
   color: #172033;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .factor-card__id,
@@ -693,27 +790,46 @@ export default {
   color: #8a94a6;
   font-family: Consolas, Monaco, monospace;
   font-size: 11px;
+  font-weight: 400;
+  line-height: 1.35;
 }
 
 .factor-card__desc {
   display: -webkit-box;
-  margin: 8px 0 10px;
+  flex: 1 1 auto;
+  margin: 0;
   overflow: hidden;
   color: #667085;
   font-size: 12px;
+  font-weight: 400;
   line-height: 1.5;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
 
 .factor-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 18px;
+  margin-top: auto;
+  padding-top: 2px;
   color: #7b8494;
   font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.factor-card__meta > span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
 }
 
 .factor-detail {
   min-height: 0;
-  padding: 22px;
+  padding: 18px;
   overflow-y: auto;
   overscroll-behavior: contain;
   background: #fff;
@@ -721,19 +837,24 @@ export default {
 
 .factor-detail__heading {
   align-items: flex-start;
+  gap: 10px;
 }
 
 .factor-detail__heading h3 {
   margin: 4px 0 6px;
   color: #172033;
-  font-size: 21px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .factor-detail__heading p {
   max-width: 560px;
   margin: 0;
   color: #667085;
-  line-height: 1.6;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 .factor-detail__facts {
@@ -759,11 +880,15 @@ export default {
   margin-bottom: 4px;
   color: #8a94a6;
   font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .factor-detail__facts strong {
   color: #273044;
   font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .factor-detail__section {
@@ -778,6 +903,8 @@ export default {
   margin: 0 0 9px;
   color: #273044;
   font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .factor-token-row .ant-tag {
@@ -997,6 +1124,106 @@ export default {
 
   .factor-detail__facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .factor-library-modal {
+    .ant-modal-body {
+      padding: 12px;
+    }
+
+    .factor-library-intro {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 10px 12px;
+    }
+
+    .factor-library-intro strong {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .factor-library-intro span {
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .factor-library-tools {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .factor-library-search,
+    .factor-library-scope-select {
+      width: 100%;
+    }
+
+    .factor-library-workspace {
+      height: auto;
+      min-height: 0;
+    }
+
+    .factor-library-list {
+      max-height: 240px;
+      padding: 10px;
+    }
+
+    .factor-card {
+      height: auto;
+      min-height: 96px;
+      padding: 10px;
+    }
+
+    .factor-card__name {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .factor-card__desc {
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .factor-detail {
+      padding: 12px;
+    }
+
+    .factor-detail__heading {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .factor-detail__heading h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .factor-detail__heading p {
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .factor-detail__facts {
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .factor-param-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .factor-param-grid .ant-input-number,
+    .factor-param-grid .ant-input,
+    .factor-param-grid .ant-select {
+      width: 100%;
+      flex: 1 1 auto;
+    }
   }
 }
 </style>

@@ -65,6 +65,13 @@
   line-height: @layout-header-height !important;
 }
 
+.basic-layout-wrapper .header-reload-icon {
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
 .basic-layout-wrapper .ant-pro-global-header-logo,
 .basic-layout-wrapper .ant-layout-header .ant-pro-sider-menu-logo {
   display: flex !important;
@@ -145,17 +152,30 @@
 
 .mobile-menu-close {
   position: fixed;
-  top: 10px;
-  left: min(220px, calc(100vw - 44px));
+  top: 16px;
+  left: calc(256px - 44px);
   z-index: 1102;
-  width: 36px;
-  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   padding: 0;
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  border: 0;
   border-radius: 8px;
-  color: rgba(255, 255, 255, 0.9);
-  background: #1f1f1f;
+  color: rgba(15, 23, 42, 0.72);
+  background: transparent;
   cursor: pointer;
+}
+
+body.dark .mobile-menu-close,
+body.realdark .mobile-menu-close {
+  color: rgba(255, 255, 255, 0.88);
+  background: transparent;
+}
+
+.ant-drawer-left .ant-drawer-close {
+  display: none !important;
 }
 
 @media (min-width: 769px) and (max-width: 1366px) {
@@ -352,7 +372,7 @@ body.qd-code-ai-resizing * {
       color: rgba(255, 255, 255, 0.85) !important;
     }
 
-    /* Header 鍐呯殑鍥炬爣鎸夐�?*/
+    /* Header 鍐呯殑鍥炬爣鎸夐�?*/
     .anticon {
       color: rgba(255, 255, 255, 0.85) !important;
 

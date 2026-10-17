@@ -1,68 +1,60 @@
 <template>
   <div class="author-dashboard" :class="{ 'theme-dark': isDarkTheme }">
-    <a-row :gutter="16" class="author-dashboard-stat-row">
-      <a-col :xs="12" :sm="12" :md="6">
-        <a-card class="author-dashboard-stat-card" :loading="summaryLoading">
-          <div class="author-dashboard-stat-label">{{ $t('authorDashboard.stat.published') }}</div>
-          <div class="author-dashboard-stat-value">{{ summary.published_total }}</div>
-          <div class="author-dashboard-stat-sub">
-            <span class="author-dashboard-stat-sub-item">
-              <a-badge status="success" />
-              {{ $t('authorDashboard.stat.approved') }} {{ summary.approved_count }}
-            </span>
-            <span v-if="summary.pending_count > 0" class="author-dashboard-stat-sub-item">
-              <a-badge status="processing" />
-              {{ $t('authorDashboard.stat.pending') }} {{ summary.pending_count }}
-            </span>
-            <span v-if="summary.rejected_count > 0" class="author-dashboard-stat-sub-item">
-              <a-badge status="error" />
-              {{ $t('authorDashboard.stat.rejected') }} {{ summary.rejected_count }}
-            </span>
-          </div>
-        </a-card>
-      </a-col>
-      <a-col :xs="12" :sm="12" :md="6">
-        <a-card class="author-dashboard-stat-card" :loading="summaryLoading">
-          <div class="author-dashboard-stat-label">{{ $t('authorDashboard.stat.totalSales') }}</div>
-          <div class="author-dashboard-stat-value">{{ summary.total_sales }}</div>
-          <div class="author-dashboard-stat-sub">{{ $t('authorDashboard.stat.totalSalesHint') }}</div>
-        </a-card>
-      </a-col>
-      <a-col :xs="12" :sm="12" :md="6">
-        <a-card class="author-dashboard-stat-card" :loading="summaryLoading">
-          <div class="author-dashboard-stat-label">{{ $t('authorDashboard.stat.totalRevenue') }}</div>
-          <div class="author-dashboard-stat-value author-dashboard-stat-value-revenue">
-            {{ formatNumber(summary.total_revenue) }}
-            <span class="author-dashboard-stat-unit">{{ $t('community.credits') }}</span>
-          </div>
-          <div class="author-dashboard-stat-sub">{{ $t('authorDashboard.stat.totalRevenueHint') }}</div>
-        </a-card>
-      </a-col>
-      <a-col :xs="12" :sm="12" :md="6">
-        <a-card class="author-dashboard-stat-card" :loading="summaryLoading">
-          <div class="author-dashboard-stat-label">{{ $t('authorDashboard.stat.avgRating') }}</div>
-          <div class="author-dashboard-stat-value">
-            <span v-if="summary.rating_count > 0">
-              {{ formatNumber(summary.avg_rating) }}
-              <a-icon type="star" theme="filled" class="author-dashboard-rating-star" />
-            </span>
-            <span v-else class="author-dashboard-stat-empty">—</span>
-          </div>
-          <div class="author-dashboard-stat-sub">
-            {{ $t('authorDashboard.stat.ratingCount', { count: summary.rating_count }) }}
-          </div>
-        </a-card>
-      </a-col>
-    </a-row>
+    <div class="author-dashboard-stat-row">
+      <a-card class="author-dashboard-stat-card" :loading="summaryLoading">
+        <div class="author-dashboard-stat-label">{{ $t('authorDashboard.stat.published') }}</div>
+        <div class="author-dashboard-stat-value">{{ summary.published_total }}</div>
+        <div class="author-dashboard-stat-sub">
+          <span class="author-dashboard-stat-sub-item">
+            <a-badge status="success" />
+            {{ $t('authorDashboard.stat.approved') }} {{ summary.approved_count }}
+          </span>
+          <span v-if="summary.pending_count > 0" class="author-dashboard-stat-sub-item">
+            <a-badge status="processing" />
+            {{ $t('authorDashboard.stat.pending') }} {{ summary.pending_count }}
+          </span>
+          <span v-if="summary.rejected_count > 0" class="author-dashboard-stat-sub-item">
+            <a-badge status="error" />
+            {{ $t('authorDashboard.stat.rejected') }} {{ summary.rejected_count }}
+          </span>
+        </div>
+      </a-card>
+      <a-card class="author-dashboard-stat-card" :loading="summaryLoading">
+        <div class="author-dashboard-stat-label">{{ $t('authorDashboard.stat.totalSales') }}</div>
+        <div class="author-dashboard-stat-value">{{ summary.total_sales }}</div>
+        <div class="author-dashboard-stat-sub">{{ $t('authorDashboard.stat.totalSalesHint') }}</div>
+      </a-card>
+      <a-card class="author-dashboard-stat-card" :loading="summaryLoading">
+        <div class="author-dashboard-stat-label">{{ $t('authorDashboard.stat.totalRevenue') }}</div>
+        <div class="author-dashboard-stat-value author-dashboard-stat-value-revenue">
+          {{ formatNumber(summary.total_revenue) }}
+          <span class="author-dashboard-stat-unit">{{ $t('community.credits') }}</span>
+        </div>
+        <div class="author-dashboard-stat-sub">{{ $t('authorDashboard.stat.totalRevenueHint') }}</div>
+      </a-card>
+      <a-card class="author-dashboard-stat-card" :loading="summaryLoading">
+        <div class="author-dashboard-stat-label">{{ $t('authorDashboard.stat.avgRating') }}</div>
+        <div class="author-dashboard-stat-value">
+          <span v-if="summary.rating_count > 0">
+            {{ formatNumber(summary.avg_rating) }}
+            <a-icon type="star" theme="filled" class="author-dashboard-rating-star" />
+          </span>
+          <span v-else class="author-dashboard-stat-empty">—</span>
+        </div>
+        <div class="author-dashboard-stat-sub">
+          {{ $t('authorDashboard.stat.ratingCount', { count: summary.rating_count }) }}
+        </div>
+      </a-card>
+    </div>
 
     <div class="author-dashboard-detail">
       <div class="author-dashboard-detail-toolbar">
         <a-radio-group v-model="subTab" class="author-dashboard-tabs" button-style="solid" @change="onSubTabChange">
           <a-radio-button value="published">
-            <a-icon type="appstore" /> {{ $t('authorDashboard.tab.published') }}
+            <a-icon v-if="!isNarrowScreen" type="appstore" /> {{ $t('authorDashboard.tab.published') }}
           </a-radio-button>
           <a-radio-button value="sales">
-            <a-icon type="dollar" /> {{ $t('authorDashboard.tab.sales') }}
+            <a-icon v-if="!isNarrowScreen" type="dollar" /> {{ $t('authorDashboard.tab.sales') }}
           </a-radio-button>
         </a-radio-group>
       </div>
@@ -76,13 +68,77 @@
           :message="$t('authorDashboard.loadPublishedFailed')"
         />
 
+        <div v-if="isNarrowScreen" class="author-dashboard-list">
+          <a-spin :spinning="publishedLoading">
+            <a-empty v-if="!published.items.length && !publishedLoading" />
+            <article
+              v-for="record in published.items"
+              :key="record.id"
+              class="author-dashboard-item"
+            >
+              <div class="author-dashboard-item-head">
+                <a class="author-dashboard-name" @click="viewSales(record)">{{ record.name }}</a>
+                <a-tag color="blue">{{ getAssetTypeText(record.asset_type) }}</a-tag>
+              </div>
+              <div v-if="record.description" class="author-dashboard-desc">{{ record.description }}</div>
+              <div class="author-dashboard-item-meta">
+                <span>
+                  <em>{{ $t('authorDashboard.col.status') }}</em>
+                  <a-tag v-if="record.review_status === 'approved'" color="green">{{ $t('community.statusApproved') }}</a-tag>
+                  <a-tag v-else-if="record.review_status === 'pending'" color="blue">{{ $t('community.statusPending') }}</a-tag>
+                  <a-tag v-else-if="record.review_status === 'rejected'" color="red">{{ $t('community.statusRejected') }}</a-tag>
+                  <a-tag v-else color="default">—</a-tag>
+                </span>
+                <span>
+                  <em>{{ $t('authorDashboard.col.price') }}</em>
+                  <span v-if="record.pricing_type === 'free' || record.price <= 0" class="author-dashboard-free">{{ $t('community.free') }}</span>
+                  <span v-else>{{ formatNumber(record.price) }} {{ $t('community.credits') }}</span>
+                </span>
+                <span>
+                  <em>{{ $t('authorDashboard.col.sales') }}</em>
+                  {{ record.purchase_count || 0 }}
+                </span>
+                <span>
+                  <em>{{ $t('authorDashboard.col.revenue') }}</em>
+                  <span class="author-dashboard-revenue">{{ formatNumber(record.revenue) }}</span>
+                </span>
+              </div>
+              <div v-if="record.review_note" class="author-dashboard-review-note">
+                <a-icon type="message" />
+                {{ record.review_note }}
+              </div>
+              <div class="author-dashboard-item-actions">
+                <a-button type="link" size="small" @click="viewSales(record)">
+                  {{ $t('authorDashboard.viewSales') }}
+                </a-button>
+                <a-button type="link" size="small" @click="$emit('view-in-market', record)">
+                  {{ $t('authorDashboard.viewInMarket') }}
+                </a-button>
+                <a-button type="link" size="small" class="author-dashboard-danger-link" @click="confirmUnpublish(record)">
+                  {{ $t('authorDashboard.unpublish') }}
+                </a-button>
+              </div>
+            </article>
+          </a-spin>
+          <a-pagination
+            v-if="published.total > published.page_size"
+            class="author-dashboard-list-pager"
+            size="small"
+            :current="published.page"
+            :page-size="published.page_size"
+            :total="published.total"
+            :show-total="publishedPagination.showTotal"
+            @change="loadPublished"
+          />
+        </div>
         <a-table
+          v-else
           :columns="publishedColumns"
           :data-source="published.items"
           :loading="publishedLoading"
           :pagination="publishedPagination"
           :row-key="row => row.id"
-          :scroll="{ x: 820 }"
+          :scroll="publishedScroll"
           size="middle"
           class="author-dashboard-table"
           @change="onPublishedTableChange"
@@ -162,13 +218,52 @@
           </a-button>
         </div>
 
+        <div v-if="isNarrowScreen" class="author-dashboard-list">
+          <a-spin :spinning="salesLoading">
+            <a-empty v-if="!sales.items.length && !salesLoading" />
+            <article
+              v-for="record in sales.items"
+              :key="record.purchase_id"
+              class="author-dashboard-item"
+            >
+              <div class="author-dashboard-item-head">
+                <strong>{{ record.indicator_name }}</strong>
+                <span v-if="record.price > 0" class="author-dashboard-revenue">
+                  +{{ formatNumber(record.price) }} {{ $t('community.credits') }}
+                </span>
+                <span v-else class="author-dashboard-free">{{ $t('community.free') }}</span>
+              </div>
+              <div class="author-dashboard-item-meta">
+                <span>
+                  <em>{{ $t('authorDashboard.col.time') }}</em>
+                  {{ formatTime(record.purchase_time) }}
+                </span>
+                <span>
+                  <em>{{ $t('authorDashboard.col.buyer') }}</em>
+                  {{ (record.buyer && record.buyer.nickname) || $t('authorDashboard.anonymousBuyer') }}
+                </span>
+              </div>
+            </article>
+          </a-spin>
+          <a-pagination
+            v-if="sales.total > sales.page_size"
+            class="author-dashboard-list-pager"
+            size="small"
+            :current="sales.page"
+            :page-size="sales.page_size"
+            :total="sales.total"
+            :show-total="salesPagination.showTotal"
+            @change="loadSales"
+          />
+        </div>
         <a-table
+          v-else
           :columns="salesColumns"
           :data-source="sales.items"
           :loading="salesLoading"
           :pagination="salesPagination"
           :row-key="row => row.purchase_id"
-          :scroll="{ x: 720 }"
+          :scroll="salesScroll"
           size="middle"
           class="author-dashboard-table"
           @change="onSalesTableChange"
@@ -203,15 +298,22 @@ export default {
     isDarkTheme: { type: Boolean, default: false }
   },
   computed: {
+    publishedScroll () {
+      return this.isNarrowScreen ? undefined : { x: 820 }
+    },
+    salesScroll () {
+      return this.isNarrowScreen ? undefined : { x: 720 }
+    },
     publishedColumns () {
+      const nameWidth = this.isNarrowScreen ? 160 : undefined
       return [
-        { title: this.$t('authorDashboard.col.name'), dataIndex: 'name', key: 'name', scopedSlots: { customRender: 'nameCol' } },
-        { title: this.$t('authorDashboard.col.status'), dataIndex: 'review_status', key: 'review_status', width: 180, scopedSlots: { customRender: 'status' } },
-        { title: this.$t('authorDashboard.col.price'), dataIndex: 'price', key: 'price', width: 130, scopedSlots: { customRender: 'price' } },
-        { title: this.$t('authorDashboard.col.sales'), dataIndex: 'purchase_count', key: 'purchase_count', width: 80, align: 'right', sorter: (a, b) => a.purchase_count - b.purchase_count },
-        { title: this.$t('authorDashboard.col.revenue'), dataIndex: 'revenue', key: 'revenue', width: 110, align: 'right', scopedSlots: { customRender: 'revenue' }, sorter: (a, b) => a.revenue - b.revenue },
-        { title: this.$t('authorDashboard.col.rating'), dataIndex: 'avg_rating', key: 'avg_rating', width: 130, scopedSlots: { customRender: 'rating' } },
-        { title: this.$t('authorDashboard.col.actions'), key: 'actions', width: 230, scopedSlots: { customRender: 'actions' } }
+        { title: this.$t('authorDashboard.col.name'), dataIndex: 'name', key: 'name', width: nameWidth, scopedSlots: { customRender: 'nameCol' } },
+        { title: this.$t('authorDashboard.col.status'), dataIndex: 'review_status', key: 'review_status', width: this.isNarrowScreen ? 100 : 180, scopedSlots: { customRender: 'status' } },
+        { title: this.$t('authorDashboard.col.price'), dataIndex: 'price', key: 'price', width: this.isNarrowScreen ? 110 : 130, scopedSlots: { customRender: 'price' } },
+        { title: this.$t('authorDashboard.col.sales'), dataIndex: 'purchase_count', key: 'purchase_count', width: 72, align: 'right', sorter: (a, b) => a.purchase_count - b.purchase_count },
+        { title: this.$t('authorDashboard.col.revenue'), dataIndex: 'revenue', key: 'revenue', width: this.isNarrowScreen ? 96 : 110, align: 'right', scopedSlots: { customRender: 'revenue' }, sorter: (a, b) => a.revenue - b.revenue },
+        { title: this.$t('authorDashboard.col.rating'), dataIndex: 'avg_rating', key: 'avg_rating', width: this.isNarrowScreen ? 100 : 130, scopedSlots: { customRender: 'rating' } },
+        { title: this.$t('authorDashboard.col.actions'), key: 'actions', width: this.isNarrowScreen ? 200 : 230, scopedSlots: { customRender: 'actions' } }
       ]
     },
     salesColumns () {
@@ -243,6 +345,7 @@ export default {
   },
   data () {
     return {
+      isNarrowScreen: typeof window !== 'undefined' ? window.innerWidth <= 768 : false,
       subTab: 'published',
       summaryLoading: false,
       publishedLoading: false,
@@ -264,7 +367,14 @@ export default {
     }
   },
   mounted () {
+    this.onViewportResize = () => {
+      this.isNarrowScreen = window.innerWidth <= 768
+    }
+    window.addEventListener('resize', this.onViewportResize)
     this.refreshAll()
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.onViewportResize)
   },
   methods: {
     refreshAll () {
@@ -402,11 +512,15 @@ export default {
 }
 
 .author-dashboard-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
   margin-bottom: 16px;
 }
 
 .author-dashboard-stat-card {
-  height: 100%;
+  min-width: 0;
+  min-height: 112px;
   border-radius: 8px;
   transition: box-shadow 0.2s;
 
@@ -486,7 +600,15 @@ export default {
 }
 
 .author-dashboard-tabs /deep/ .ant-radio-button-wrapper {
+  display: inline-flex;
+  align-items: center;
   border-radius: 0;
+  line-height: 30px;
+
+  .anticon {
+    margin-right: 6px;
+    font-size: 14px;
+  }
 }
 
 .author-dashboard-tabs /deep/ .ant-radio-button-wrapper:first-child {
@@ -503,10 +625,24 @@ export default {
 
 .author-dashboard-table {
   margin-top: 4px;
+
+  /deep/ .ant-table-header {
+    overflow: hidden !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+  }
 }
 
 .author-dashboard-name-col {
-  min-width: 220px;
+  min-width: 0;
+  max-width: 280px;
 }
 
 .author-dashboard-name {
@@ -638,5 +774,133 @@ export default {
 
   .author-dashboard-filter-banner { background: rgba(24, 144, 255, 0.15); color: rgba(255, 255, 255, 0.85); }
   .author-dashboard-name { color: var(--primary-color-hover, #40a9ff); }
+  .author-dashboard-item { border-bottom-color: rgba(255, 255, 255, 0.08); }
+  .author-dashboard-item-meta { color: rgba(255, 255, 255, 0.78); }
+  .author-dashboard-item-meta em { color: rgba(255, 255, 255, 0.45); }
+}
+
+.author-dashboard-list {
+  min-width: 0;
+}
+
+.author-dashboard-item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.author-dashboard-item-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 15px;
+}
+
+.author-dashboard-item-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.75);
+
+  em {
+    display: block;
+    margin-bottom: 2px;
+    font-style: normal;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
+
+.author-dashboard-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px -8px 0;
+}
+
+.author-dashboard-list-pager {
+  margin: 12px 0 8px;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .author-dashboard {
+    padding-top: 4px;
+  }
+
+  .author-dashboard-stat-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .author-dashboard-stat-card {
+    min-height: 108px;
+
+    /deep/ .ant-card-body {
+      padding: 12px;
+    }
+  }
+
+  .author-dashboard-stat-label {
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .author-dashboard-stat-value {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .author-dashboard-stat-unit {
+    font-size: 12px;
+  }
+
+  .author-dashboard-stat-sub {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .author-dashboard-detail {
+    padding: 12px 12px 8px;
+  }
+
+  .author-dashboard-detail-toolbar {
+    margin-bottom: 8px;
+  }
+
+  .author-dashboard-tabs {
+    display: flex;
+    width: 100%;
+  }
+
+  .author-dashboard-tabs /deep/ .ant-radio-button-wrapper {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 36px;
+    padding: 0 8px;
+    line-height: 34px;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+
+    .anticon {
+      margin-right: 6px;
+      font-size: 13px;
+    }
+  }
+
+  .author-dashboard-desc {
+    white-space: normal;
+  }
 }
 </style>

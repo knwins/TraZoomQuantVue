@@ -8,7 +8,7 @@
       :getPopupContainer="getNoticePopupContainer"
       :autoAdjustOverflow="true"
       :arrowPointAtCenter="true"
-      :overlayStyle="{ width: '380px', zIndex: 2500 }"
+      :overlayStyle="noticeOverlayStyle"
       @visibleChange="handleVisibleChange"
     >
       <template slot="content">
@@ -32,7 +32,17 @@
               </div>
               <div class="notice-item-content">
                 <div class="notice-item-title">{{ displayTitle(item) }}</div>
-                <div class="notice-item-desc">{{ displayPreview(item) }}</div>
+                <div v-if="previewFacts(item).length" class="notice-item-facts">
+                  <div
+                    v-for="(fact, factIndex) in previewFacts(item)"
+                    :key="`${item.id}-fact-${factIndex}`"
+                    class="notice-fact"
+                  >
+                    <span>{{ fact.label }}</span>
+                    <strong>{{ fact.value }}</strong>
+                  </div>
+                </div>
+                <div v-else class="notice-item-desc">{{ displayPreview(item) }}</div>
                 <div class="notice-item-time">{{ formatTime(item.created_at) }}</div>
               </div>
             </div>
@@ -153,6 +163,7 @@ import request from '@/utils/request'
 import {
   noticeTitle,
   noticePreview,
+  noticePreviewFacts,
   noticeMessageHtml,
   noticeTypeLabel
 } from '@/utils/noticeFormat'
@@ -164,6 +175,7 @@ export default {
     return {
       loading: false,
       visible: false,
+      viewportWidth: typeof window !== 'undefined' ? window.innerWidth : 1200,
       detailVisible: false,
       detailNotice: null,
       notifications: [],
@@ -182,6 +194,16 @@ export default {
       const html = this.displayMessageHtml(this.detailNotice)
       return html.includes('<div class="qd-report">') || html.includes('<style>')
     },
+    noticeOverlayStyle () {
+      const width = this.viewportWidth <= 768
+        ? Math.max(280, this.viewportWidth - 16)
+        : 380
+      return {
+        width: `${width}px`,
+        maxWidth: 'calc(100vw - 16px)',
+        zIndex: 2500
+      }
+    },
     hasExtraDetail () {
       if (!this.detailNotice || this.isHtmlReport) return false
       const payload = this.detailNotice.payload || {}
@@ -193,10 +215,15 @@ export default {
     }
   },
   mounted () {
+    this.onViewportResize = () => {
+      this.viewportWidth = window.innerWidth
+    }
+    window.addEventListener('resize', this.onViewportResize)
     this.fetchUnreadCount()
     this.startPolling()
   },
   beforeDestroy () {
+    window.removeEventListener('resize', this.onViewportResize)
     this.stopPolling()
   },
   methods: {
@@ -313,6 +340,9 @@ export default {
     },
     displayPreview (item) {
       return noticePreview(item, (key, params) => this.$t(key, params))
+    },
+    previewFacts (item) {
+      return noticePreviewFacts(item, (key, params) => this.$t(key, params))
     },
     displayMessageHtml (item) {
       return noticeMessageHtml(item, (key, params) => this.$t(key, params))
@@ -443,7 +473,8 @@ export default {
 @import '@/styles/antd-vars.less';
 
 .notice-icon-wrapper {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   vertical-align: top;
 }
 
@@ -451,15 +482,21 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: @layout-header-height;
-  line-height: @layout-header-height;
+  height: auto;
+  line-height: 1;
   transition: all 0.3s;
   cursor: pointer;
-  padding: 0 12px;
-  vertical-align: top;
+  padding: 0;
+  vertical-align: middle;
+
+  /deep/ .ant-badge {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
 
   &:hover {
-    background: rgba(0, 0, 0, 0.04);
+    background: transparent;
   }
 
   span {
@@ -469,7 +506,7 @@ export default {
 
 @media (max-width: 768px) {
   .header-notice {
-    padding: 0 8px;
+    padding: 0;
   }
 }
 
@@ -499,6 +536,12 @@ export default {
 .notice-list {
   max-height: 400px;
   overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .notice-list {
+    max-height: 58vh;
+  }
 }
 
 .notice-item {
@@ -538,20 +581,52 @@ export default {
     min-width: 0;
 
     .notice-item-title {
-      font-weight: 500;
+      font-weight: 600;
       font-size: 13px;
       color: rgba(0, 0, 0, 0.85);
-      margin-bottom: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .notice-item-facts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 12px;
+      margin-bottom: 8px;
+    }
+
+    .notice-fact {
+      min-width: 0;
+
+      span {
+        display: block;
+        color: rgba(0, 0, 0, 0.45);
+        font-size: 11px;
+        line-height: 1.3;
+      }
+
+      strong {
+        display: block;
+        margin-top: 2px;
+        color: rgba(0, 0, 0, 0.85);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.4;
+        word-break: break-word;
+      }
     }
 
     .notice-item-desc {
       font-size: 12px;
       color: rgba(0, 0, 0, 0.45);
-      line-height: 1.5;
-      margin-bottom: 4px;
+      line-height: 1.55;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
     }
 
     .notice-item-time {
@@ -1430,6 +1505,14 @@ body.realdark,
           color: rgba(255, 255, 255, 0.45);
         }
 
+        .notice-fact span {
+          color: rgba(255, 255, 255, 0.45);
+        }
+
+        .notice-fact strong {
+          color: rgba(255, 255, 255, 0.88);
+        }
+
         .notice-item-time {
           color: rgba(255, 255, 255, 0.25);
         }
@@ -1569,6 +1652,27 @@ body.realdark,
       border-color: rgba(255, 255, 255, 0.08);
       background: #151515;
     }
+  }
+}
+</style>
+
+<style lang="less">
+.header-notice-wrapper {
+  .ant-popover-inner-content {
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-notice-wrapper.ant-popover {
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  .header-notice-wrapper .ant-popover-arrow {
+    display: none;
   }
 }
 </style>

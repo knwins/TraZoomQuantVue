@@ -9,6 +9,11 @@
 @phone-max: 480px;
 
 @media (max-width: @mobile-max) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   html,
   body,
   #app,
@@ -16,10 +21,13 @@
     width: 100%;
     min-width: 0 !important;
     overflow-x: hidden;
+    font-family: var(--qd-font-ui);
   }
 
   body {
     touch-action: manipulation;
+    font-weight: var(--qd-weight-body, 400);
+    line-height: var(--qd-lh-body, 1.55);
   }
 
   .basic-layout-wrapper,
@@ -89,7 +97,7 @@
       overflow: hidden;
       white-space: nowrap;
 
-      > span:not(.ant-avatar),
+      > span:not(.ant-avatar):not(.account-identity),
       .name {
         display: none;
       }
@@ -160,9 +168,12 @@
     overflow-y: hidden !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
       display: none;
+      width: 0;
+      height: 0;
     }
   }
 
@@ -185,7 +196,6 @@
 
   .ant-input,
   .ant-input-affix-wrapper,
-  .ant-select,
   .ant-input-number,
   .ant-calendar-picker,
   .ant-time-picker,
@@ -195,10 +205,14 @@
     max-width: 100%;
   }
 
-  .ant-select,
-  .ant-input-search,
-  .ant-calendar-picker,
-  .ant-input-number {
+  .ant-form .ant-select,
+  .ant-form-item .ant-select,
+  .ant-form .ant-input-search,
+  .ant-form-item .ant-input-search,
+  .ant-form .ant-calendar-picker,
+  .ant-form-item .ant-calendar-picker,
+  .ant-form .ant-input-number,
+  .ant-form-item .ant-input-number {
     width: 100% !important;
   }
 
@@ -217,6 +231,27 @@
     width: 100%;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .ant-table-header {
+    overflow: hidden !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
   }
 
   .ant-table {
@@ -229,11 +264,18 @@
   .ant-steps {
     max-width: 100%;
     overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      height: 0;
+    }
   }
 
   .ant-steps-horizontal:not(.ant-steps-label-vertical) {
     display: flex;
-    min-width: 520px;
+    min-width: 0;
   }
 
   .ant-pagination {
@@ -282,11 +324,17 @@
 
   .page-header,
   .settings-header,
-  .market-header,
   .ba-header,
   .sc-header,
   .skill-hero {
     display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    padding: 14px !important;
+  }
+
+  .market-header {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 12px !important;
@@ -325,7 +373,10 @@
   .portfolio-page,
   .dashboard-page,
   .strategy-ide-shell,
-  .indicator-ide {
+  .indicator-ide,
+  .backtest-page,
+  .universe-page,
+  .executor-page {
     width: 100% !important;
     max-width: 100vw !important;
     min-width: 0 !important;
@@ -486,13 +537,71 @@
     max-width: 100vw !important;
     height: auto !important;
     min-height: calc(100vh - 80px) !important;
+    padding: 8px !important;
+    gap: 8px !important;
     overflow: visible !important;
+    font-family: var(--qd-font-ui);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
   }
 
   .copilot-workbench,
   .copilot-grid,
   .workbench-grid {
     grid-template-columns: 1fr !important;
+  }
+
+  .professional-analysis-page .professional-report,
+  .ai-asset-analysis-page .professional-report {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  .professional-analysis-page .professional-report .section-title,
+  .ai-asset-analysis-page .professional-report .section-title {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+  }
+
+  .professional-analysis-page .professional-report .ant-alert-description,
+  .ai-asset-analysis-page .professional-report .ant-alert-description {
+    font-size: 12px !important;
+    line-height: 1.65 !important;
+  }
+
+  .copilot-workbench .segmented button,
+  .copilot-workbench .research-mode-bar button,
+  .copilot-workbench .followup-suggestions button,
+  .copilot-workbench .message-actions button,
+  .copilot-workbench .composer-actions .ant-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 32px;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
+  }
+
+  .copilot-workbench .chat-hero p,
+  .copilot-workbench .risk-disclaimer,
+  .copilot-workbench .composer-coach-copy p {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+  }
+
+  .add-watch-copilot-modal .ant-tabs-tab,
+  .copilot-modal .ant-tabs-tab {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 32px;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
   }
 
   .kline-chart,
@@ -532,21 +641,6 @@
 }
 
 @media (max-width: @phone-max) {
-  .basic-layout-wrapper .ant-pro-global-header {
-    height: 52px !important;
-    line-height: 52px !important;
-  }
-
-  .basic-layout-wrapper .ant-pro-global-header-index-right {
-    .ant-pro-global-header-index-action,
-    .action {
-      min-width: 30px;
-      height: 52px;
-      padding: 0 5px !important;
-      line-height: 52px;
-    }
-  }
-
   .ai-asset-analysis-page,
   .professional-analysis-page,
   .strategy-center,
@@ -561,8 +655,33 @@
   .portfolio-page,
   .dashboard-page,
   .strategy-ide-shell,
-  .indicator-ide {
+  .indicator-ide,
+  .backtest-page,
+  .universe-page,
+  .executor-page {
     padding: 8px !important;
+  }
+
+  .professional-analysis-page,
+  .ai-asset-analysis-page {
+    padding: 8px !important;
+  }
+
+  .copilot-workbench .chat-panel,
+  .copilot-workbench .composer {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .professional-analysis-page .professional-report,
+  .ai-asset-analysis-page .professional-report {
+    padding: 8px !important;
+    gap: 10px !important;
+  }
+
+  .copilot-workbench .research-mode-bar button {
+    flex: 1 1 100%;
+    min-height: 34px !important;
   }
 
   .ant-card-body {
@@ -574,11 +693,17 @@
   }
 
   .ant-radio-group .ant-radio-button-wrapper {
-    padding: 0 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 10px;
     font-size: 12px;
+    font-weight: 400;
+    line-height: 1.35;
   }
 
-  .ant-table {
+  .ant-table-wrapper:not(.author-dashboard-table) .ant-table {
     min-width: 520px;
   }
 
@@ -587,5 +712,377 @@
   .ba-title,
   .skill-hero h1 {
     font-size: 18px !important;
+    line-height: 1.35 !important;
+  }
+}
+
+/* Shared phone rhythm. These selectors repeat desktop rules with !important
+   so the narrow-screen sizes win after the theme stylesheets. */
+@media (max-width: @mobile-max) {
+  .basic-layout-wrapper .ant-layout-header,
+  .basic-layout-wrapper .ant-pro-global-header,
+  .basic-layout-wrapper .ant-pro-global-header-content,
+  .basic-layout-wrapper .ant-pro-top-nav-header,
+  .basic-layout-wrapper .ant-pro-top-nav-header-main,
+  .basic-layout-wrapper .ant-pro-global-header-index-right,
+  .basic-layout-wrapper .layout-top-actions,
+  .basic-layout-wrapper .ant-pro-global-header-index-right .ant-pro-global-header-index-action,
+  .basic-layout-wrapper .ant-pro-global-header-index-right .action {
+    height: 56px !important;
+    min-height: 56px !important;
+    line-height: 56px !important;
+  }
+
+  .basic-layout-wrapper .ant-pro-global-header {
+    justify-content: flex-start !important;
+    padding-left: 0 !important;
+    padding-right: 8px !important;
+  }
+
+  .basic-layout-wrapper .ant-pro-global-header-logo {
+    display: none !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .basic-layout-wrapper .ant-pro-global-header-trigger {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 48px !important;
+    width: 48px !important;
+    height: 56px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .basic-layout-wrapper .ant-pro-global-header-content {
+    flex: 0 0 auto !important;
+  }
+
+  .basic-layout-wrapper .header-reload-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 15px !important;
+    line-height: 1 !important;
+    cursor: pointer;
+    vertical-align: middle;
+
+    svg {
+      width: 15px !important;
+      height: 15px !important;
+    }
+  }
+
+  .basic-layout-wrapper .ant-pro-global-header-index-right {
+    gap: 0;
+  }
+
+  .basic-layout-wrapper .ant-pro-global-header-index-right .ant-pro-global-header-index-action,
+  .basic-layout-wrapper .ant-pro-global-header-index-right .action {
+    min-width: 40px !important;
+    padding: 0 8px !important;
+  }
+
+  .ant-tabs-nav-container,
+  .ant-tabs-nav-wrap,
+  .ant-tabs-nav-scroll {
+    max-width: 100% !important;
+  }
+
+  .ant-tabs-nav-container {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .ant-drawer-left .ant-menu-item,
+  .ant-drawer-left .ant-menu-submenu-title {
+    height: auto !important;
+    min-height: 44px;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+  }
+
+  .qd-workspace-page,
+  .qd-page-frame {
+    font-family: var(--qd-font-ui);
+    font-size: 13px;
+    font-weight: var(--qd-weight-body, 400);
+    line-height: 1.55;
+  }
+
+  .qd-workspace-page h1,
+  .qd-page-frame h1,
+  .page-title,
+  .ba-title,
+  .sc-header h1,
+  .executor-header h1,
+  .universe-page h1 {
+    font-size: 18px !important;
+    line-height: 1.3 !important;
+  }
+
+  .qd-workspace-page h2:not(.page-title),
+  .qd-page-frame h2:not(.page-title),
+  .ant-card-head-title,
+  .ant-modal-title {
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+  }
+
+  .qd-workspace-page p,
+  .qd-page-frame p,
+  .page-desc,
+  .ba-subtitle,
+  .sc-header p,
+  .executor-header p,
+  .universe-page p {
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+  }
+
+  .ant-form-item-label label {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Compact selects: match toolbar/filter rhythm; keep vertical centering */
+  .ant-select-selection,
+  .ant-select-selection--single {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 32px;
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+  }
+
+  .ant-select-selection__rendered {
+    display: flex !important;
+    align-items: center !important;
+    line-height: 1.35 !important;
+  }
+
+  .ant-select-selection-selected-value,
+  .ant-select-selection__placeholder {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+  }
+
+  .ant-select-sm .ant-select-selection,
+  .ant-select-sm .ant-select-selection--single {
+    min-height: 24px;
+    height: 24px !important;
+  }
+
+  .ant-select-dropdown-menu-item {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+  }
+
+  .ant-modal .ant-select-selection,
+  .ant-modal .ant-select-selection--single {
+    display: flex !important;
+    align-items: center !important;
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+  }
+
+  .ant-modal .ant-select-selection__rendered {
+    display: flex !important;
+    align-items: center !important;
+    line-height: 1.35 !important;
+  }
+
+  .ant-modal .ant-select-selection-selected-value,
+  .ant-modal .ant-select-selection__placeholder {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+  }
+
+  .ant-radio-group .ant-radio-button-wrapper {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 10px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.35 !important;
+  }
+
+  .ant-radio-group .ant-radio-button-wrapper > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.35;
+  }
+
+  .ant-alert:not(.ant-alert-with-description) {
+    padding: 10px 12px !important;
+  }
+
+  .ant-alert-with-description {
+    padding: 12px 12px 12px 48px !important;
+  }
+
+  /* No-icon alerts keep compact padding on phone (no reserved icon gutter) */
+  .ant-alert-with-description.ant-alert-no-icon,
+  .source-empty-alert.ant-alert-with-description,
+  .factor-contract-alert.ant-alert-with-description {
+    padding: 10px 12px !important;
+  }
+
+  .source-empty-alert .ant-alert-icon,
+  .factor-contract-alert .ant-alert-icon {
+    display: none !important;
+  }
+
+  .ant-alert-with-description .ant-alert-icon {
+    top: 12px !important;
+    left: 14px !important;
+    font-size: 16px !important;
+  }
+
+  .ant-alert-message {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+  }
+
+  .ant-alert-description {
+    margin-top: 4px;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.65 !important;
+  }
+
+  .ant-empty-description,
+  .field-hint,
+  .ant-form-explain,
+  .ant-form-extra {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+
+  .ant-steps-item-title {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  .ant-pagination,
+  .ant-pagination-item,
+  .ant-pagination-item a {
+    font-size: 13px !important;
+  }
+
+  .ant-table {
+    font-size: 13px !important;
+  }
+
+  .ant-table-thead > tr > th {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    white-space: nowrap;
+  }
+
+  .ant-pro-multi-tab {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      height: 0;
+    }
+  }
+
+  .ant-form .ant-select,
+  .ant-form-item .ant-select,
+  .ant-form .ant-input-search,
+  .ant-form-item .ant-input-search,
+  .ant-form .ant-calendar-picker,
+  .ant-form-item .ant-calendar-picker,
+  .ant-form .ant-input-number,
+  .ant-form-item .ant-input-number {
+    width: 100% !important;
+  }
+
+  .ant-input,
+  .ant-input-number-input,
+  textarea.ant-input {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+
+  .ant-input::-webkit-input-placeholder,
+  .ant-input-number-input::-webkit-input-placeholder,
+  textarea.ant-input::-webkit-input-placeholder {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  .ant-input::placeholder,
+  .ant-input-number-input::placeholder,
+  textarea.ant-input::placeholder {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  .ant-btn:not(.ant-btn-icon-only):not(.ant-btn-circle) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
+  }
+
+  .ant-btn:not(.ant-btn-sm):not(.ant-btn-icon-only):not(.ant-btn-circle) {
+    min-height: 32px;
+  }
+
+  .ant-btn.ant-btn-sm:not(.ant-btn-icon-only):not(.ant-btn-circle) {
+    height: 28px;
+    min-height: 28px;
+    padding: 0 10px;
+  }
+
+  .toolbar .ant-btn,
+  .filters .ant-btn,
+  .filter-bar .ant-btn,
+  .filter-row .ant-btn,
+  .search-bar .ant-btn,
+  .action-bar .ant-btn,
+  .table-operator .ant-btn,
+  .ant-modal-footer .ant-btn {
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
   }
 }

@@ -5063,7 +5063,7 @@ export default {
   margin-bottom: 10px;
   color: var(--qd-text);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .panel-head .anticon {
@@ -5074,7 +5074,7 @@ export default {
   height: 28px;
   padding: 0 4px;
   color: var(--qd-accent);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .segmented {
@@ -5103,7 +5103,7 @@ export default {
 .segmented button.active {
   background: var(--qd-panel);
   color: var(--qd-accent);
-  font-weight: 700;
+  font-weight: 500;
   box-shadow: 0 1px 5px rgba(20, 43, 72, 0.08);
 }
 
@@ -5182,7 +5182,7 @@ export default {
   min-width: 0;
   overflow: hidden;
   color: var(--qd-text);
-  font-weight: 800;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -5232,7 +5232,7 @@ export default {
   overflow: hidden;
   color: var(--qd-text);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -5248,7 +5248,7 @@ export default {
   border-radius: 5px;
   font-size: 11px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   background: #fff4d6;
   color: #9a6200;
   white-space: nowrap;
@@ -5323,7 +5323,7 @@ export default {
   background: var(--qd-accent-soft);
   color: var(--qd-accent);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0;
 }
 
@@ -5331,7 +5331,7 @@ export default {
   margin: 0 0 2px;
   color: var(--qd-text);
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.25;
 }
 
@@ -5364,7 +5364,7 @@ export default {
   border-color: color-mix(in srgb, var(--qd-accent) 42%, var(--qd-border));
   background: var(--qd-accent-soft);
   color: var(--qd-accent);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .session-memory-status {
@@ -5403,7 +5403,7 @@ export default {
   background: rgba(245, 158, 11, 0.1);
   color: #d97706;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .referenced-report-chip button {
@@ -5434,7 +5434,7 @@ export default {
 
 .context-status span {
   flex: 0 0 auto;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .context-status strong {
@@ -5442,7 +5442,7 @@ export default {
   max-width: 240px;
   overflow: hidden;
   color: var(--qd-text-muted);
-  font-weight: 800;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -5454,7 +5454,7 @@ export default {
 .composer-actions ::v-deep .ant-btn,
 .add-watch ::v-deep .ant-btn {
   border-radius: 6px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .symbol-picker label {
@@ -5462,7 +5462,7 @@ export default {
   margin-bottom: 5px;
   color: var(--qd-text-muted);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .symbol-picker ::v-deep .ant-select {
@@ -5504,7 +5504,7 @@ export default {
   color: var(--qd-text-muted);
   font-size: 10px;
   font-style: normal;
-  font-weight: 800;
+  font-weight: 500;
   line-height: 1.25;
   text-align: center;
 }
@@ -5578,7 +5578,7 @@ export default {
   margin: 12px 0 4px;
   color: var(--qd-text);
   font-size: 21px;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .welcome-prompts {
@@ -5669,7 +5669,7 @@ export default {
 .task-copy strong {
   color: var(--qd-text);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -5783,7 +5783,7 @@ export default {
   border-radius: 999px;
   font-size: 11px;
   font-style: normal;
-  font-weight: 900;
+  font-weight: 500;
 }
 
 .decision-buy { background: rgba(16, 185, 129, 0.13); color: #10b981; }
@@ -5835,7 +5835,7 @@ export default {
   color: var(--qd-accent);
   cursor: pointer;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .report-collapse-button { margin: 0; }
@@ -5853,7 +5853,7 @@ export default {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .message.thinking-message .message-content::before {
@@ -5957,7 +5957,7 @@ export default {
 .message-content ::v-deep .qd-md-table th {
   background: var(--qd-panel-strong);
   color: var(--qd-text-muted);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .message-content ::v-deep .qd-md-table tr:last-child td {
@@ -6107,7 +6107,7 @@ export default {
   color: var(--qd-text-subtle);
   cursor: pointer;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 500;
   list-style: none;
   user-select: none;
 }
@@ -6193,7 +6193,7 @@ export default {
   color: var(--qd-accent);
   cursor: pointer;
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 500;
   transition: border-color 0.18s, background 0.18s, transform 0.18s;
 }
 
@@ -6311,7 +6311,7 @@ export default {
   background: var(--qd-accent-soft);
   color: var(--qd-accent);
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .composer-coach-copy p {
@@ -6469,7 +6469,7 @@ export default {
   max-width: 86px;
   overflow: hidden;
   font-family: 'SF Mono', Consolas, monospace;
-  font-weight: 700;
+  font-weight: 600;
   text-align: right;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -6700,7 +6700,7 @@ export default {
   border-radius: 6px;
   color: var(--qd-text-muted, #6b7f99);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 500;
   white-space: nowrap;
 }
 
@@ -6762,7 +6762,7 @@ export default {
   margin-bottom: 6px;
   color: var(--qd-text, #12243d);
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 600;
   line-height: 1.25;
 }
 
@@ -6800,7 +6800,7 @@ export default {
 .strategy-selected-label strong {
   color: var(--qd-text, #12243d);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -6820,7 +6820,7 @@ export default {
   min-width: 168px;
   height: 34px;
   border-radius: 7px;
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .strategy-examples {
@@ -6845,7 +6845,7 @@ export default {
 .strategy-examples-head strong {
   color: var(--qd-text, #12243d);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .strategy-examples-head span {
@@ -6881,7 +6881,7 @@ export default {
 .strategy-example-row strong {
   margin-bottom: 3px;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .strategy-example-row em {
@@ -8081,7 +8081,7 @@ body.realdark .saved-prompt-delete,
     margin-bottom: 6px !important;
     color: var(--qd-text, #12243d) !important;
     font-size: 15px !important;
-    font-weight: 900 !important;
+    font-weight: 600 !important;
     line-height: 1.25 !important;
   }
 
@@ -8116,7 +8116,7 @@ body.realdark .saved-prompt-delete,
   .strategy-selected-label strong {
     color: var(--qd-text, #12243d) !important;
     font-size: 13px !important;
-    font-weight: 900 !important;
+    font-weight: 600 !important;
     white-space: nowrap !important;
   }
 
@@ -8149,7 +8149,7 @@ body.realdark .saved-prompt-delete,
     min-width: 168px !important;
     height: 34px !important;
     border-radius: 7px !important;
-    font-weight: 800 !important;
+    font-weight: 500 !important;
   }
 }
 
@@ -8323,7 +8323,7 @@ body.realdark .copilot-modal,
   }
 
   .ant-form-item-label > label {
-    font-weight: 700;
+    font-weight: 400;
   }
 
   .ant-input,
@@ -8445,7 +8445,7 @@ body.realdark .copilot-modal,
   color: var(--qd-text) !important;
   cursor: pointer;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.35;
   text-align: left;
   transition: border-color 0.18s, background 0.18s, color 0.18s, transform 0.18s;
@@ -8534,7 +8534,7 @@ body.realdark .copilot-modal,
   color: var(--qd-text-muted);
   cursor: pointer;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 500;
   white-space: nowrap;
   transition: border-color 0.18s, background 0.18s, color 0.18s;
 }
@@ -8879,9 +8879,16 @@ body.realdark .followup-suggestions,
 }
 
 .copilot-workbench .research-mode-bar button {
-  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 11px;
   border-color: var(--qd-border-soft);
   background: var(--qd-panel-soft);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .copilot-workbench .research-mode-bar button.active {
@@ -8902,9 +8909,14 @@ body.realdark .followup-suggestions,
 
 .copilot-workbench .composer-actions ::v-deep .ant-btn,
 .copilot-workbench .add-watch ::v-deep .ant-btn {
-  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
   border-radius: 8px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 body.dark .copilot-workbench .messages,
@@ -8967,5 +8979,298 @@ body.realdark .copilot-workbench .rail-panel,
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 18px !important;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* Shared type rhythm for AI research workbench */
+.copilot-workbench {
+  font-family: var(--qd-font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.copilot-workbench .eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.copilot-workbench .chat-hero h2 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.copilot-workbench .chat-hero p {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.copilot-workbench .panel-head {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.copilot-workbench .segmented button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.copilot-workbench .followup-suggestions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 11px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.copilot-workbench .message-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.copilot-workbench .message-time,
+.copilot-workbench .report-artifact-summary__top span,
+.copilot-workbench .report-artifact-summary__metrics small,
+.copilot-workbench .symbol-market-pill,
+.copilot-workbench .composer-coach-head span {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.copilot-workbench .symbol-picker label {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.copilot-workbench .composer-coach-copy p {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.copilot-workbench .composer-coach-suggestions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.copilot-workbench .task-copy strong,
+.copilot-workbench .strategy-flow-card strong {
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.copilot-workbench .copilot-report-card .professional-report /deep/ .ant-alert-description {
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+@media (max-width: 960px) {
+  .copilot-workbench .chat-hero {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    min-height: 0 !important;
+    padding: 10px 12px !important;
+  }
+
+  .copilot-workbench .mobile-sessions-trigger {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%;
+    height: 32px;
+    margin: 0;
+    padding: 0 12px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  .copilot-workbench .hero-main,
+  .copilot-workbench .hero-copy {
+    display: block !important;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .copilot-workbench .chat-hero p {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  .copilot-workbench .research-mode-bar {
+    flex-wrap: wrap;
+    overflow: visible;
+    gap: 8px;
+  }
+
+  .copilot-workbench .research-mode-bar button {
+    flex: 1 1 calc(50% - 8px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .copilot-workbench .followup-suggestions button {
+    min-height: 32px;
+    font-size: 12px;
+  }
+
+  .copilot-workbench .composer textarea {
+    min-height: 96px;
+    padding: 12px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .copilot-workbench .composer-foot {
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .copilot-workbench .risk-disclaimer,
+  .copilot-workbench .risk-disclaimer span {
+    overflow: visible;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.55;
+    white-space: normal;
+    text-overflow: unset;
+  }
+
+  .copilot-workbench .composer-actions {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .copilot-workbench .composer-actions .ant-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    height: 36px !important;
+    min-height: 36px;
+    margin: 0 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
+  }
+
+  .copilot-workbench .chat-panel {
+    min-height: 0 !important;
+  }
+
+  .copilot-workbench .watch-actions button,
+  .copilot-workbench .session-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    min-height: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  body.dark .copilot-workbench,
+  body.realdark .copilot-workbench,
+  .theme-dark .copilot-workbench {
+    gap: 8px !important;
+    padding: 8px !important;
+  }
+
+  .copilot-workbench .rail-panel,
+  .copilot-workbench .composer {
+    padding: 10px !important;
+  }
+
+  .copilot-workbench .copilot-report-card .professional-report {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .copilot-workbench .copilot-report-card .professional-report /deep/ .ant-alert-with-description {
+    padding: 10px 12px 10px 40px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .copilot-workbench {
+    gap: 8px !important;
+    padding: 6px !important;
+  }
+
+  .copilot-workbench .chat-panel,
+  .copilot-workbench .composer {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .copilot-workbench .research-mode-bar button {
+    flex: 1 1 100%;
+    min-height: 34px;
+  }
+
+  .copilot-workbench .composer-actions .ant-btn {
+    height: 40px !important;
+    min-height: 40px;
+    font-size: 13px !important;
+  }
+
+  .copilot-workbench .welcome-prompts button.research-prompt-pill {
+    min-height: 56px !important;
+  }
+}
+
+body.dark .copilot-workbench .mobile-sessions-trigger,
+body.realdark .copilot-workbench .mobile-sessions-trigger,
+.theme-dark .copilot-workbench .mobile-sessions-trigger {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.88);
 }
 </style>

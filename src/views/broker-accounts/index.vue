@@ -47,7 +47,7 @@
         <div class="ba-rail-group">
           <div class="ba-rail-label">
             <span>{{ $t('brokerAccounts.tradingAccounts') }}</span>
-            <strong>{{ availableBrokers.length }}</strong>
+            <span class="ba-rail-count">{{ availableBrokers.length }}</span>
           </div>
           <button
             v-for="b in availableBrokers"
@@ -73,7 +73,7 @@
         <div class="ba-rail-group ba-rail-group--crypto">
           <div class="ba-rail-label">
             <span>{{ $t('brokerAccounts.cryptoAccounts') }}</span>
-            <strong>{{ cryptoProviders.length }}</strong>
+            <span class="ba-rail-count">{{ cryptoProviders.length }}</span>
           </div>
           <button
             v-for="exchange in cryptoProviders"
@@ -257,9 +257,9 @@ export default {
       }
     },
     /**
-     * Venues the operator disabled in Settings â€?Exchanges are hidden from the
+     * Venues the operator disabled in Settings ï¿½?Exchanges are hidden from the
      * sidebar. A failed request leaves the map empty, which the computed
-     * filters read as "everything enabled" â€?an unreachable endpoint should
+     * filters read as "everything enabled" ï¿½?an unreachable endpoint should
      * not empty the page.
      */
     async loadExchangeAvailability () {
@@ -573,9 +573,10 @@ export default {
   font-size: 12px;
   font-weight: 600;
 
-  strong {
+  .ba-rail-count {
     color: var(--primary-color-active, #389e0d);
     font-size: 12px;
+    font-weight: 400;
   }
 }
 
@@ -784,24 +785,42 @@ export default {
 
 @media (max-width: 760px) {
   .broker-accounts {
-    padding: 16px !important;
+    padding: 12px !important;
   }
 
   .ba-header {
     align-items: stretch;
     flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
   }
 
   .ba-header-text {
     width: 100%;
   }
 
+  .ba-title {
+    font-size: 17px;
+  }
+
   .ba-header-actions {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
 
     > .ant-btn,
     > .ant-dropdown-trigger {
-      flex: 1;
+      width: 100%;
+      height: 32px;
+      padding: 0 10px;
+      font-size: 12px;
+    }
+
+    > .ant-btn.ant-dropdown-trigger,
+    > .ant-dropdown-trigger,
+    > .ant-btn-primary {
+      grid-column: 1 / -1;
     }
   }
 
@@ -809,15 +828,59 @@ export default {
     display: block;
     min-height: 0;
     overflow: visible;
+    border-radius: 10px;
   }
 
   .ba-rail {
-    max-height: 360px;
+    max-height: none;
     border-right: 0;
     border-bottom: 1px solid #e9edf3;
   }
 
+  .ba-rail-heading {
+    height: 42px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .ba-rail-group {
+    padding: 12px 10px 8px;
+  }
+
+  .ba-rail-group--crypto {
+    margin-top: 0;
+    padding-top: 12px;
+  }
+
+  .ba-rail-label {
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+
+  .ba-provider-row {
+    min-height: 48px;
+    padding: 7px 8px;
+    gap: 8px;
+  }
+
+  .ba-provider-row--crypto {
+    min-height: 44px;
+  }
+
+  .ba-provider-icon {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+    border-radius: 8px;
+  }
+
+  .ba-provider-copy strong {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
   .ba-detail {
+    padding: 14px 12px 18px;
     overflow: visible;
   }
 }

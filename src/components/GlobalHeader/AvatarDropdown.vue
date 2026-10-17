@@ -1,7 +1,7 @@
 <template>
   <span v-if="currentUser && currentUser.name" class="ant-pro-account-avatar qd-account-trigger">
-    <a-dropdown placement="bottomRight" overlayClassName="qd-account-dropdown">
-      <span class="account-identity" @click.stop="handleProfile">
+    <a-dropdown placement="bottomRight" :trigger="['hover', 'click']" overlayClassName="qd-account-dropdown">
+      <span class="account-identity">
         <a-avatar :size="28" :src="currentUser.avatar" class="antd-pro-global-header-index-avatar" />
         <span class="account-name">{{ currentUser.name }}</span>
       </span>

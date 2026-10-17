@@ -1414,24 +1414,19 @@ export default {
 }
 
 .panel-step {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   display: inline-flex;
-  flex: 0 0 24px;
+  flex: 0 0 22px;
   align-items: center;
   justify-content: center;
-  border: 1px solid #d0d5dd;
+  border: 1px solid var(--primary-color, #1890ff);
   border-radius: 50%;
-  color: #667085;
-  background: #f8fafc;
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.panel-step {
-  border-color: var(--primary-color, #1890ff);
   color: #fff;
   background: var(--primary-color, #1890ff);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .executor-header {
@@ -1499,8 +1494,14 @@ export default {
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 12px;
+  padding: 14px;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+}
+
+.is-embedded .executor-catalog,
+.is-embedded .executor-config-panel,
+.is-embedded .executor-preview-panel {
+  padding: 12px;
 }
 
 .is-embedded .executor-config-panel,
@@ -1519,8 +1520,9 @@ export default {
   align-items: center;
   gap: 8px;
   margin-bottom: 9px;
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .panel-title--between {
@@ -1539,8 +1541,8 @@ export default {
   border-radius: 999px;
   color: var(--primary-color, #1890ff);
   background: color-mix(in srgb, var(--primary-color, #1890ff) 8%, #fff);
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .catalog-item {
@@ -1549,8 +1551,8 @@ export default {
   grid-template-columns: 30px minmax(0, 1fr) auto;
   gap: 8px;
   align-items: center;
-  min-height: 54px;
-  padding: 7px 9px;
+  min-height: 52px;
+  padding: 8px 10px;
   margin-bottom: 0;
   border: 1px solid #edf0f3;
   border-radius: 8px;
@@ -1596,11 +1598,20 @@ export default {
   display: block;
 }
 
+.catalog-copy strong {
+  color: #1f2937;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
 .catalog-copy small {
   overflow: hidden;
-  margin-top: 1px;
+  margin-top: 3px;
   color: #667085;
-  line-height: 1.25;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1630,7 +1641,8 @@ export default {
   margin: 10px 0 6px;
   color: var(--primary-color, #1890ff);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 600;
+  line-height: 1.4;
   text-transform: uppercase;
 }
 
@@ -1643,15 +1655,45 @@ export default {
   margin-bottom: 4px;
   color: #475467;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.field-block .ant-select-selection,
+.field-block .ant-select-selection--single {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.field-block .ant-select-selection__rendered {
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+}
+
+.field-block .ant-select-selection-selected-value,
+.field-block .ant-select-selection__placeholder {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.field-block .ant-input-number,
+.field-block .ant-input {
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .field-hint {
   display: block;
   margin-top: 4px;
   color: #667085;
-  font-size: 11px;
-  line-height: 1.45;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.55;
 }
 
 .trigger-contract-card {
@@ -1745,8 +1787,9 @@ export default {
   display: block;
   margin-bottom: 6px;
   color: #344054;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .profit-exit-mode /deep/ .ant-radio-group {
@@ -1755,16 +1798,18 @@ export default {
 }
 
 .profit-exit-mode /deep/ .ant-radio-button-wrapper {
-  display: flex;
+  display: inline-flex !important;
   flex: 1 1 50%;
-  min-height: 32px;
-  height: auto;
-  padding: 0 8px;
   align-items: center;
   justify-content: center;
+  min-height: 32px;
+  height: 32px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 400;
   text-align: center;
-  line-height: 1.25;
-  white-space: normal;
+  line-height: 1.2 !important;
+  white-space: nowrap;
 }
 
 .trailing-config {
@@ -1822,10 +1867,21 @@ export default {
 .dca-market-notice {
   border-color: color-mix(in srgb, var(--primary-color, #1890ff) 32%, transparent);
   background: color-mix(in srgb, var(--primary-color, #1890ff) 7%, #fff);
+  padding: 10px 12px 10px 40px;
 
-  /deep/ .ant-alert-icon,
+  /deep/ .ant-alert-icon {
+    top: 12px;
+    left: 14px;
+    color: var(--primary-color, #1890ff);
+    font-size: 14px;
+    line-height: 1;
+  }
+
   /deep/ .ant-alert-message {
     color: var(--primary-color, #1890ff);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
   }
 }
 
@@ -1867,13 +1923,16 @@ export default {
 .anchor-setting label {
   color: #344054;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 400;
+  line-height: 1.4;
 }
 
 .anchor-setting small {
   margin-top: 2px;
   color: #667085;
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
 }
 
 .market-compact-grid {
@@ -1889,14 +1948,31 @@ export default {
 }
 
 .compact-segmented /deep/ .ant-radio-button-wrapper {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
   flex: 1 1 0;
-  padding-right: 7px;
-  padding-left: 7px;
+  height: 32px !important;
+  padding: 0 8px !important;
   overflow: hidden;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2 !important;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.compact-segmented /deep/ .ant-radio-button-wrapper > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.compact-segmented /deep/ .ant-radio-button-wrapper-checked {
+  font-weight: 500;
 }
 
 .compact-segmented--auto {
@@ -1914,20 +1990,47 @@ export default {
 }
 
 .is-embedded .section-title {
-  margin: 6px 0 4px;
+  margin: 10px 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .is-embedded .field-block {
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .is-embedded .field-block label {
-  margin-bottom: 3px;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.is-embedded .field-hint {
+  margin-top: 5px;
+  line-height: 1.6;
 }
 
 .is-embedded .field-grid,
 .is-embedded .market-compact-grid {
-  gap: 6px;
+  gap: 8px;
+}
+
+.is-embedded .panel-title {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.is-embedded .config-actions {
+  margin-top: 4px;
+}
+
+.is-embedded .config-actions__buttons .ant-btn {
+  height: 32px;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .executor-live-account {
@@ -1956,7 +2059,8 @@ export default {
 .advanced-collapse /deep/ .ant-collapse-header {
   padding: 8px 0 !important;
   color: #667085 !important;
-  font-weight: 700;
+  font-size: 12px !important;
+  font-weight: 500 !important;
 }
 
 .config-actions {
@@ -1972,14 +2076,26 @@ export default {
   background: #fff;
 }
 
+.config-actions__buttons .ant-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
 .config-actions__status {
   display: flex;
   gap: 6px;
   align-items: center;
   min-width: 0;
   color: var(--primary-color, #1890ff);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .config-actions__status.has-error {
@@ -2222,17 +2338,148 @@ export default {
 
 @media (max-width: 720px) {
   .executor-page {
-    padding: 14px;
+    padding: 12px;
+  }
+
+  .executor-page.is-embedded {
+    padding: 0;
   }
 
   .executor-header {
     flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .executor-header h1 {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  .executor-header p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .executor-catalog {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .panel-title {
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .catalog-item {
+    min-height: 48px;
+    padding: 8px 10px;
+  }
+
+  .catalog-copy strong {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .catalog-copy small {
+    font-size: 11px;
+    line-height: 1.4;
+    white-space: normal;
+  }
+
+  .executor-config-panel,
+  .executor-preview-panel {
+    padding: 10px;
+  }
+
+  .section-title {
+    margin: 10px 0 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .field-block {
+    margin-bottom: 10px;
+  }
+
+  .field-block label {
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .field-hint {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 1.6;
   }
 
   .field-grid,
   .market-compact-grid,
-  .summary-grid {
+  .summary-grid,
+  .field-grid--three,
+  .field-grid--four-compact {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .compact-segmented /deep/ .ant-radio-button-wrapper {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 32px !important;
+    padding: 0 8px !important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2 !important;
+  }
+
+  .config-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin: 0 -10px -10px;
+    padding: 10px;
+  }
+
+  .config-actions__status {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  .config-actions__buttons {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .config-actions__buttons .ant-btn {
+    width: 100%;
+    height: 32px;
+    font-size: 12px !important;
+    font-weight: 500;
+  }
+
+  .is-embedded .executor-workbench {
+    height: auto;
+    gap: 10px;
+  }
+
+  .is-embedded .field-block {
+    margin-bottom: 10px;
+  }
+
+  .anchor-setting {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
   }
 }
 </style>

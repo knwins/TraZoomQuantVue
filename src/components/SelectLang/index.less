@@ -64,7 +64,7 @@ body.realdark {
   transition: all 0.3s;
 
   &.language-action {
-    gap: 4px;
+    gap: 0;
     min-width: 54px;
     padding: 0 10px;
   }
@@ -78,17 +78,20 @@ body.realdark {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    font-size: 17px !important;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px !important;
+    line-height: 16px;
+    font-size: 16px !important;
     transform: none !important;
-    flex: 0 0 18px;
+    flex: 0 0 16px;
 
     svg {
       position: relative;
       top: 0;
       display: block;
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -97,6 +100,7 @@ body.realdark {
     align-items: center;
     height: 18px;
     min-width: 22px;
+    margin-left: 0;
     font-size: 13px;
     font-weight: 600;
     line-height: 18px;
@@ -111,9 +115,18 @@ body.realdark {
     padding: 0 8px;
 
     &.language-action {
-      min-width: 48px;
-      gap: 3px;
+      min-width: 40px;
+      gap: 0;
       padding: 0 8px;
+    }
+
+    > i,
+    .language-action-icon {
+      margin-right: 0 !important;
+    }
+
+    .language-action-label {
+      display: none;
     }
   }
 }

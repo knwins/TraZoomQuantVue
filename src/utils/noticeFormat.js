@@ -349,11 +349,38 @@ export function noticeMessage (item, t, { html = false } = {}) {
   return stripHtml(raw)
 }
 
-export function noticePreview (item, t, maxLen = 80) {
+export function noticePreview (item, t, maxLen = 140) {
   const text = noticeMessage(item, t, { html: false })
   if (!text) return ''
   const oneLine = text.replace(/\s*\n+\s*/g, ' / ')
   return oneLine.length > maxLen ? `${oneLine.substring(0, maxLen)}...` : oneLine
+}
+
+function formatPreviewValue (value) {
+  const text = String(value || '').trim()
+  if (!/^-?\d+(\.\d+)?$/.test(text)) return text
+  const num = Number(text)
+  if (!Number.isFinite(num)) return text
+  const frac = (text.split('.')[1] || '').length
+  if (frac <= 4) return text
+  const digits = Math.abs(num) >= 1 ? 4 : 6
+  return num.toFixed(digits).replace(/\.?0+$/, '') || '0'
+}
+
+export function noticePreviewFacts (item, t, limit = 4) {
+  const rendered = renderFromDisplay(item, t, { html: false })
+  if (!rendered || !rendered.message || rendered.message.indexOf('\n') === -1) return []
+  const title = rendered.title || ''
+  const rows = rendered.message.split('\n').map((line) => {
+    const idx = line.indexOf(': ')
+    if (idx <= 0) return null
+    const label = line.slice(0, idx).trim()
+    const value = formatPreviewValue(line.slice(idx + 2).trim())
+    if (!label || !value || value === DASH) return null
+    return { label, value }
+  }).filter(Boolean)
+  const compact = rows.filter((row) => !(title && title.includes(row.value)))
+  return (compact.length ? compact : rows).slice(0, limit)
 }
 
 export function noticeMessageHtml (item, t) {

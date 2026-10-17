@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="crypto-card-actions">
-        <a-button :loading="loading" @click="loadCredentials">
+        <a-button size="small" :loading="loading" @click="loadCredentials">
           <a-icon type="reload" /> {{ $t('brokerAccounts.refresh') }}
         </a-button>
       </div>
@@ -37,7 +37,7 @@
             <div class="crypto-item-meta">
               <div class="crypto-item-name">
                 {{ exchangeDisplayName(item.exchange_id) }}
-                <span class="crypto-item-sep">路</span>
+                <span class="crypto-item-sep">脗路</span>
                 <span class="crypto-item-alias">{{ credentialAlias(item) }}</span>
               </div>
               <div class="crypto-item-line">
@@ -269,7 +269,7 @@ export default {
       if (!item) return this.$t('trading-assistant.positions.accountPositionsTitle')
       const name = this.credentialAlias(item)
       const ex = this.exchangeDisplayName(item.exchange_id)
-      return `${this.$t('trading-assistant.positions.accountPositionsTitle')} 路 ${ex} (${name})`
+      return `${this.$t('trading-assistant.positions.accountPositionsTitle')} 脗路 ${ex} (${name})`
     },
     swapTabLabel () {
       const n = this.swapRows.length
@@ -384,7 +384,7 @@ export default {
       if (raw === null || raw === undefined || raw === '') return ''
       const ts = Number(raw)
       if (Number.isFinite(ts) && ts > 0) {
-        // Backend fetched_at is Unix seconds; moment(number) treats numbers as ms 鈫?1970 bug.
+        // Backend fetched_at is Unix seconds; moment(number) treats numbers as ms 芒聠?1970 bug.
         const m = ts < 1e12 ? moment.unix(Math.floor(ts)) : moment(Math.floor(ts))
         return m.isValid() ? m.format('YYYY-MM-DD HH:mm:ss') : ''
       }

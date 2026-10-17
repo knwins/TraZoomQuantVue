@@ -149,7 +149,7 @@
         </div>
         <!-- The "Other settings" block (colour-weak mode, multi-tab mode) was
              removed: neither toggle had a supported value worth exposing, and
-             multi-tab is now always on. Multi-tab itself stays â€?RouteView.vue
+             multi-tab is now always on. Multi-tab itself stays ï¿½?RouteView.vue
              and views/indicator-ide import MultiTab/cacheControl.mjs for
              keep-alive cache eviction, so deleting the component would break
              route caching, not just the tab bar.
@@ -259,7 +259,7 @@ export default {
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }`
       // Native clipboard with execCommand fallback (vue-clipboard2 was
-      // removed from the bundle â€?see package.json change history).
+      // removed from the bundle ï¿½?see package.json change history).
       const okMsg = this.$t('app.setting.copy.success')
       const failMsg = this.$t('app.setting.copy.fail')
       const fallback = () => {
@@ -433,7 +433,7 @@ export default {
 
     // Track the palette width rather than a hard-coded column count. This used
     // to be `repeat(8, 24px)` with a 10px gap, needing 262px inside a drawer
-    // that only offers 252px of usable width â€?the eighth swatch was clipped
+    // that only offers 252px of usable width ï¿½?the eighth swatch was clipped
     // and left a phantom empty cell. auto-fit keeps the row correct as
     // colours are added (teal / night cyan / green).
     .setting-drawer-theme-color-list {
