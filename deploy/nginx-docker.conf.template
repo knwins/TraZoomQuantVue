@@ -57,7 +57,13 @@ server {
     # to BACKEND_URL so $host/$remote_addr/etc. below stay literal).
     # docker-compose default: http://backend:5000
     # Railway: set BACKEND_URL=http://${{Backend.RAILWAY_PRIVATE_DOMAIN}}:5000
-    location /api/ {
+    #
+    # `^~` is required: profile avatars are served as
+    # `/api/users/avatars/{id}_{token}.png` (and jpg/webp). Without `^~`, the
+    # static-extension regex above wins and nginx looks for those files under
+    # the SPA root instead of proxying to Flask — uploads succeed but avatars
+    # render as broken images (404).
+    location ^~ /api/ {
         proxy_pass $backend_upstream;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
